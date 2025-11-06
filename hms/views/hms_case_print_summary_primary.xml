@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <!-- اجعل زر Print Summary باللون الأساسي (نفس Close Case) -->
+    <record id="hms_case_form_print_summary_primary" model="ir.ui.view">
+      <field name="name">hms.case.form.print.summary.primary</field>
+      <field name="model">hms.case</field>
+      <field name="inherit_id" ref="hms.view_hms_case_form"/>
+      <field name="arch" type="xml">
+        <!-- نستهدف الزر بالاسم الفعلي -->
+        <xpath expr="//form/header/button[@name='action_print_case_summary']" position="attributes">
+          <!-- أزل الثانوي وأضف primary + oe_highlight -->
+          <attribute name="class" remove="btn-secondary" add=" btn-primary oe_highlight"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

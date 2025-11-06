@@ -1,0 +1,477 @@
+:root{
+  /* ألوان من اللوجو */
+  --hms-primary: #22B8C7;       /* تركوازي */
+  --hms-primary-600: #189AA7;   /* أغمق للهـوفر */
+  --hms-accent: #6F42C1;        /* بنفسجي */
+  --hms-accent-600: #5B36A3;    /* أغمق للهـوفر */
+  --hms-light-bg: #f8f9fa;
+  --hms-dark-text: #333333;
+  --hms-medium-text: #555555;
+  --hms-border: #dee2e6;
+}
+
+/* زر Log in — غطّي كل احتمالات الكلاسات */
+.o_login_form .btn-primary,
+.oe_login_form .btn-primary,
+#login_form .btn-primary {
+  background-color: var(--hms-primary) !important;
+  border-color: var(--hms-primary) !important;
+  color:#fff !important;
+}
+
+.o_login_form .btn-primary:hover,
+.oe_login_form .btn-primary:hover,
+#login_form .btn-primary:hover{
+  background-color: var(--hms-primary-600) !important;
+  border-color: var(--hms-primary-600) !important;
+}
+
+/* زر “تسجيل كمريض” — أعطيه الكلاس التالي في الـXML */
+.btn-hms-accent{
+  background-color: var(--hms-accent) !important;
+  border-color: var(--hms-accent) !important;
+  color:#fff !important;
+}
+.btn-hms-accent:hover{
+  background-color: var(--hms-accent-600) !important;
+  border-color: var(--hms-accent-600) !important;
+}
+
+/* فallback لو الزر معموله .btn-secondary بدل ما نضيف كلاس */
+.o_login_form .btn-secondary,
+.oe_login_form .btn-secondary{
+  background-color: var(--hms-accent) !important;
+  border-color: var(--hms-accent) !important;
+  color:#fff !important;
+}
+.o_login_form .btn-secondary:hover,
+.oe_login_form .btn-secondary:hover{
+  background-color: var(--hms-accent-600) !important;
+  border-color: var(--hms-accent-600) !important;
+}
+
+
+/* خلي زر التسجيل نفس لون وعرض زر Log in */
+.o_login_form a[href*="/web/signup"] {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: .5rem;
+
+  background-color: var(--hms-primary) !important;
+  border-color: var(--hms-primary) !important;
+  color: #fff !important;
+}
+.o_search_panel_section_icon {color: #333333 !important;}
+
+.o_login_form a[href*="/web/signup"]:hover,
+.o_login_form a[href*="/web/signup"]:focus {
+  background-color: var(--hms-primary-dark) !important;
+  border-color: var(--hms-primary-dark) !important;
+  color: #fff !important;
+}
+ 
+/* ألوان مستخلصة من اللوجو  */
+:root{
+  --hms-primary: #24C3C9;        /* لون log in الحالي تقريباً */
+  --hms-primary-dark: #1EA4A9;   /* أغمق للهوفر */
+}
+
+/* Register as a patient نفس لون وعرض log in */
+.o_login_form a[href*="/web/signup"],
+.o_login_form a.oe_login_register,
+.o_login_form .o_login_register {
+  display: block;
+  width: 100% !important;
+  background-color: var(--hms-primary) !important;
+  border-color: var(--hms-primary) !important;
+  color: #fff !important;
+}
+
+.o_login_form a[href*="/web/signup"]:hover,
+.o_login_form a.oe_login_register:hover,
+.o_login_form .o_login_register:hover {
+  background-color: var(--hms-primary-dark) !important;
+  border-color: var(--hms-primary-dark) !important;
+  color: #fff !important;
+}
+
+.o_login_form .btn.w-100 { width: 100% !important; }
+
+
+
+/* زر أساسي قابل لإعادة الاستخدام خارج صفحة اللوجين */
+.btn-hms-primary {
+  background-color: var(--hms-primary) !important;
+  border-color: var(--hms-primary) !important;
+  color: #fff !important;
+}
+.btn-hms-primary:hover, .o_arrow_button:hover{
+  background-color: var(--hms-primary-600) !important;
+  border-color: var(--hms-primary-600) !important;
+}
+
+
+
+
+:root{
+  --ss-teal: #3cb9b3;   /* نفس لون زر Log in */
+  --ss-teal-2: #3cb6b5; /* هوفر أغمق شوي */
+}
+.o_main_navbar{
+  height: 46px;
+  background-color: var(--ss-teal) !important;
+  background-image: none !important;       /* يلغي أي gradient افتراضي */
+  border-bottom: 1px solid var(--ss-teal-2) !important;
+  color: #fff;
+}
+.o_main_navbar a,
+.o_main_navbar .dropdown-toggle{
+  color: #fff !important;
+}
+.o_main_navbar a:hover,
+.o_main_navbar .dropdown-toggle:hover{
+  color: #ffffff !important; /* أو خليه نفس الـhover السابق لو حاب */
+}
+.btn-primary {
+    --btn-color: #FFFFFF;
+    --btn-bg: #3cb9b3;
+    --btn-border-color: #267773;
+    --btn-hover-color: #FFFFFF;
+    --btn-hover-bg: #3cb9b3;
+    --btn-hover-border-color: #3cb9b3;
+    --btn-focus-shadow-rgb: 134, 122, 173;
+    --btn-active-color: #FFFFFF;
+    --btn-active-bg: #3cb9b3;
+    --btn-active-border-color: #3cb9b3;
+    --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --btn-disabled-color: #FFFFFF;
+    --btn-disabled-bg: #3cb9b3;
+    --btn-disabled-border-color: #3cb9b3;
+}
+// ب 
+/* ===== Secondary App Menu (row with Books / Authors / ... ) ===== */
+.o_web_client .o_menu_sections{
+  background-color: var(--ss-teal) !important;      /* #3cb9b3 */
+  border-bottom: 1px solid #2c8f8a !important;       /* خط سفلي خفيف */
+  padding: 0 12px;
+}
+
+/* الروابط داخل الشريط */
+.o_web_client .o_menu_sections a,
+.o_web_client .o_menu_sections .nav-link,
+.o_web_client .o_menu_sections .o_menu_item{
+  color: #fff !important;
+}
+
+/* الحالة النشطة والهوفر */
+.o_web_client .o_menu_sections .active,
+.o_web_client .o_menu_sections a:hover,
+.o_web_client .o_menu_sections .nav-link:hover,
+.o_web_client .o_menu_sections .o_menu_item:hover{
+  background-color: var(--ss-teal-2) !important;     /* #3cb6b5 */
+  color: #fff !important;
+  border-radius: 6px;                                 /* نفس ستايل التبويب الحالي لكن بلوننا */
+}
+
+/* ألوان أي “بادجات” صغيرة داخل العناصر (لو ظهرت) */
+.o_web_client .o_menu_sections .badge{
+  background: rgba(255,255,255,.15) !important;
+  color: #fff !important;
+}
+
+.o_main_navbar .o_menu_sections .o_nav_entry, .o_main_navbar .o_menu_sections .dropdown-toggle {
+    background: #3cb9b3;
+    border: 1px solid transparent;
+}
+
+
+.btn-outline-primary {
+    --btn-color: #3cb9b3;
+    --btn-border-color: #3cb9b3;
+    --btn-hover-color: #FFFFFF;
+    --btn-hover-bg: #3cb9b3;
+    --btn-hover-border-color: #3cb9b3;
+    --btn-focus-shadow-rgb: 113, 99, 158;
+    --btn-active-color: #FFFFFF;
+    --btn-active-bg: #3cb9b3;
+    --btn-active-border-color: #3cb9b3;
+    --btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --btn-disabled-color: #3cb9b3;
+    --btn-disabled-bg: transparent;
+    --btn-disabled-border-color: #3cb9b3;
+    --gradient: none;
+}
+.o_login_outer {
+    min-height: 100vh;
+    background: url('/hms/static/src/img/hospital-bg.jpg') center center / cover no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Blur + dark overlay */
+.o_login_outer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1;
+}
+
+/* Inner card (login box) */
+.o_login_inner {
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    border-radius: 12px;
+    max-width: 420px;
+    width: 100%;
+    padding: 1.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+}
+
+/* Logo + title */
+.o_login_inner .text-center img {
+    max-height: 120px;
+    max-width: 100%;
+    width: auto;
+}
+
+.o_login_inner h4 {
+    margin-top: 1rem;
+    font-weight: 600;
+}
+
+/* Form tweaks */
+.oe_login_form .form-control {
+    border-radius: 6px;
+}
+
+.oe_login_form .btn-primary {
+    border-radius: 6px;
+}
+
+/* Footer text */
+.o_login_inner .small {
+    color: #666;
+}
+.kpi-badge {
+    padding: 0.35em 0.6em;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    color: #fff;
+}
+.kpi-critical { background-color: #dc3545; } /* red */
+.kpi-warning { background-color: #fd7e14; }  /* orange */
+.kpi-info { background-color: var(--hms-primary); } /* teal */
+
+.chart-container {
+    position: relative;
+    height: 240px;
+    width: 100%;
+}
+.o_arrow_button{
+  background-color: var(--ss-teal) !important; /* يلغي أي gradient افتراضي */
+  border: 4px solid var(--ss-teal-2) !important;
+  color: #fff !important; 
+}
+
+.o_arrow_button:hover {
+    filter: brightness(1.1);
+    color: #fff !important; 
+}
+.o_kanban_card {
+    border-radius: 12px;
+    box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,0.1);
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    background: #a3f4f0;
+}
+
+/* Header: Name left, date right */
+.kanban-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.kanban-header .o_kanban_record_title {
+    color: var(--hms-primary);
+    font-weight: 600;
+}
+
+.kanban-header .admission-date {
+    padding: 0.35em 0.6em;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    color: #fff;
+    background-color: var(--hms-primary);
+}
+
+/* Body text styling */
+.o_kanban_record_body {
+    margin-top: 0.5rem;
+    color: #555;
+}
+
+.o_kanban_record_body .o_field_many2one {
+    font-weight: 600;
+    color: var(--hms-primary);
+}
+.med-card {
+                        transition: transform 0.2s ease, box-shadow 0.2s ease;
+                    }
+                    .med-card:hover {
+                        transform: translateY(-3px);
+                        box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1) !important;
+                    }
+                    .med-icon-container {
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 12px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-shrink: 0;
+                    }
+                    .med-icon-container i {
+                        font-size: 1.6rem;
+                    }
+                    .med-card-content {
+                        flex-grow: 1;
+                    }
+                    .med-card-title {
+                        font-weight: 500;
+                        font-size: 1.1rem;
+                        margin-bottom: 0.4rem;
+                        color: #085a78;
+                    }
+                    .med-card-desc {
+                        color: #6c757d;
+                        font-size: 0.9rem;
+                        line-height: 1.4;
+                    }
+                    .bg-primary-light {
+                        background-color: rgba(10, 126, 163, 0.15) !important;
+                    }
+                    .bg-info-light {
+                        background-color: rgba(23, 162, 184, 0.15) !important;
+                    }
+                    .bg-warning-light {
+                        background-color: rgba(255, 193, 7, 0.15) !important;
+                    }
+                    .bg-danger-light {
+                        background-color: rgba(220, 53, 69, 0.15) !important;
+                    }
+                    .bg-success-light {
+                        background-color: rgba(40, 167, 69, 0.15) !important;
+                    }
+                    .bg-secondary-light {
+                        background-color: rgba(108, 117, 125, 0.15) !important;
+                    }
+
+/* Header */
+ .navbar {
+  background-color:    var(--hms-primary) !important;
+}
+.navbar a,
+.o_portal_navbar .dropdown-toggle {
+
+  color: rgb(0, 0, 0) !important;
+}
+.navbar a:hover {
+  background-color: var(--hms-primary-600) !important;
+  color: #000000 !important;
+}
+
+/* Footer */
+.o_footer_copyright {
+  background-color: var(--hms-primary) !important;
+  color: white !important;
+}
+.o_footer_copyright a {
+  color: white !important;
+}
+.o_footer_copyright a:hover {
+  color: var(--hms-primary-600) !important;
+}
+.o_portal_wrap {
+  background-color: #f2fffb !important; /* 5% tint of primary */
+}
+.o_portal {
+  background-color: #f2fffb !important;   /* example */
+  padding: 20px;
+}
+
+.o_portal_container {
+  max-width: 1200px;
+  background: #f2fffb !important;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+}
+/* Reusable HMS Card */
+.hms-card {
+  border-radius: 1rem;
+  border: 1px solid var(--hms-border);
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hms-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+.hms-card-header {
+  padding: 0.75rem 1rem;
+}
+
+.hms-accent-bg {
+  background-color: var(--hms-accent);
+}
+
+.hms-card-body {
+  padding: 1.25rem;
+}
+
+/* Buttons */
+.btn-hms-primary {
+  background-color: var(--hms-primary);
+  border-color: var(--hms-primary);
+  color: #fff;
+}
+.btn-hms-primary:hover {
+  background-color: var(--hms-primary-600);
+  border-color: var(--hms-primary-600);
+  color: #fff;
+}
+
+.btn-hms-accent {
+  background-color: var(--hms-accent);
+  border-color: var(--hms-accent);
+  color: #fff;
+}
+.btn-hms-accent:hover {
+  background-color: var(--hms-accent-600);
+  border-color: var(--hms-accent-600);
+  color: #fff;
+}
+.border-0.dropdown-toggle.btn.btn-sm.btn-outline-secondary, .dropdown-menu .dropdown-item.active  {
+    --dropdown-link-active-bg : #ffffff;
+  --dropdown-bg : var(--hms-primary) !important;
+      background-color : var(--hms-primary) !important;
+  }
+.o_footer_copyright a {
+    color: #1e0c0c !important;
+}
+
+

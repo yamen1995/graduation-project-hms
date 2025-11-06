@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Appointment Request Page -->
+ <template id="portal_appointment_request" name="Request Appointment">
+    <t t-call="portal.portal_layout">
+        <t t-set="title" t-value="'Request Appointment'"/>
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="fw-bold text-hms-primary">
+                        <t t-translate="true">Request Appointment</t>
+                    </h2>
+                    <p class="text-muted">
+                        <t t-translate="true">Choose the best way to schedule your appointment.</t>
+                    </p>
+                </div>
+            </div>
+            <div class="row mt-4 g-4">
+                
+                <!-- General Appointment Card -->
+                <div class="col-md-6">
+                    <div class="hms-card h-100">
+                        <div class="hms-card-header bg-hms-primary text-white">
+                            <h5 class="mb-0">
+                                <t t-translate="true">General Appointment</t>
+                            </h5>
+                        </div>
+                        <div class="hms-card-body">
+                            <form method="post" t-att-action="'/my/appointment/request/general'">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold" for="department">
+                                        <t t-translate="true">Department</t>
+                                    </label>
+                                    <select class="form-select" id="department" name="department" required="True">
+                                        <option value=""><t t-translate="true">Select Department</t></option>
+                                        <t t-foreach="departments" t-as="dept">
+                                            <option t-att-value="dept.id" t-esc="dept.name"/>
+                                        </t>
+                                    </select>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-semibold" for="appointment_date">
+                                            <t t-translate="true">Preferred Date</t>
+                                        </label>
+                                        <input type="date" class="form-control" id="appointment_date" name="appointment_date" required="True"/>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-semibold" for="appointment_time">
+                                            <t t-translate="true">Preferred Time</t>
+                                        </label>
+                                        <input type="time" class="form-control" id="appointment_time" name="appointment_time" required="True"/>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-3">
+                                    <button type="submit" class="btn btn-hms-primary w-100">
+                                        <t t-translate="true">Request Appointment</t>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Doctors Card -->
+<div class="col-md-6">
+    <div class="hms-card h-100 d-flex flex-column">
+        <div class="hms-card-header bg-hms-accent text-white">
+            <h5 class="mb-0">
+                <t t-translate="true">My Doctors</t>
+            </h5>
+        </div>
+        <div class="hms-card-body d-flex flex-column flex-grow-1">
+            <form method="post" t-att-action="'/my/appointment/request/mydoctor'" class="d-flex flex-column flex-grow-1">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold" for="doctor_id">
+                        <t t-translate="true">Select My Doctor</t>
+                    </label>
+                    <select class="form-select" id="doctor_id" name="doctor_id" required="True">
+                        <option value=""><t t-translate="true">Choose Doctor</t></option>
+                        <t t-foreach="my_doctors" t-as="doc">
+                            <option t-att-value="doc.id" t-esc="doc.display_name"/>
+                        </t>
+                    </select>
+                </div>
+
+                <p class="small text-muted flex-grow-1">
+                    <t t-translate="true">
+                        The system will automatically schedule an appointment between 9:00 AM – 5:00 PM when your doctor is available.
+                    </t>
+                </p>
+
+                <div class="mt-auto">
+                    <button type="submit" class="btn btn-hms-primary w-100">
+                        <t t-translate="true">Request with My Doctor</t>
+                    </button>
+                </div>
+            </form>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </t></template>
+
+         <template id="portal_appointment_request_confirmation" name="Appointment Request Confirmation">
+            <t t-call="portal.portal_layout">
+                <t t-set="title" t-value="'Appointment Request Confirmation'"/>
+                <div class="container mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="card shadow-sm border-success">
+                                <div class="card-header bg-success text-white text-center">
+                                    <h3 class="mb-0"><t t-translate="true">Appointment Requested Successfully</t></h3>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="mb-4">
+                                        <i class="fa fa-check-circle text-success" style="font-size: 3rem;"></i>
+                                    </div>
+                                    <p class="lead">
+                                        <t t-translate="true">Your appointment request has been submitted successfully.</t>
+                                    </p>
+                                    <p>
+                                        <t t-translate="true">Reference Number: </t>
+                                        <strong t-esc="appointment_request_id"/>
+                                    </p>
+                                    <p class="text-muted">
+                                        <t t-translate="true">You can track the status of your request anytime under</t>
+                                        <a href="/my/appointments"><t t-translate="true">My Appointments</t></a>.
+                                    </p>
+                                    <div class="mt-4">
+                                        <a href="/my/appointments" class="btn btn-outline-success me-2">
+                                            <i class="fa fa-calendar"></i> <t t-translate="true">View My Appointments</t>
+                                        </a>
+                                        <a href="/my/appointment/request" class="btn btn-primary">
+                                            <i class="fa fa-plus"></i> <t t-translate="true">Request Another</t>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

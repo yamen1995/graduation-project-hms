@@ -1,0 +1,113 @@
+<odoo>
+
+<!--  Res Partner form specifically for Insurance Companies  -->
+
+
+<record id="res_partner_form_insurance_only" model="ir.ui.view">
+<field name="name">res.partner.form.insurance.only</field>
+<field name="model">res.partner</field>
+<field name="arch" type="xml">
+<form string="Insurance Company" class="hms-contact-form">
+<sheet>
+<group>
+<group>
+<field name="name"/>
+<field name="phone"/>
+<field name="email"/>
+<field name="street"/>
+<field name="street2"/>
+</group>
+<group>
+<field name="city"/>
+<field name="zip"/>
+<field name="state_id"/>
+<field name="country_id"/>
+<field name="is_insurance_company" invisible="1"/>
+</group>
+</group>
+<notebook>
+<page string="Insurance Policies">
+<field name="insurance_id"/>
+<!--  fixed by yamen1995  -->
+</page>
+<page string="Notes">
+<group>
+<field name="comment" placeholder="Internal notes for insurance company"/>
+</group>
+</page>
+</notebook>
+</sheet>
+</form>
+</field>
+</record>
+<!--  Kanban view for Insurance Companies  -->
+<record id="res_partner_kanban_insurance_only" model="ir.ui.view">
+<field name="name">res.partner.kanban.insurance.only</field>
+<field name="model">res.partner</field>
+<field name="arch" type="xml">
+<kanban class="hms-partner-kanban" create="true">
+<field name="name"/>
+<field name="phone"/>
+<field name="email"/>
+<field name="image_1920"/>
+<templates>
+<t t-name="kanban-box">
+<div class="oe_kanban_card hms-kanban-card">
+<div class="hms-card-header">
+<img t-att-src="record.image_1920 and '/web/image/res.partner/' + record.id.value + '/image_1920' or '/web/static/img/placeholder.png'" class="hms-avatar"/>
+<div class="hms-title">
+<strong>
+<field name="name"/>
+</strong>
+</div>
+</div>
+<div class="hms-card-body">
+<div>
+<i class="fa fa-phone"/>
+<field name="phone"/>
+</div>
+<div>
+<i class="fa fa-envelope"/>
+<field name="email"/>
+</div>
+</div>
+</div>
+</t>
+</templates>
+</kanban>
+</field>
+</record>
+<!--  Action Window for Insurance Companies  -->
+<record id="action_insurance_companies" model="ir.actions.act_window">
+<field name="name">Insurance Companies</field>
+<field name="res_model">res.partner</field>
+<field name="view_mode">kanban,list,form</field>
+<field name="context">{'default_is_insurance_company': True}</field>
+<field name="domain">[('is_insurance_company','=',True)]</field>
+</record>
+<record id="hms_action_insurance_form" model="ir.actions.act_window.view">
+<field name="sequence">3</field>
+<field name="view_mode">form</field>
+<field name="view_id" ref="res_partner_form_insurance_only"/>
+<field name="act_window_id" ref="action_insurance_companies"/>
+</record>
+<record id="hms_action_insurance_kanban" model="ir.actions.act_window.view">
+<field name="sequence">1</field>
+<field name="view_mode">kanban</field>
+<field name="view_id" ref="res_partner_kanban_insurance_only"/>
+<field name="act_window_id" ref="action_insurance_companies"/>
+</record>
+<!--  Keep original list view  -->
+<record id="hms_patient_action_list" model="ir.actions.act_window.view">
+<field name="sequence">2</field>
+<field name="view_mode">list</field>
+<field name="view_id" ref="base.view_partner_tree"/>
+<!--  original list  -->
+<field name="act_window_id" ref="hms_patient_action"/>
+</record>
+
+</odoo>
+
+
+
+

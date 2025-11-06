@@ -1,0 +1,309 @@
+<odoo>
+    <!-- Tree/List View -->
+    <record id="view_hms_case_tree" model="ir.ui.view">
+        <field name="name">hms.case.tree</field>
+        <field name="model">hms.case</field>
+        <field name="arch" type="xml">
+            <list string="Patient Visits / Cases" default_order="admission_date desc">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="main_doctor_id"/>
+                <field name="nurse_id"/>
+                <field name="admission_date"/>
+                <field name="discharge_date"/>
+                <field name="state"/>
+                <field name="total_cost" widget="monetary"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hms_case_form" model="ir.ui.view"> <field name="name">hms.case.form</field> <field name="model">hms.case</field> <field name="arch" type="xml">
+    <form string="Patient Visit">
+    <header>
+        <button name="action_activate" type="object" string="Activate Case"
+                class="btn-primary" invisible="state != 'draft'" groups="hms.group_hms_doctor,base.group_system"/>
+        <button name="action_reject" type="object" string="Reject Case"
+                class="btn-primary" invisible="state != 'draft'" groups="hms.group_hms_doctor,base.group_system"/>
+        <button name="action_close" type="object" string="Close Case"
+                class="btn-primary" invisible="state != 'active'" groups="hms.group_hms_doctor,base.group_system"/>
+        <button name="action_approve_invoice" type="object" string="Approve Invoice"
+                class="btn-primary" invisible="can_approve_invoice == 0" groups="hms.group_hms_doctor,hms.group_hms_doctor,base.group_system"/>
+        <button name="action_print_case_summary" type="object" string="Print Summary" class="btn-secondary" groups="hms.group_hms_doctor,base.group_system"/>
+        <field name="state" widget="statusbar" statusbar_visible="draft,active,closed"/>
+    </header>
+
+ <sheet class="o_form_sheet">
+        <!-- Hidden control fields -->
+        <field name="can_edit_team" invisible="1"/>
+        <field name="can_edit_diagnosis" invisible="1"/>
+        <field name="can_edit_labs" invisible="1"/>
+        <field name="can_edit_consumables" invisible="1"/>
+        <field name="can_edit_prescriptions" invisible="1"/>
+        <field name="can_edit_logistics" invisible="1"/>
+        <field name="user_id" invisible="1"/>
+
+                <!-- General Info -->
+                <group>
+                    <group string="Patient Info">
+                        <field name="name" readonly="1"/>
+                        <field name="medical_record_id" options="{'no_create': True}"/>
+                        <field name="patient_id" readonly="1"/>
+                    </group>
+                    <group string="Admission">
+                        <field name="admission_date" readonly="can_edit_team == 0"/>
+                        <field name="bed_id" readonly="can_edit_logistics == 0"/>
+                    </group>
+                </group>
+
+                <!-- Main Notebook -->
+                <notebook>
+                    <page string="care team">
+                        <group>
+                            <field name="main_doctor_id" readonly="can_edit_team == 0"/>
+                            <field name="nurse_id" readonly="can_edit_team == 0"/>
+                        </group>
+                        <group>
+                            <field name="consulting_doctor_ids" widget="many2many_tags" readonly="can_edit_diagnosis == 0"/>
+                        </group>
+                    </page>
+
+                    <page string="diagnosis" groups="hms.group_hms_doctor,base.group_system,hms.group_hms_chemist,hms.group_hms_nurse,hms.group_hms_lab_attendant">
+                        <group>
+                            <field name="diagnosis_ids" widget="many2many_tags" readonly="can_edit_diagnosis == 0"/>
+                            <field name="diagnosis_text" nolabel="1" class="o_full_width" string="Diagnosis Details" readonly="can_edit_diagnosis == 0"/>
+                            <field name="discharge_date" readonly="1"/>
+                        </group>
+                    </page>
+
+                    <page string="labs" groups="hms.group_hms_nurse,base.group_system,hms.group_hms_lab_attendant,hms.group_hms_doctor">
+                        <group>
+                            <field name="lab_request_ids" nolabel="1" readonly="can_edit_labs == 0"  force_save="1">
+                                <list string="Lab Requests" decoration-info="state == 'draft'" 
+                                      decoration-warning="state == 'requested'" 
+                                      decoration-success="state == 'completed'"
+                                      decoration-muted="state == 'cancelled'">
+                                    <field name="name"/>
+                                    <field name="case_id"/>
+                                    <field name="patient_id"/>
+                                    <field name="requested_by_id"/> 
+                                    <field name="date_requested"/>
+                                    <field name="urgency" widget="priority"/>
+                                    <field name="state"/>
+                                    <field name="lab_technician_id"/>
+                                </list>
+                            </field>
+                        </group>
+                    </page>
+
+                    <page string="consumables" groups="hms.group_hms_nurse,base.group_system">
+                        <group>
+                            <field name="consumable_line_ids" nolabel="1" readonly="can_edit_consumables == 0">
+                                <list>
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_price" readonly="1" force_save="1"/>
+                                </list>
+                            </field>
+                        </group>
+                    </page>
+
+                    <page string="prescriptions" groups="hms.group_hms_chemist,base.group_system,hms.group_hms_doctor">
+                        <field name="prescription_ids" nolabel="1" readonly="can_edit_prescriptions == 0">
+                            <list string="Prescriptions" decoration-info="state == 'draft'" 
+                                  decoration-warning="state == 'confirmed'" 
+                                  decoration-success="state == 'dispensed'"
+                                  decoration-muted="state == 'cancelled'">
+                                <field name="name"/>
+                                <field name="case_id"/>
+                                <field name="patient_id"/>
+                                <field name="date"/>
+                                <field name="is_dispensed" widget="boolean_toggle" readonly="1"/>
+                                <field name="state"/>
+                            </list>
+                        </field>
+                    </page>
+                
+                    <page string="Medical History" groups="hms.group_hms_doctor,base.group_system,hms.group_hms_nurse">
+                        <group>
+                        <field name="medical_history_note" nolabel="1" readonly="1" invisible="1"/>
+                        <field name="disease_history" string="Known Diseases"  readonly="1" widget="many2many_tags"/>
+                        <field name="allergies"   string="Allergies" readonly="1" />
+                        <field name="blood_type"  string="Blood Type" readonly="1"/>
+                        </group>
+                        <div class="o_note_card o_note_acc">
+                            <field name="mdh_note_acc" nolabel="1" readonly="1" class="o_note_text"/>
+                        </div>
+                        <div class="o_note_card o_note_edit">
+                            <field name="mdh_note" nolabel="1" readonly="can_edit_diagnosis == 0" class="o_note_text" placeholder="Enter medical history notes here..."/>
+                        </div>
+                    </page>
+
+                    <page string="Vitals" groups="hms.group_hms_doctor,base.group_system,hms.group_hms_nurse">
+                        <field name="vitals_note" nolabel="1" readonly="1"/>                      
+                        <div class="o_note_card o_note_acc">
+                            <field name="vitals_note_acc" nolabel="1" readonly="1" class="o_note_text"/>
+                        </div>
+                        <div class="o_note_card o_note_edit">
+                            <field name="vitals_note_edit" nolabel="1"  class="o_note_text" placeholder="Enter vitals notes here..."/>
+                        </div>
+                    </page>
+
+
+                    <page string="General Notes" groups="hms.group_hms_doctor,base.group_system,hms.group_hms_nurse,hms.group_hms_chemist,hms.group_hms_lab_attendant">
+                        <field name="general_note" nolabel="1" readonly="1"/>
+                        <div class="o_note_card o_note_acc">
+                            <field name="general_note_acc" nolabel="1" readonly="1" class="o_note_text"/>
+                        </div>
+                        <div class="o_note_card o_note_edit">
+                            <field name="general_note_edit" nolabel="1" readonly="can_edit_diagnosis == 0" class="o_note_text" placeholder="Enter general notes here..."/>
+                        </div>
+                    </page>
+                    <page string="Consultation" groups="hms.group_hms_doctor,base.group_system,hms.group_hms_nurse,hms.group_hms_chemist,hms.group_hms_lab_attendant">
+                        <field name="consultation_note" nolabel="1" readonly="1"/>
+                        <div class="o_note_card o_note_acc">
+                            <field name="consultation_note_acc" nolabel="1" readonly="1" class="o_note_text"/>
+                        </div>
+                        <div class="o_note_card o_note_edit">
+                            <field name="consultation_note_edit" nolabel="1" readonly="can_edit_diagnosis == 0" class="o_note_text" placeholder="Enter consultation notes here..."/>
+                        </div>
+                        </page>
+                </notebook>
+    </sheet>
+</form>
+</field> </record>
+
+    <!-- Kanban -->
+    <record id="hms_case_view_kanban" model="ir.ui.view">
+        <field name="name">hms.case.kanban</field>
+        <field name="model">hms.case</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_mobile" default_order="admission_date desc">
+                <field name="patient_id"/>
+                <field name="admission_date"/>
+                <field name="main_doctor_id"/>
+                <field name="nurse_id"/>
+                <field name="room_id"/>
+                <field name="state"/> 
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_card hms-case-card">
+                            <!-- Top section with patient info and admission date -->
+                            <div class="o_kanban_record_top">
+                                <div class="left-content">
+                                    <div class="admission-date">
+                                        <i class="fa fa-calendar mr-2" aria-hidden="true"></i>
+                                        <t t-esc="record.admission_date.value"/>
+                                    </div>
+                                    <strong class="patient-name"><t t-esc="record.patient_id.value"/></strong>
+                                </div>
+                                <div class="right-content">
+                                    <div class="room-badge" t-if="record.room_id.value">
+                                        <i class="fa fa-bed mr-1" aria-hidden="true"></i>
+                                        <t t-esc="record.room_id.value"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Middle section with medical staff -->
+                            <div class="o_kanban_record_body">
+                                <div class="medical-staff">
+                                    <div t-if="record.main_doctor_id.value" class="staff-item">
+                                        <i class="fa fa-user-md mr-2" aria-hidden="true"></i>
+                                        <span><t t-esc="record.main_doctor_id.value"/></span>
+                                    </div>
+                                    <div t-if="record.nurse_id.value" class="staff-item">
+                                        <i class="fa fa-user-nurse mr-2" aria-hidden="true"></i>
+                                        <span><t t-esc="record.nurse_id.value"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bottom status indicator -->
+                            <div class="status-indicator">
+                                <t t-if="record.state.value">
+                                    <span t-attf-class="state-badge state-{{record.state.value}}">
+                                        <t t-esc="record.state.value"/>
+                                    </span>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Search -->
+    <!-- Professional search view for hms.case -->
+    <record id="view_hms_case_search" model="ir.ui.view">
+        <field name="name">hms.case.search</field>
+        <field name="model">hms.case</field>
+        <field name="arch" type="xml">
+            <search string="Case Search">
+                <!-- Search fields for quick search -->
+                <field name="name" string="Case Name" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="patient_id" string="Patient" filter_domain="[('patient_id.name', 'ilike', self)]"/>
+                <field name="main_doctor_id" string="Doctor" filter_domain="[('main_doctor_id.name', 'ilike', self)]"/>
+                <field name="nurse_id" string="Nurse" filter_domain="[('nurse_id.name', 'ilike', self)]"/>
+                <field name="room_id" string="Room" filter_domain="[('room_id.name', 'ilike', self)]"/>
+                <field name="bed_id" string="Bed" filter_domain="[('bed_id.name', 'ilike', self)]"/>
+                <field name="medical_record_id" string="Medical Record" filter_domain="[('medical_record_id.name', 'ilike', self)]"/>
+                
+                <!-- Predefined filters -->
+                <filter string="Active Cases" name="active_cases" domain="[('state', '=', 'active')]"/>
+                <filter string="Draft Cases" name="draft_cases" domain="[('state', '=', 'draft')]"/>
+                <filter string="Closed Cases" name="closed_cases" domain="[('state', '=', 'closed')]"/>
+                
+                <separator/>
+                
+                <!-- Date-based filters -->
+                <filter string="Discharged Today" name="discharged_today" domain="[('discharge_date', '&gt;=', context_today().strftime('%Y-%m-%d 00:00:00')), ('discharge_date', '&lt;', context_today().strftime('%Y-%m-%d 23:59:59'))]"/>
+                
+                <separator/>
+                
+                <!-- Duration filters -->
+                <filter string="Long Stay (7+ days)" name="long_stay" domain="[('admission_date', '!=', False), ('discharge_date', '=', False)]" context="{'long_stay_days': 7}"/>
+                <filter string="Short Stay (&lt;3 days)" name="short_stay" domain="[('admission_date', '!=', False), ('discharge_date', '!=', False)]" context="{'short_stay_days': 3}"/>
+                <filter string="Ongoing Cases" name="ongoing_cases" domain="[('admission_date', '!=', False), ('discharge_date', '=', False)]"/>
+                <filter string="Completed Cases" name="completed_cases" domain="[('discharge_date', '!=', False)]"/>
+                
+                <separator/>
+                
+                <!-- Resource-based filters -->
+                <filter string="Cases Without Nurse" name="no_nurse" domain="[('nurse_id', '=', False)]"/>
+                <filter string="Cases With Lab Requests" name="with_lab_requests" domain="[('lab_request_ids', '!=', False)]"/>
+                <filter string="Cases With Prescriptions" name="with_prescriptions" domain="[('prescription_ids', '!=', False)]"/>
+                
+                <!-- Cost-based filters -->
+                <filter string="High Cost Cases" name="high_cost" domain="[('total_cost', '&gt;', 1000)]"/>
+                <filter string="Low Cost Cases" name="low_cost" domain="[('total_cost', '&lt;', 500)]"/>
+                
+                <!-- Group By section -->
+                <group name="group_by">
+                    <filter string="Status" name="group_by_state" context="{'group_by': 'state'}"/>
+                    <filter string="Main Doctor" name="group_by_doctor" context="{'group_by': 'main_doctor_id'}"/>
+                    <filter string="Nurse" name="group_by_nurse" context="{'group_by': 'nurse_id'}"/>
+                    <filter string="Patient" name="group_by_patient" context="{'group_by': 'patient_id'}"/>
+                    <filter string="Room" name="group_by_room" context="{'group_by': 'room_id'}"/>
+                    <filter string="Bed" name="group_by_bed" context="{'group_by': 'bed_id'}"/>
+                    <filter string="Admission Date" name="group_by_admission" context="{'group_by': 'admission_date:day'}"/>
+                    <filter string="Admission Week" name="group_by_admission_week" context="{'group_by': 'admission_date:week'}"/>
+                    <filter string="Admission Month" name="group_by_admission_month" context="{'group_by': 'admission_date:month'}"/>
+                    <filter string="Discharge Date" name="group_by_discharge" context="{'group_by': 'discharge_date:day'}"/>
+                    <filter string="Cost Range" name="group_by_cost" context="{'group_by': 'total_cost:1000'}"/>
+                </group>
+                
+                <!-- Search Panel for faceted search -->
+                <searchpanel>
+                    <field name="state" string="Status" icon="fa-hourglass" select="multi" enable_counters="1"/>
+                    <field name="main_doctor_id" string="Doctor" icon="fa-user-md" select="multi" enable_counters="1"/>
+                    <field name="nurse_id" string="Nurse" icon="fa-user-nurse" select="multi" enable_counters="1"/>
+                    <field name="patient_id" string="Patient" icon="fa-user" select="multi" enable_counters="1"/>
+                    <field name="room_id" string="Room" icon="fa-bed" select="multi" enable_counters="1"/>
+                    <field name="bed_id" string="Bed" icon="fa-procedures" select="multi" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+</odoo>

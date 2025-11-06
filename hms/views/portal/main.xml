@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Template extending the portal my home page -->
+        <template id="portal_navbar_logo" inherit_id="portal.frontend_layout">
+            <xpath expr="//a[@class='navbar-brand logo']/img" position="replace">
+                <!-- Your custom logo -->
+                <img src="/hms/static/src/img/logo.png"
+                    alt="General Hospital Patient Portal"
+                    title="General Hospital Patient Portal"
+                    style="height:60px; width:60px; border-radius:35%; border:2px solid var(--hms-primary-600); object-fit:cover;"/>
+            </xpath>
+        </template>
+
+        <template id="medical_portal_cards" inherit_id="portal.portal_my_home">
+            <xpath expr="//div[@id='portal_common_category']" position="attributes">
+            <attribute name="t-if">0</attribute></xpath>
+            <xpath expr="//div[@id='portal_client_category']" position="attributes">
+            <attribute name="t-if">0</attribute></xpath>
+            <xpath expr="//div[contains(@class, 'o_portal_category')]" position="after">
+                <!-- Medical Portal Section - Conditionally displayed for patients -->
+                
+               <div t-if="user_id and user_id.partner_id and user_id.partner_id.is_patient"
+                        class="o_portal_category row g-3 mt-4"
+                        id="portal_medical_category">
+                    <div class="col-12 mb-3">
+                        <h3 class="fw-normal mb-0" style="color: #085a78;">
+                            <i class="fa fa-heartbeat me-2"></i>Medical Portal
+                        </h3>
+                        <p class="text-muted">Access your healthcare services and medical information</p>
+                    </div>
+                                      
+                    
+                    <!-- My Appointments Card -->
+                    <div class="o_portal_index_card col-md-6 col-lg-4">
+                        <div class="h-100 rounded bg-white shadow-sm border-0 overflow-hidden med-card">
+                            <a href="/my/appointments" title="My Appointments" class="d-flex gap-3 p-4 h-100 text-decoration-none">
+                                <div class="med-icon-container bg-primary-light">
+                                    <i class="fa fa-calendar-check-o text-primary"></i>
+                                </div>
+                                <div class="med-card-content">
+                                    <div class="med-card-title">My Appointments</div>
+                                    <div class="med-card-desc">View and manage your medical appointments</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Appointment Requests Card -->
+                    <div class="o_portal_index_card col-md-6 col-lg-4">
+                        <div class="h-100 rounded bg-white shadow-sm border-0 overflow-hidden med-card">
+                            <a href="/my/appointment/request" title="Appointment Requests" class="d-flex gap-3 p-4 h-100 text-decoration-none">
+                                <div class="med-icon-container bg-info-light">
+                                    <i class="fa fa-calendar-plus-o text-info"></i>
+                                </div>
+                                <div class="med-card-content">
+                                    <div class="med-card-title">Appointment Requests</div>
+                                    <div class="med-card-desc">Request new medical appointments</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- My Prescriptions Card -->
+                    <div class="o_portal_index_card col-md-6 col-lg-4">
+                        <div class="h-100 rounded bg-white shadow-sm border-0 overflow-hidden med-card">
+                            <a href="/my/prescriptions" title="My Prescriptions" class="d-flex gap-3 p-4 h-100 text-decoration-none">
+                                <div class="med-icon-container bg-warning-light">
+                                    <i class="fa fa-file-text-o text-warning"></i>
+                                </div>
+                                <div class="med-card-content">
+                                    <div class="med-card-title">My Prescriptions</div>
+                                    <div class="med-card-desc">Access your medication prescriptions</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- My Cases Card -->
+                    <div class="o_portal_index_card col-md-6 col-lg-4">
+                        <div class="h-100 rounded bg-white shadow-sm border-0 overflow-hidden med-card">
+                            <a href="/my/cases" title="My Cases" class="d-flex gap-3 p-4 h-100 text-decoration-none">
+                                <div class="med-icon-container bg-danger-light">
+                                    <i class="fa fa-heartbeat text-danger"></i>
+                                </div>
+                                <div class="med-card-content">
+                                    <div class="med-card-title">My Cases</div>
+                                    <div class="med-card-desc">Review your medical cases and history</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- My Labs Card -->
+                    <div class="o_portal_index_card col-md-6 col-lg-4">
+                        <div class="h-100 rounded bg-white shadow-sm border-0 overflow-hidden med-card">
+                            <a href="/my/labs" title="My Lab Results" class="d-flex gap-3 p-4 h-100 text-decoration-none">
+                                <div class="med-icon-container bg-success-light">
+                                    <i class="fa fa-flask text-success"></i>
+                                </div>
+                                <div class="med-card-content">
+                                    <div class="med-card-title">My Lab Results</div>
+                                    <div class="med-card-desc">Access your laboratory test results</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Medical Record Card -->
+                    <div class="o_portal_index_card col-md-6 col-lg-4">
+                        <div class="h-100 rounded bg-white shadow-sm border-0 overflow-hidden med-card">
+                            <a href="/my/medical_record" title="Medical Record" class="d-flex gap-3 p-4 h-100 text-decoration-none">
+                                <div class="med-icon-container bg-secondary-light">
+                                    <i class="fa fa-medkit text-secondary"></i>
+                                </div>
+                                <div class="med-card-content">
+                                    <div class="med-card-title">Medical Record</div>
+                                    <div class="med-card-desc">Complete medical history and records</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="o_portal_index_card col-md-6 col-lg-4">
+                        <div class="h-100 rounded bg-white shadow-sm border-0 overflow-hidden med-card">
+                            <a href="/my/security" title="security" class="d-flex gap-3 p-4 h-100 text-decoration-none">
+                                <div class="med-icon-container bg-secondary-light">
+                                    <img src="/portal/static/src/img/portal-connection.svg"></img>
+                                </div>
+                                <div class="med-card-content">
+                                    <div class="med-card-title">Connection &amp; Security</div>
+                                    <div class="med-card-desc">Configure your connection parameters</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                                                          <div class="o_portal_index_card col-md-6 col-lg-4">
+                        <div class="h-100 rounded bg-white shadow-sm border-0 overflow-hidden med-card">
+                            <a href="/my/invoices" title="bills" class="d-flex gap-3 p-4 h-100 text-decoration-none">
+                                <div class="med-icon-container bg-secondary-light">
+                                    <img src="/account/static/src/img/Bill.svg"></img>
+                                </div>
+                                <div class="med-card-content">
+                                    <div class="med-card-title">my bills</div>
+                                    <div class="med-card-desc">
+                        Follow, download or pay your invoices
+                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                
+                <!-- Non-patient message (hidden for patients) -->
+
+            </xpath>
+        </template>
+    </data>
+</odoo>

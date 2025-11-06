@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Medical Record Form Page -->
+        <template id="portal_my_medical_record" name="My Medical Record">
+            <t t-call="portal.portal_layout">
+                <t t-set="title" t-value="'My Medical Record'"/>
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2><t t-translate="true">My Medical Record</t></h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><t t-translate="true">General Information</t></h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <strong><t t-translate="true">Record ID:</t></strong>
+                                            <span t-esc="medical_record.name" class="ms-2"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <strong><t t-translate="true">Patient:</t></strong>
+                                            <span t-esc="medical_record.patient_id.display_name" class="ms-2"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <strong><t t-translate="true">Blood Type:</t></strong>
+                                            <span t-esc="medical_record.blood_type" class="ms-2"/>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <strong><t t-translate="true">Allergies:</t></strong>
+                                            <span t-esc="medical_record.allergies" class="ms-2"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <strong><t t-translate="true">Diseases:</t></strong>
+                                            <div class="mt-2">
+                                                <t t-foreach="medical_record.disease_ids" t-as="disease">
+                                                    <span class="badge bg-secondary me-1" t-esc="disease.name"/>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Cases Section -->
+                            <div class="card mt-4">
+                                <div class="card-header">
+                                    <h5><t t-translate="true">Medical Cases</t></h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th><t t-translate="true">Case ID</t></th>
+                                                <th><t t-translate="true">Doctor</t></th>
+                                                <th><t t-translate="true">Status</t></th>
+                                                <th><t t-translate="true">Admission Date</t></th>
+                                                <th><t t-translate="true">Discharge Date</t></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="medical_record.case_ids" t-as="case">
+                                                <tr>
+                                                    <td>
+                                                        <span t-esc="case.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="case.main_doctor_id.display_name"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-attf-class="badge bg-{{ {
+                                                            'draft': 'secondary',
+                                                            'active': 'success',
+                                                            'closed': 'info'
+                                                        }[case.state] or 'secondary' }}"
+                                                            t-esc="case.state"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="case.admission_date"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="case.discharge_date or 'N/A'"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

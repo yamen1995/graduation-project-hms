@@ -1,0 +1,141 @@
+<odoo>
+    <template id="report_lab_result_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+
+                    <!-- إعدادات RTL/LTR + ترجمة + ستايل موحّد -->
+                    <t t-set="is_ar" t-value="docs._context.get('lang','')[:2]=='ar'"/>
+                    <t t-set="_" t-value="env._"/>
+                    <style>
+                      /* حجم وهوامش الصفحة مع مساحة أسفل للفوتر */
+                      @page{
+                        size: A4;
+                        margin: 15mm 12mm 22mm 12mm;     /* ↑ bottom أكبر للفوتر */
+                        @bottom-center { content: element(lrfooter); } /* اربط المارجن بوكس بالرَنّينج إليمنت */
+                      }
+
+                      .page{
+                        font-family:"DejaVu Sans","Noto Naskh Arabic","Arial",sans-serif;
+                        font-size:13.5px; line-height:1.6; color:#222;
+                        padding-bottom:24mm; /* يمنع تداخل المحتوى مع الفوتر */
+                      }
+
+                      /* Header (logo) */
+                      .lr-header{display:flex;justify-content:center;align-items:center;margin:2mm 0 5mm;}
+                      .lr-logo{max-height:85px;max-width:260px;}
+                      .lr-divider{border:0;border-top:2px solid #8a8f98;margin:4px 0 12px;}
+
+                      /* عناوين + مسافات */
+                      h2,h3,h4{margin:8px 0 10px;}
+                      .mb-4{margin-bottom:1rem!important;}
+                      .mt-4{margin-top:1rem!important;}
+                      .mt-5{margin-top:2rem!important;}
+
+                      /* جدول النتائج */
+                      .table thead th{border-bottom:1px solid #cfcfcf;font-weight:600;}
+                      .table td,.table th{padding:6px 8px;border-bottom:1px solid #eee;}
+
+                      /* فوتر ثابت لكل صفحة (running elements) */
+                      .lr-footer{
+                        position: running(lrfooter);
+                        text-align:center; font-size:13px; color:#444;
+                        padding-top:6px; border-top:3px solid #ddd;
+                        margin-top:450px;
+                      }
+                    </style>
+
+
+
+                    <!-- محتوى الصفحة -->
+                    <div class="page"
+                         t-attf-style="direction: {{ 'rtl' if is_ar else 'ltr' }}; text-align: {{ 'right' if is_ar else 'left' }};">
+
+                        <div class="oe_structure"/>
+
+                        <!-- العنوان -->
+                        <div class="row">
+                            <div class="col-12 text-center mb-4">
+                                <h2><t t-translate="true">Lab Result Report'</t></h2>
+                            </div>
+                        </div>
+
+                        <!-- الميتا -->
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <strong><t t-translate="true">Patient'</t></strong>:
+                                <span t-field="doc.patient_id.name"/><br/>
+                                <strong><t t-translate="true">Patient ID'</t></strong>:
+                                <span t-field="doc.patient_id.id"/><br/>
+                            </div>
+                            <div class="col-6" t-attf-style="text-align: {{ 'left' if is_ar else 'right' }};">
+                                <strong><t t-translate="true">Case ID'</t></strong>:
+                                <span t-field="doc.case_id.name"/><br/>
+                                <strong><t t-translate="true">Result Date'</t></strong>:
+                                <span t-field="doc.date_result" t-options='{"widget": "date"}'/><br/>
+                                <strong><t t-translate="true">Lab Technician'</t></strong>:
+                                <span t-field="doc.lab_technician_id.name"/><br/>
+                                <t t-if="doc.case_id.main_doctor_id">
+                                    <strong><t t-translate="true">Doctor'</t></strong>:
+                                    <span t-field="doc.case_id.main_doctor_id.name"/><br/>
+                                </t>
+                            </div>
+                        </div>
+
+                        <!-- جدول النتائج -->
+                        <h3><t t-translate="true">Test Results'</t></h3>
+                        <table class="table table-sm table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="width:30%;"><t t-translate="true">Test Name'</t></th>
+                                    <th style="width:20%;"><t t-translate="true">Value'</t></th>
+                                    <th style="width:15%;"><t t-translate="true">Unit'</t></th>
+                                    <th style="width:25%;"><t t-translate="true">Normal Range'</t></th>
+                                    <th style="width:10%;"><t t-translate="true">Status'</t></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doc.lab_request_id.lab_request_line_ids"
+                                    t-as="line"
+                                    t-att-class="line.is_abnormal and 'table-danger' or ''">
+                                    <td><span t-field="line.product_id.name"/></td>
+                                    <td><span t-field="line.value"/></td>
+                                    <td><span t-field="line.uom_id.name"/></td>
+                                    <td><span t-field="line.normal_range"/></td>
+                                    <td>
+                                        <span t-if="line.is_abnormal" class="text-danger">
+                                            <t t-translate="true">Abnormal'</t>
+                                        </span>
+                                        <span t-else="">
+                                            <t t-translate="true">Normal'</t>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- توصيات -->
+                        <div t-if="doc.recommendations" class="mt-4">
+                            <h4><t t-translate="true">Recommendations'</t></h4>
+                            <p><span t-field="doc.recommendations"/></p>
+                        </div>
+
+                        <!-- ملاحظات -->
+                        <div t-if="doc.notes" class="mt-4">
+                            <h4><t t-translate="true">Notes'</t></h4>
+                            <p><span t-field="doc.notes"/></p>
+                        </div>
+
+                        <div class="oe_structure"/>
+                    </div>
+
+                    <!-- Footer: اسم الشركة ثابت بأسفل كل صفحة -->
+                    <div class="lr-footer">
+                        <span t-esc="env.company.name"/>
+                    </div>
+
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

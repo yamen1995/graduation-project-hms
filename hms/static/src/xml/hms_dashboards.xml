@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="hms.Dashboards" owl="1">
+        <div class="o_hms_dashboard dashboard-scrollable-root p-3 bg-light ">
+            <div class="container-fluid h-100 d-flex flex-column">
+                <!-- Header -->
+                <div class="row mb-4 align-items-center flex-shrink-0">
+                    <div class="col">
+                        <h2 class="mb-0"><t t-translate="true">Hospital Management — Dashboard</t></h2>
+                        <p class="text-muted small mb-0"><t t-translate="true">Overview, analytics and quick actions</t></p>
+                    </div>
+                    <div class="col-auto d-flex align-items-center gap-3">
+                        <small class="text-muted"><t t-translate="true">Welcome, </t><t t-esc="state.kpi_data.user_name"/></small>
+                    </div>
+                </div>
+                <div class="row g-3 flex-grow-1 min-vh-0 dashboard-scrollable-main ">
+                    <!-- LEFT: User Card + Quick Actions + Recent Patients -->
+                    <div class="col-lg-3 d-flex flex-column gap-3 dashboard-scrollable-col ">
+                        <!-- User Info (Enhanced) -->
+                        <div class="card shadow-sm text-center flex-shrink-0 user-info-card o_note_card">
+                            <div class="card-body">
+                                <div class="avatar-wrapper mb-2">
+                                    <img t-att-src="state.kpi_data.user_avatar_url || '/web/static/img/avatar.png'" alt="User avatar" class="rounded-circle border" style="width:72px; height:72px; object-fit:cover;" />
+                                </div>
+                                <h5 class="mt-2 mb-0"><t t-esc="state.kpi_data.user_name"/></h5>
+                                <small class="text-muted d-block"><t t-esc="state.kpi_data.user_login"/></small>
+                                <t t-if="state.kpi_data.user_role">
+                                    <span class="badge bg-info-subtle text-dark small mt-2"><t t-esc="state.kpi_data.user_role"/></span>
+                                </t>
+                                <t t-if="state.kpi_data.user_email">
+                                    <div class="small text-muted">📧 <t t-esc="state.kpi_data.user_email"/></div>
+                                    </t>
+                                <t t-if="state.kpi_data.user_phone">
+                                    <div class="small text-muted">☎ <t t-esc="state.kpi_data.user_phone"/></div>
+                                    </t>
+                            </div>
+                        </div>
+                        <!-- Quick Actions Card (if any) -->
+                        <t t-if="state.kpi_data.quick_actions &amp;&amp; state.kpi_data.quick_actions.length">
+                        <div class="card shadow-sm flex-shrink-0">
+                            <div class="card-body">
+                                <h6 class="card-title mb-2"><t t-translate="true">Quick Actions</t></h6>
+                                <div class="d-grid gap-2">
+                                    <t t-foreach="state.kpi_data.quick_actions" t-as="qa" t-key="qa.key">
+                                        <button class="btn btn-outline-primary btn-sm w-100 mb-1"
+                                            t-on-click="() => this.openAction(qa.action)"
+                                            t-att-title="qa.label">
+                                            <t t-esc="qa.label"/>
+                                        </button>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        </t>
+                            <!-- Active Cases -->
+                            <div class="card shadow-sm"><div class="card-body"><h6 class="card-title"><t t-translate="true">Active Cases</t></h6><ul class="list-group mb-0 mini-scrollable-list">
+                                <t t-if="state.kpi_data.active_cases &amp;&amp; state.kpi_data.active_cases.length"><t t-foreach="state.kpi_data.active_cases" t-as="c" t-key="c.id"><li class="list-group-item list-group-item-action" t-on-click="() => this.openForm(c.model, c.res_id)"><span><t t-esc="c.name"/></span><small class="text-muted float-end"><t t-esc="c.date"/></small></li></t></t>
+                                <t t-if="!state.kpi_data.active_cases || state.kpi_data.active_cases.length === 0"><li class="list-group-item text-muted"><t t-translate="true">No active cases</t></li></t>
+                            </ul></div></div>
+                        <t t-if="state.kpi_data.is_doctor || state.kpi_data.is_nurse">
+                    <!-- Today's Appointments -->
+                            <div class="card shadow-sm"><div class="card-body"><h6 class="card-title"><t t-translate="true">Today's Appointments</t></h6><ul class="list-group mb-0 mini-scrollable-list">
+                                <t t-if="state.kpi_data.today_appointments &amp;&amp; state.kpi_data.today_appointments.length"><t t-foreach="state.kpi_data.today_appointments" t-as="a" t-key="a.id"><li class="list-group-item list-group-item-action" t-on-click="() => this.openForm(a.model, a.res_id)"><span><t t-esc="a.patient_name"/></span><small class="text-muted float-end"><t t-esc="a.date"/></small></li></t></t>
+                                <t t-if="!state.kpi_data.today_appointments || state.kpi_data.today_appointments.length === 0"><li class="list-group-item text-muted"><t t-translate="true">No appointments today</t></li></t>
+                            </ul></div></div>
+                        </t>
+                    </div>
+
+                    <!-- CENTER: KPIs + Charts -->
+                    <div class="col-lg-6 d-flex flex-column gap-3 dashboard-scrollable-col">
+                        <div class="row g-3">
+                            <!-- KPIs for various roles  -->
+                            <t t-if="state.kpi_data.is_doctor &amp;&amp; state.kpi_data.kpi">
+                            <div class="col-6 col-md-3">
+                            <div class="card text-center shadow-sm mb-2">
+                            <div class="card-body">
+                            <h6 class="mb-1"><t t-translate="true">My Active Cases</t></h6>
+                            <h2 class="mb-0">
+                            <t t-esc="state.kpi_data.kpi.active_cases"/>
+                            <span t-if="state.kpi_data.kpi.active_cases > 10" class="kpi-badge kpi-warning">High</span>
+                            </h2>
+                            </div>
+                            </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                            <div class="card text-center shadow-sm mb-2">
+                            <div class="card-body">
+                            <h6 class="mb-1"><t t-translate="true">Appointments Today</t></h6>
+                            <h2 class="mb-0"><t t-esc="state.kpi_data.kpi.appointments_today"/></h2>
+                            </div>
+                            </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                            <div class="card text-center shadow-sm mb-2">
+                            <div class="card-body">
+                            <h6 class="mb-1"><t t-translate="true">Lab Results Received</t></h6>
+                            <h2 class="mb-0"><t t-esc="state.kpi_data.kpi.lab_results_received"/></h2>
+                            </div>
+                            </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                            <div class="card text-center shadow-sm mb-2">
+                            <div class="card-body">
+                            <h6 class="mb-1"><t t-translate="true">Consultations</t></h6>
+                            <h2 class="mb-0"><t t-esc="state.kpi_data.kpi.consultation_cases"/></h2>
+                            </div>
+                            </div>
+                            </div>
+                            </t>
+                            <t t-if="state.kpi_data.is_nurse &amp;&amp; state.kpi_data.kpi">
+                                <div class="col-6 col-md-4"><div class="card text-center shadow-sm mb-2"><div class="card-body"><h6 class="mb-1"><t t-translate="true">Assigned Cases</t></h6><h2 class="mb-0"><t t-esc="state.kpi_data.kpi.assigned_cases"/></h2></div></div></div>
+                                <div class="col-6 col-md-4"><div class="card text-center shadow-sm mb-2"><div class="card-body"><h6 class="mb-1"><t t-translate="true">Today's Appointments</t></h6><h2 class="mb-0"><t t-esc="state.kpi_data.kpi.appointments_today"/></h2></div></div></div>
+                                <div class="col-6 col-md-4"><div class="card text-center shadow-sm mb-2"><div class="card-body"><h6 class="mb-1"><t t-translate="true">Pending Lab Results</t></h6><h2 class="mb-0"><t t-esc="state.kpi_data.kpi.pending_lab_results"/></h2></div></div></div>
+                            </t>
+                            <t t-if="(state.kpi_data.is_receptionist || state.kpi_data.is_admin) &amp;&amp; state.kpi_data.kpi">
+                                <div class="col-6 col-md-3"><div class="card text-center shadow-sm mb-2"><div class="card-body"><h6 class="mb-1"><t t-translate="true">Patients Today</t></h6><h2 class="mb-0"><t t-esc="state.kpi_data.kpi.patients_today"/></h2></div></div></div>
+                                <div class="col-6 col-md-3"><div class="card text-center shadow-sm mb-2"><div class="card-body"><h6 class="mb-1"><t t-translate="true">Appointments Today</t></h6><h2 class="mb-0"><t t-esc="state.kpi_data.kpi.appointments_today"/></h2></div></div></div>
+                                <div class="col-6 col-md-3"><div class="card text-center shadow-sm mb-2"><div class="card-body"><h6 class="mb-1"><t t-translate="true">Open Cases</t></h6><h2 class="mb-0"><t t-esc="state.kpi_data.kpi.open_cases"/></h2></div></div></div>
+                                <div class="col-6 col-md-3"><div class="card text-center shadow-sm mb-2"><div class="card-body"><h6 class="mb-1"><t t-translate="true">Admissions Today</t></h6><h2 class="mb-0"><t t-esc="state.kpi_data.kpi.admissions_today"/></h2></div></div></div>
+                            </t>
+                            <t t-if="state.kpi_data.is_lab &amp;&amp; state.kpi_data.kpi">
+                                <div class="col-6 col-md-4"><div class="card text-center shadow-sm mb-2"><div class="card-body"><h6 class="mb-1"><t t-translate="true">Pending Lab Requests</t></h6><h2 class="mb-0"><t t-esc="state.kpi_data.kpi.pending_requests"/></h2></div></div></div>
+                                <div class="col-6 col-md-4"><div class="card text-center shadow-sm mb-2"><div class="card-body"><h6 class="mb-1"><t t-translate="true">Results to Validate</t></h6><h2 class="mb-0"><t t-esc="state.kpi_data.kpi.results_to_validate"/></h2></div></div></div>
+                                <div class="col-12 col-md-4"><div class="card text-center shadow-sm mb-2"><div class="card-body"><h6 class="mb-1"><t t-translate="true">Lab Tests Today</t></h6><h2 class="mb-0"><t t-esc="state.kpi_data.kpi.tests_today"/></h2></div></div></div>
+                            </t>
+                            <t t-if="state.kpi_data.is_chemist &amp;&amp; state.kpi_data.kpi">
+                                <div class="col-12"><div class="card text-center shadow-sm mb-2"><div class="card-body"><h6 class="mb-1"><t t-translate="true">Prescriptions To Dispense</t></h6><h2 class="mb-0"><t t-esc="state.kpi_data.kpi.prescriptions_to_dispense"/></h2></div></div></div>
+                            </t>
+                            <!-- Charts -->
+                            <div class="col-12">
+                                <div class="card shadow-sm"><div class="card-body"><h6 class="card-title"><t t-translate="true">Case Status Overview</t></h6><div class="chart-container"><canvas t-ref="caseChart"></canvas></div></div></div>
+                                <div class="card shadow-sm mt-3"><div class="card-body"><h6 class="card-title"><t t-esc="state.chart_data.trend_title"/></h6><div class="chart-container"><canvas t-ref="trendChart"></canvas></div></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- RIGHT: Activities + Cases + Quick Links -->
+                    <div class="col-lg-3 d-flex flex-column gap-3 dashboard-scrollable-col">
+                        <!-- Activities Widget -->
+                                                <div class="card shadow-sm">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0"><t t-translate="true">My Activities</t></h6>
+                                <button class="btn btn-sm btn-link p-0" t-on-click="() => this.openAction('hms.action_open_my_activities')">
+                                    <i class="fa fa-external-link"></i>
+                                </button>
+                            </div>
+                            <div class="card-body p-0">
+                                <t t-if="state.kpi_data.activities &amp;&amp; state.kpi_data.activities.length">
+                                    <div class="list-group list-group-flush">
+                                        <t t-foreach="state.kpi_data.activities" t-as="activity" t-key="activity.id">
+                                            <a href="#" class="list-group-item list-group-item-action" t-on-click="() => this.openForm(activity.res_model, activity.res_id)">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h6 class="mb-1"><t t-esc="activity.summary"/></h6>
+                                                    <small class="text-muted"><t t-esc="activity.date_deadline"/></small>
+                                                </div>
+                                                <p class="mb-1 small text-truncate"><t t-esc="activity.note"/></p>
+                                                <small class="text-muted">
+                                                    <t t-esc="activity.res_name"/> • 
+                                                    <span t-att-class="'badge bg-' + activity.priority_class">
+                                                        <t t-esc="activity.priority_name"/>
+                                                    </span>
+                                                </small>
+                                            </a>
+                                        </t>
+                                    </div>
+                                </t>
+                                <t t-if="!state.kpi_data.activities || state.kpi_data.activities.length === 0">
+                                    <div class="text-center p-3 text-muted">
+                                        <i class="fa fa-check-circle fa-2x mb-2"></i>
+                                        <p class="mb-0"><t t-translate="true">No pending activities</t></p>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                        
+                    <t t-if="state.kpi_data.is_doctor">
+                         <!-- Consultations -->
+                            <div class="card shadow-sm"><div class="card-body"><h6 class="card-title"><t t-translate="true">Consultation Cases</t></h6><ul class="list-group mb-0 mini-scrollable-list">
+                                <t t-if="state.kpi_data.consultation_cases &amp;&amp; state.kpi_data.consultation_cases.length"><t t-foreach="state.kpi_data.consultation_cases" t-as="c" t-key="c.id"><li class="list-group-item list-group-item-action" t-on-click="() => this.openForm(c.model, c.res_id)"><span><t t-esc="c.name"/></span><small class="text-muted float-end"><t t-esc="c.date"/></small></li></t></t>
+                                <t t-if="!state.kpi_data.consultation_cases || state.kpi_data.consultation_cases.length === 0"><li class="list-group-item text-muted"><t t-translate="true">No consultation cases</t></li></t>
+                            </ul></div></div>
+                       </t>
+                        <!-- Role-Specific Cards (Doctor/Nurse) -->
+                        <t t-if="state.kpi_data.is_doctor || state.kpi_data.is_nurse">
+                            <!-- Draft Cases -->
+                            <div class="card shadow-sm"><div class="card-body"><h6 class="card-title"><t t-translate="true">cases to review</t></h6><ul class="list-group mb-0 mini-scrollable-list">
+                                <t t-if="state.kpi_data.draft_cases &amp;&amp; state.kpi_data.draft_cases.length"><t t-foreach="state.kpi_data.draft_cases" t-as="c" t-key="c.id"><li class="list-group-item list-group-item-action" t-on-click="() => this.openForm(c.model, c.res_id)"><span><t t-esc="c.name"/></span><small class="text-muted float-end"><t t-esc="c.date"/></small></li></t></t>
+                                <t t-if="!state.kpi_data.draft_cases || state.kpi_data.draft_cases.length === 0"><li class="list-group-item text-muted"><t t-translate="true">No draft cases</t></li></t>
+                            </ul></div></div>
+
+                           
+                            </t>
+                        <!-- Admin/Receptionist: Recently Registered & Draft Appts -->
+                        <t t-if="state.kpi_data.is_admin || state.kpi_data.is_receptionist">
+                            <div class="card shadow-sm"><div class="card-body"><h6 class="card-title"><t t-translate="true">Recently Registered Patients</t></h6><ul class="list-group mb-0 mini-scrollable-list">
+                                <t t-if="state.kpi_data.registered_patients &amp;&amp; state.kpi_data.registered_patients.length"><t t-foreach="state.kpi_data.registered_patients" t-as="p" t-key="p.id"><li class="list-group-item list-group-item-action" t-on-click="() => this.openForm(p.model, p.res_id)"><span><t t-esc="p.name"/></span><small class="text-muted float-end"><t t-esc="p.date"/></small></li></t></t>
+                                <t t-if="!state.kpi_data.registered_patients || state.kpi_data.registered_patients.length === 0"><li class="list-group-item text-muted"><t t-translate="true">No new patients</t></li></t>
+                            </ul></div></div>
+                            <div class="card shadow-sm"><div class="card-body"><h6 class="card-title"><t t-translate="true">Appointments to review</t></h6><ul class="list-group mb-0 mini-scrollable-list">
+                                <t t-if="state.kpi_data.draft_appointments &amp;&amp; state.kpi_data.draft_appointments.length"><t t-foreach="state.kpi_data.draft_appointments" t-as="a" t-key="a.id"><li class="list-group-item list-group-item-action" t-on-click="() => this.openForm(a.model, a.res_id)"><span><t t-esc="a.patient_name"/></span><small class="text-muted float-end"><t t-esc="a.date"/></small></li></t></t>
+                                <t t-if="!state.kpi_data.draft_appointments || state.kpi_data.draft_appointments.length === 0"><li class="list-group-item text-muted"><t t-translate="true">No draft appointments</t></li></t>
+                            </ul></div></div>
+                        </t>
+                        <!-- Quick Links -->
+                        <div class="card shadow-sm flex-fill">
+                            <div class="card-body">
+                                <h6 class="card-title"><t t-translate="true">Quick Links</t></h6>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-outline-secondary btn-sm w-100 mb-1" t-on-click="() => this.openAction('web.action_help')"><t t-translate="true">Help</t></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

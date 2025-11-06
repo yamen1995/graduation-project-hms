@@ -1,0 +1,71 @@
+    <odoo>
+<record id="hms_patient_action" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">res.partner</field>
+        <!-- Allow switching between kanban, list, and form -->
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('is_patient', '=', True)]</field>
+        <field name="context">{'default_is_patient': True}</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+    </record>
+
+        <record id="hms_appointment_action" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">hms.appointment</field>
+        <field name="view_mode">list,form,calendar</field>
+    </record>
+    <record id="action_hms_hr_employee" model="ir.actions.act_window">
+        <field name="name">Staff</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">kanban,form,list</field>
+        <field name="domain">[('hms_role_id', '!=', False)]</field>
+        <field name="context">{'default_hms_role_id': True}</field>
+    </record>
+        <record id="hms_medical_record_action" model="ir.actions.act_window">
+        <field name="name">Medical Records</field>
+        <field name="res_model">hms.medical.record</field>
+        <field name="view_mode">list,form</field>
+    </record>
+        <record id="hms_case_action" model="ir.actions.act_window">
+        <field name="name">Visits</field>
+        <field name="res_model">hms.case</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+        <record id="action_hms_room" model="ir.actions.act_window">
+        <field name="name">Rooms</field>
+        <field name="res_model">hms.room</field>
+        <field name="view_mode">list,form</field></record>
+
+        <record id="action_hms_disease" model="ir.actions.act_window">
+        <field name="name">Diseases</field>
+        <field name="res_model">hms.disease</field>
+        <field name="view_mode">list,form</field></record>
+
+        <record id="action_hms_insurance" model="ir.actions.act_window">
+        <field name="name">Insurance</field>
+        <field name="res_model">hms.insurance</field>
+        <field name="view_mode">list,form</field></record>
+        <!-- ... أي أكشنات قديمة عندك ... -->
+
+    <!-- Case Summary report actions -->
+    <record id="action_report_case_summary_en" model="ir.actions.report">
+        <field name="name">Case Summary</field>
+        <field name="model">hms.case</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hms.case_summary_template</field>
+        <field name="report_file">hms.case_summary_template</field>
+        <field name="print_report_name">'Case Summary - %s' % (object.name)</field>
+    </record>
+
+    <record id="action_report_case_summary_ar" model="ir.actions.report">
+        <field name="name">ملخص الحالة</field>
+        <field name="model">hms.case</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hms.case_summary_template</field>
+        <field name="report_file">hms.case_summary_template</field>
+        <field name="print_report_name">'ملخص الحالة - %s' % (object.name)</field>
+    </record>
+
+
+
+    </odoo>

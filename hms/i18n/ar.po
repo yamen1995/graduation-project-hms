@@ -1,0 +1,5571 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hms
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-16 12:44+0000\n"
+"PO-Revision-Date: 2025-09-16 12:44+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_custom_external_layout
+msgid "\"Your Health, Our Priority\""
+msgstr "\"صحتك, هي اولويتنا\""
+
+#. module: hms
+#: model:ir.actions.report,print_report_name:hms.action_report_case_summary
+#: model:ir.actions.report,print_report_name:hms.action_report_case_summary_en
+msgid "'Case Summary - %s' % (object.name)"
+msgstr "'ملخص الحالة - %s' % (object.name)"
+
+#. module: hms
+#: model:ir.actions.report,print_report_name:hms.action_report_admin_summary_30d
+msgid "'Hospital Summary - Last 30 Days'"
+msgstr "ملخص العمليات - اخر شهر"
+
+#. module: hms
+#: model:ir.actions.report,print_report_name:hms.action_report_invoice_hms
+msgid "'Invoice - %s' % (object.name)"
+msgstr "الفاتورة"
+
+#. module: hms
+#: model:ir.actions.report,print_report_name:hms.report_lab_result_document
+msgid "'Lab Result - %s' % (object.name)"
+msgstr "'نتيجة مختبر - %s' % (object.name)"
+
+#. module: hms
+#: model:ir.actions.report,print_report_name:hms.action_report_medrecs_last7
+msgid "'MedRecs_Last7_%s' % (context.get('uid') or '')"
+msgstr "السجلات_الصحية_%s' % (context.get('uid') or '')"
+
+#. module: hms
+#: model:ir.actions.report,print_report_name:hms.action_report_prescription
+msgid "'Prescription - %s' % (object.name)"
+msgstr "'وصفة طبية - %s' % (object.name)"
+
+#. module: hms
+#: model:ir.actions.report,print_report_name:hms.action_report_case_summary_ar
+msgid "'ملخص الحالة - %s' % (object.name)"
+msgstr ""
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_success
+msgid ". Your patient profile has been created."
+msgstr ". تم إنشاء ملفك الشخصي كـ مريض."
+
+#. module: hms
+#: model:mail.template,body_html:hms.email_template_appointment_confirmation
+msgid ""
+"<div style=\"margin: auto; padding: 20px; font-family: Arial, sans-serif;\">\n"
+"                <div style=\"text-align: center;\">\n"
+"                    <img t-att-src=\"'/hms/static/src/img/logo.png'\" style=\"max-height: 80px;\"/>\n"
+"                    <h2 style=\"color: #2c3e50;\">Appointment Confirmation</h2>\n"
+"                </div>\n"
+"\n"
+"                <div style=\"margin: 20px 0;\">\n"
+"                    <p>Dear <t t-out=\"object.patient_id.name\"/>,</p>\n"
+"                    <p>Your appointment has been confirmed with the following details:</p>\n"
+"\n"
+"                    <table style=\"width: 100%; margin: 15px 0; border-collapse: collapse;\">\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>Reference:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"object.name\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>Date &amp; Time:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"format_datetime(object.date, tz=user.tz)\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>Doctor:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"object.doctor_id.name\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>Department:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"object.department_id.name\"/></td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"\n"
+"                    <div style=\"background-color: #f8f9fa; padding: 15px; margin: 15px 0;\">\n"
+"                        <p><strong>Please remember:</strong></p>\n"
+"                        <ul>\n"
+"                            <li>Arrive 15 minutes early</li>\n"
+"                            <li>Bring your ID and insurance card</li>\n"
+"                            <li>Bring any relevant medical records</li>\n"
+"                        </ul>\n"
+"                    </div>\n"
+"\n"
+"                    <p>For questions or rescheduling, please contact us at <t t-out=\"user.company_id.phone\"/>.</p>\n"
+"                </div>\n"
+"            </div>\n"
+"        "
+msgstr ""
+"<div style=\"margin: auto; padding: 20px; font-family: Arial, sans-serif;\">\n"
+"                <div style=\"text-align: center;\">\n"
+"                    <img t-att-src=\"'/hms/static/src/img/logo.png'\" style=\"max-height: 80px;\"/>\n"
+"                    <h2 style=\"color: #2c3e50;\">تاكيد الموعد</h2>\n"
+"                </div>\n"
+"\n"
+"                <div style=\"margin: 20px 0;\">\n"
+"                    <p>سيد\ة <t t-out=\"object.patient_id.name\"/>,</p>\n"
+"                    <p>موعدك تم تاكيده بالتفاصيل التالية :</p>\n"
+"\n"
+"                    <table style=\"width: 100%; margin: 15px 0; border-collapse: collapse;\">\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>الرقم المرجعي:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"object.name\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>التاريخ والوقت:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"format_datetime(object.date, tz=user.tz)\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>الطبيب:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"object.doctor_id.name\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>القسم:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"object.department_id.name\"/></td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"\n"
+"                    <div style=\"background-color: #f8f9fa; padding: 15px; margin: 15px 0;\">\n"
+"                        <p><strong>ملاحظات:</strong></p>\n"
+"                        <ul>\n"
+"                            <li>الحضور ابكر ب 15 دقيقة</li>\n"
+"                            <li>احضر هويتك وبطاقة التامين</li>\n"
+"                            <li>احضر اي سجلات صحية ضرورية</li>\n"
+"                        </ul>\n"
+"                    </div>\n"
+"\n"
+"                    <p>للاستفسار تواصل معنا على<t t-out=\"user.company_id.phone\"/>.</p>\n"
+"                </div>\n"
+"            </div>\n"
+"        "
+
+#. module: hms
+#: model:mail.template,body_html:hms.email_template_lab_results_ready
+msgid ""
+"<div style=\"margin: auto; padding: 20px; font-family: Arial, sans-serif;\">\n"
+"                <div style=\"text-align: center;\">\n"
+"                    <img t-att-src=\"'/hms/static/src/img/logo.png'\" style=\"max-height: 80px;\"/>\n"
+"                    <h2 style=\"color: #2c3e50;\">Lab Results Ready</h2>\n"
+"                </div>\n"
+"\n"
+"                <div style=\"margin: 20px 0;\">\n"
+"                    <p>Dear <t t-out=\"object.patient_id.name\"/>,</p>\n"
+"                    <p>Your laboratory test results are now ready:</p>\n"
+"\n"
+"                    <table style=\"width: 100%; margin: 15px 0; border-collapse: collapse;\">\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>Reference:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"object.name\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>Test Date:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"format_date(object.create_date)\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>Technician:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"object.lab_technician_id.name\"/></td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"\n"
+"                    <div style=\"background-color: #f8f9fa; padding: 15px; margin: 15px 0;\">\n"
+"                        <p><strong>Next Steps:</strong></p>\n"
+"                        <ul>\n"
+"                            <li>View your results in the patient portal</li>\n"
+"                            <li>Schedule a follow-up appointment</li>\n"
+"                            <li>For questions, call: <t t-out=\"user.company_id.phone\"/></li>\n"
+"                        </ul>\n"
+"                    </div>\n"
+"                </div>\n"
+"            </div>\n"
+"        "
+msgstr ""
+"<div style=\"margin: auto; padding: 20px; font-family: Arial, sans-serif;\">\n"
+"                <div style=\"text-align: center;\">\n"
+"                    <img t-att-src=\"'/hms/static/src/img/logo.png'\" style=\"max-height: 80px;\"/>\n"
+"                    <h2 style=\"color: #2c3e50;\">نتائج التحاليل المخبرية جاهزة</h2>\n"
+"                </div>\n"
+"\n"
+"                <div style=\"margin: 20px 0;\">\n"
+"                    <p>سيد\ة  <t t-out=\"object.patient_id.name\"/>,</p>\n"
+"                    <p>نتائج تحاليلك المخبرية جاهزة:</p>\n"
+"\n"
+"                    <table style=\"width: 100%; margin: 15px 0; border-collapse: collapse;\">\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>الرقم المرجعي:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"object.name\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>تارخ الاختبار:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"format_date(object.create_date)\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>الفني المسؤول:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"object.lab_technician_id.name\"/></td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"\n"
+"                    <div style=\"background-color: #f8f9fa; padding: 15px; margin: 15px 0;\">\n"
+"                        <p><strong>الخطوات التالية:</strong></p>\n"
+"                        <ul>\n"
+"                            <li>يمكنك الاطلاع على النتائج من خلال بوابة المريض</li>\n"
+"                            <li>ويمكنك طلب موعد للمتابعة مع طبيبك</li>\n"
+"                            <li>للاستفسار تواصل على: <t t-out=\"user.company_id.phone\"/></li>\n"
+"                        </ul>\n"
+"                    </div>\n"
+"                </div>\n"
+"            </div>\n"
+"        "
+
+#. module: hms
+#: model:mail.template,body_html:hms.email_template_prescription_ready
+msgid ""
+"<div style=\"margin: auto; padding: 20px; font-family: Arial, sans-serif;\">\n"
+"                <div style=\"text-align: center;\">\n"
+"                    <img t-att-src=\"'/hms/static/src/img/logo.png'\" style=\"max-height: 80px;\"/>\n"
+"                    <h2 style=\"color: #2c3e50;\">Prescription Ready for Pickup</h2>\n"
+"                </div>\n"
+"\n"
+"                <div style=\"margin: 20px 0;\">\n"
+"                    <p>Dear <t t-out=\"object.patient_id.name\"/>,</p>\n"
+"                    <p>Your prescription is ready for collection from our pharmacy:</p>\n"
+"\n"
+"                    <table style=\"width: 100%; margin: 15px 0; border-collapse: collapse;\">\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>Reference:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"object.name\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>Doctor:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"object.case_id.main_doctor_id.name\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>Date:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"format_date(object.date)\"/></td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"\n"
+"                    <div style=\"background-color: #f8f9fa; padding: 15px; margin: 15px 0;\">\n"
+"                        <p><strong>Important:</strong></p>\n"
+"                        <ul>\n"
+"                            <li>Please bring your ID for collection</li>\n"
+"                            <li>View details in the patient portal</li>\n"
+"                            <li>For questions, call: <t t-out=\"user.company_id.phone\"/></li>\n"
+"                        </ul>\n"
+"                    </div>\n"
+"                </div>\n"
+"            </div>\n"
+"        "
+msgstr ""
+"<div style=\"margin: auto; padding: 20px; font-family: Arial, sans-serif;\">\n"
+"                <div style=\"text-align: center;\">\n"
+"                    <img t-att-src=\"'/hms/static/src/img/logo.png'\" style=\"max-height: 80px;\"/>\n"
+"                    <h2 style=\"color: #2c3e50;\">وصفتك الطبية جاهزة للاستلام</h2>\n"
+"                </div>\n"
+"\n"
+"                <div style=\"margin: 20px 0;\">\n"
+"                    <p>سيد\ة  <t t-out=\"object.patient_id.name\"/>,</p>\n"
+"                    <p>وصفتك الطبية جاهزة للاستلام من صيدليتنا:</p>\n"
+"\n"
+"                    <table style=\"width: 100%; margin: 15px 0; border-collapse: collapse;\">\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>الرقم المرجعي:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"object.name\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>الطبيب:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"object.case_id.main_doctor_id.name\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><strong>التاريخ:</strong></td>\n"
+"                            <td style=\"padding: 8px; border-bottom: 1px solid #ddd;\"><t t-out=\"format_date(object.date)\"/></td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"\n"
+"                    <div style=\"background-color: #f8f9fa; padding: 15px; margin: 15px 0;\">\n"
+"                        <p><strong>مهم:</strong></p>\n"
+"                        <ul>\n"
+"                            <li>احضر هويتك عند الاستلام</li>\n"
+"                            <li>يمكنك الاطلاع على التفاصيل على بوابة المريض</li>\n"
+"                            <li>للاستفسار على : <t t-out=\"user.company_id.phone\"/></li>\n"
+"                        </ul>\n"
+"                    </div>\n"
+"                </div>\n"
+"            </div>\n"
+"        "
+
+#. module: hms
+#: model:mail.template,body_html:hms.email_template_appointment_cancellation
+msgid ""
+"<div style=\"padding:0px;width:600px;margin:auto;background: #FFFFFF;font-family:Verdana, Arial,sans-serif;\">\n"
+"                <t t-set=\"appointment\" t-value=\"object\"/>\n"
+"                <!-- Logo from module static path -->\n"
+"                <div style=\"text-align:center; padding: 10px;\">\n"
+"                    <img t-att-src=\"'/hms/static/src/img/logo.png'\" style=\"max-height:80px;\"/>\n"
+"                </div>\n"
+"\n"
+"                <div style=\"text-align: center; padding: 5px;\">\n"
+"                    <h2 style=\"color: #dc3545;\">Appointment Cancellation Notice</h2>\n"
+"                </div>\n"
+"                \n"
+"                <div style=\"padding:15px;\">\n"
+"                    <p>Dear <t t-esc=\"appointment.patient_id.name\"/>,</p>\n"
+"                    <p style=\"font-size: 16px;\">We are writing to confirm that your appointment has been cancelled:</p>\n"
+"                    \n"
+"                    <table style=\"width: 100%; border-collapse: collapse; margin: 15px 0;\">\n"
+"                        <tr style=\"background-color: #f8f9fa;\">\n"
+"                            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Reference</strong></td>\n"
+"                            <td style=\"padding: 8px; border: 1px solid #ddd;\"><t t-esc=\"appointment.name\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Originally Scheduled</strong></td>\n"
+"                            <td style=\"padding: 8px; border: 1px solid #ddd;\"><t t-esc=\"format_datetime(appointment.date, tz=user.tz)\"/></td>\n"
+"                        </tr>\n"
+"                        <tr style=\"background-color: #f8f9fa;\">\n"
+"                            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Doctor</strong></td>\n"
+"                            <td style=\"padding: 8px; border: 1px solid #ddd;\"><t t-esc=\"appointment.doctor_id.name\"/></td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"padding: 8px; border: 1px solid #ddd;\"><strong>Cancellation Reason</strong></td>\n"
+"                            <td style=\"padding: 8px; border: 1px solid #ddd;\"><t t-esc=\"appointment.cancel_reason or 'Not specified'\"/></td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"\n"
+"                    <div style=\"background-color: #fff3cd; padding: 15px; margin: 15px 0; border-radius: 4px;\">\n"
+"                        <p style=\"margin: 0; color: #856404;\"><strong>Next Steps:</strong></p>\n"
+"                        <ul style=\"margin: 10px 0;\">\n"
+"                            <li>Visit our patient portal to schedule a new appointment</li>\n"
+"                            <li>Contact our scheduling department at <t t-esc=\"user.company_id.phone\"/></li>\n"
+"                            <li>Email us at <t t-esc=\"user.company_id.email\"/> for assistance</li>\n"
+"                        </ul>\n"
+"                    </div>\n"
+"\n"
+"                    <div style=\"text-align: center; margin-top: 30px; color: #666;\">\n"
+"                        <p>We apologize for any inconvenience this may cause.</p>\n"
+"                        <p><small>This is an automated message, please do not reply.</small></p>\n"
+"                    </div>\n"
+"                </div>\n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_kanban_hms
+msgid "<i class=\"fa fa-calendar\"/> Appointment"
+msgstr "<i class=\"fa fa-calendar\"/> موعد"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_kanban
+msgid "<i class=\"fa fa-check-circle\"/> Dispensed:"
+msgstr "تم الصرف"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_kanban
+msgid "<i class=\"fa fa-exclamation-triangle\"/> Urgency:"
+msgstr "الضرورة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_kanban
+msgid "<i class=\"fa fa-flask\"/> Technician:"
+msgstr "الفني المسؤول"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "<i class=\"fa fa-heartbeat me-2\"/>Medical Portal"
+msgstr "<i class=\"fa fa-heartbeat me-2\"/> البوابة الطبية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_kanban_hms
+msgid "<i class=\"fa fa-hospital-o\"/> Visit"
+msgstr "<i class=\"fa fa-hospital-o\"/> زيارة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_kanban_hms
+msgid "<i class=\"fa fa-medkit\" context=\"{'new_md': True}\"/> Medical Record"
+msgstr "<i class=\"fa fa-medkit\" context=\"{'new_md': True}\"/> السجل الطبي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_kanban
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_kanban
+msgid "<i class=\"fa fa-stethoscope\"/> Case:"
+msgstr "الحالة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_kanban_hms
+msgid "<i class=\"fa fa-unlock\"/> Portal"
+msgstr "<i class=\"fa fa-unlock\"/> البوابة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_kanban
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_kanban
+msgid "<i class=\"fa fa-user\"/> Patient:"
+msgstr "المريض"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_template
+msgid "<option value=\"\">-- Select --</option>"
+msgstr "<option value=\"\">-- اختر --</option>"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_kanban
+msgid "<span class=\"badge bg-secondary\">Out of Service</span>"
+msgstr "<span class=\"badge bg-secondary\">خارج الخدمة</span>"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "<span> — </span>"
+msgstr "--"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_notes.py:0
+msgid "A Medical History already exists for this patient’s record."
+msgstr ""
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/res_partner.py:0
+msgid "A patient can only have one medical record."
+msgstr "المريض يمكن ان يكون له سجل صحي واحد فقط"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/product_template.py:0
+msgid "A product cannot be both a Medicine and a Lab Test."
+msgstr "لايمكن للمنتج ان يكون دواءا وتحليل طبي في ان معا"
+
+#. module: hms
+#: model:ir.model.fields.selection,name:hms.selection__hms_medical_record__blood_type__ab+
+#: model:ir.model.fields.selection,name:hms.selection__medical_record_wizard__blood_type__ab+
+msgid "AB+"
+msgstr "أبلاص"
+
+#. module: hms
+#: model:ir.model.fields.selection,name:hms.selection__hms_medical_record__blood_type__ab-
+#: model:ir.model.fields.selection,name:hms.selection__medical_record_wizard__blood_type__ab-
+msgid "AB-"
+msgstr "أبلا"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+msgid "Abnormal'"
+msgstr "غير طبيعي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "Access your healthcare services and medical information"
+msgstr "قم بلوصول الى الخدمات و المعلومات الصحية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "Access your laboratory test results"
+msgstr "قم بلوصول الى نتائج التحاليل المخبرية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "Access your medication prescriptions"
+msgstr "قم بلوصول الى وصفاتك الطبية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_note_form
+msgid "Accumulated Notes (History)"
+msgstr "تاريخ الملاحظات"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__message_needaction
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__message_needaction
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__message_needaction
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__message_needaction
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__message_needaction
+msgid "Action Needed"
+msgstr "إجراء مطلوب"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_cases
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_prescriptions
+msgid "Actions"
+msgstr "اجرائات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Activate Case"
+msgstr "تفعيل الحالة"
+
+#. module: hms
+#: model:ir.model.fields.selection,name:hms.selection__hms_case__state__active
+msgid "Active"
+msgstr "نشط"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Active Cases"
+msgstr "الحالات النشطة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_admin_summary_30d
+msgid "Active Cases (now)'"
+msgstr "الحالات النشطة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Active Employees"
+msgstr "الموظفون النشطون"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Active Patients"
+msgstr "المرضى النشطون"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Active Status"
+msgstr "الحالة النشطة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__activity_ids
+#: model:ir.model.fields,field_description:hms.field_hms_case__activity_ids
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__activity_ids
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__activity_ids
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__activity_ids
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__activity_ids
+msgid "Activities"
+msgstr "الأنشطة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+msgid "Activity"
+msgstr "النشاطات"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__activity_exception_decoration
+#: model:ir.model.fields,field_description:hms.field_hms_case__activity_exception_decoration
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__activity_exception_decoration
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__activity_exception_decoration
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__activity_exception_decoration
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "تزيين استثناء النشاط"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__activity_state
+#: model:ir.model.fields,field_description:hms.field_hms_case__activity_state
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__activity_state
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__activity_state
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__activity_state
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__activity_state
+msgid "Activity State"
+msgstr "حالة النشاط"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__activity_type_icon
+#: model:ir.model.fields,field_description:hms.field_hms_case__activity_type_icon
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__activity_type_icon
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__activity_type_icon
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__activity_type_icon
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "أيقونة نوع النشاط"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Add internal notes here..."
+msgstr "أضف ملاحظات داخلية هنا..."
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_form
+#: model_terms:ir.ui.view,arch_db:hms.view_lab_result_form
+msgid "Additional notes or instructions..."
+msgstr "ملاحظات أو تعليمات إضافية..."
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Address Information"
+msgstr "معلومات العنوان"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Address'"
+msgstr "العنوان"
+
+#. module: hms
+#: model:hr.department,name:hms.hms_department_administration
+msgid "Administration"
+msgstr "الإدارة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Admission"
+msgstr "قبول"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__admission_date
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_cases
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_medical_record
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Admission Date"
+msgstr "تاريخ القبول"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Admission Month"
+msgstr "شهر القبول"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Admission Week"
+msgstr "أسبوع القبول"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_medrecs_last7
+msgid "Admission'"
+msgstr "القبول"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Admissions Today"
+msgstr "القبول اليوم"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_admin_summary_30d
+msgid "Admissions'"
+msgstr "القبول"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Adults (18-65)"
+msgstr "بالغون (18-65)"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__patient_age
+msgid "Age"
+msgstr "العمر"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Age Group"
+msgstr "الفئة العمرية"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__allergies
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__allergies
+#: model:ir.model.fields,field_description:hms.field_medical_record_wizard__allergies
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Allergies"
+msgstr "الحساسية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_medical_record
+msgid "Allergies:"
+msgstr "حساسية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Allergy Status"
+msgstr "حالة الحساسية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Amount Due'"
+msgstr "الكمية المطلوبة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Application Settings"
+msgstr "إعدادات التطبيق"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_form
+msgid "Appointment"
+msgstr "موعد"
+
+#. module: hms
+#: model:mail.template,subject:hms.email_template_appointment_cancellation
+msgid "Appointment Cancelled: {{ object.name }}"
+msgstr "تم الغاء الموعد"
+
+#. module: hms
+#: model:mail.template,subject:hms.email_template_appointment_confirmation
+msgid "Appointment Confirmation: {{ object.name }}"
+msgstr "تم تاكيد الموعد"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__date
+msgid "Appointment Date"
+msgstr "تاريخ الموعد"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__name
+msgid "Appointment Reference"
+msgstr "مرجع الموعد"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request_confirmation
+msgid "Appointment Requested Successfully"
+msgstr "طلب الموعد تم تسجيله بنجاح"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "Appointment Requests"
+msgstr "طلبات المواعيد"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+msgid "Appointment Search"
+msgstr "بحث الموعد"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+msgid "Appointment with %s at %s was canceled"
+msgstr "%s في %s تم الغائه الموعد مع "
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+msgid "Appointment: %s"
+msgstr "الموعد %s"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+#: model:ir.actions.act_window,name:hms.hms_appointment_action
+#: model:ir.ui.menu,name:hms.hms_menu_appointments
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_calendar
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_list
+msgid "Appointments"
+msgstr "المواعيد"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+msgid "Appointments Starting Soon"
+msgstr "مواعيد تبدأ قريبًا"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Appointments Today"
+msgstr "المواعيد اليوم"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+msgid "Appointments Trend"
+msgstr "نمط المواعيد"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+msgid "Appointments With Case"
+msgstr "مواعيد بحالة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+msgid "Appointments Without Case"
+msgstr "مواعيد بدون حالة"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Appointments to review"
+msgstr "مواعيد تحتاج المراجعة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Approve Invoice"
+msgstr "الموافقة على الفاتورة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Approvers"
+msgstr "المعتمدون"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Assigned Cases"
+msgstr "الحالات"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__message_attachment_count
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__message_attachment_count
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__message_attachment_count
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__message_attachment_count
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__message_attachment_count
+msgid "Attachment Count"
+msgstr "عدد المرفقات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_lab_results
+#: model_terms:ir.ui.view,arch_db:hms.view_lab_result_form
+msgid "Attachments"
+msgstr "المرفقات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Attendance/Point of Sale"
+msgstr "الحضور / نقطة البيع"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_note__user_id
+msgid "Author"
+msgstr "المؤلف"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_note__role
+msgid "Author Role"
+msgstr "دور المؤلف"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Authorized Signature'"
+msgstr "التوقيع"
+
+#. module: hms
+#: model:ir.actions.server,name:hms.ir_cron_auto_mark_no_show_ir_actions_server
+msgid "Auto Mark No Show Appointments"
+msgstr "وضع علامة عدم الحضور تلقائيًا للمواعيد"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/bed.py:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_bed__state__available
+msgid "Available"
+msgstr "متاح"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+msgid "Available Beds"
+msgstr "الأسرة المتاحة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Available Rooms"
+msgstr "الغرف المتاحة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_admin_summary_30d
+msgid "Avg. Length of Stay (days)'"
+msgstr "متوسط الايام "
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_form
+msgid "Back to Service"
+msgstr "العودة إلى الخدمة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_template
+msgid "Back to login"
+msgstr "العودة لتسجيل الدخول"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__bed_id
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Bed"
+msgstr "سرير"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/bed.py:0
+msgid "Bed %s is now out of service"
+msgstr "السرير خارج الخدمة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/bed.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_bed__name
+msgid "Bed Name/Number"
+msgstr "اسم/رقم السرير"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+msgid "Bed Number"
+msgstr "رقم السرير"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+msgid "Bed Search"
+msgstr "بحث السرير"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "Bed'"
+msgstr "سرير"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+#: code:addons/hms/models/hms_room.py:0
+#: model:ir.actions.act_window,name:hms.action_hms_bed
+#: model:ir.model.fields,field_description:hms.field_hms_room__bed_ids
+#: model:ir.ui.menu,name:hms.menu_hms_bed
+msgid "Beds"
+msgstr "الأسرة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_room.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_room__number_of_available_beds
+msgid "Beds (Available)"
+msgstr "الأسرة (المتاحة)"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_room.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_room__beds_occupied
+msgid "Beds (Occupied)"
+msgstr "الأسرة (المشغولة)"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_room.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_room__beds_total
+msgid "Beds (Total)"
+msgstr "الأسرة (الإجمالي)"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+msgid "Beds Without Department"
+msgstr "أسرة بدون قسم"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+msgid "Beds Without Room"
+msgstr "أسرة بدون غرفة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+msgid "Billing/Invoices"
+msgstr "الفواتير"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Birth Date"
+msgstr "تاريخ الميلاد"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_res_partner__birthdate
+#: model:ir.model.fields,field_description:hms.field_res_users__birthdate
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Birthdate"
+msgstr "تاريخ الميلاد"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Birthday This Month"
+msgstr "عيد الميلاد هذا الشهر"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__blood_type
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__blood_type
+#: model:ir.model.fields,field_description:hms.field_medical_record_wizard__blood_type
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Blood Type"
+msgstr "فصيلة الدم"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Blood Type & Allergy"
+msgstr "فصيلة الدم والحساسية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Blood Type A"
+msgstr "فصيلة الدم A"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Blood Type AB"
+msgstr "فصيلة الدم AB"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Blood Type B"
+msgstr "فصيلة الدم B"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Blood Type O"
+msgstr "فصيلة الدم O"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_medical_record
+msgid "Blood Type:"
+msgstr "زمرة الدم"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request_line.py:0
+msgid "Both values in normal range must be valid numbers."
+msgstr "القيم في النطاق الطبيعي يجب ان تكون ارقاما"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__calendar_event_id
+msgid "Calendar Event"
+msgstr "حدث التقويم"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__can_approve_invoice
+msgid "Can Approve Invoice"
+msgstr ""
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_bed__can_edit
+#: model:ir.model.fields,field_description:hms.field_hms_room__can_edit
+msgid "Can Edit"
+msgstr "يستطيع التعديل"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__can_edit_consumables
+msgid "Can Edit Consumables"
+msgstr "يمكن تعديل المستهلكات"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__can_edit_diagnosis
+msgid "Can Edit Diagnosis"
+msgstr "يمكن تعديل التشخيص"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__can_edit_labs
+msgid "Can Edit Labs"
+msgstr "يمكن تعديل المختبرات"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__can_edit_logistics
+msgid "Can Edit Logistics"
+msgstr "يمكن تعديل اللوجستيات"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_res_partner__can_edit_patient
+#: model:ir.model.fields,field_description:hms.field_res_users__can_edit_patient
+msgid "Can Edit Patient Info"
+msgstr "يستطيع تعديل بيانات المريض"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__can_edit_prescriptions
+msgid "Can Edit Prescriptions"
+msgstr "يمكن تعديل الوصفات"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__can_edit_team
+msgid "Can Edit Team"
+msgstr "يمكن تعديل الفريق"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_form
+#: model_terms:ir.ui.view,arch_db:hms.view_change_employee_password_wizard_form
+#: model_terms:ir.ui.view,arch_db:hms.view_grant_portal_wizard_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_form
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__cancel_reason
+msgid "Cancel Reason"
+msgstr "سبب الإلغاء"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_appointment__state__canceled
+msgid "Canceled"
+msgstr "ملغى"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+msgid "Canceled by user."
+msgstr "تم الغائه من قبل المستخدم"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+#: code:addons/hms/models/hms_prescription.py:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_lab_request__state__cancelled
+#: model:ir.model.fields.selection,name:hms.selection__hms_prescription__state__cancelled
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Cancelled"
+msgstr "ملغى"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Cancelled Prescriptions"
+msgstr "الوصفات الملغاة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Cancelled Results"
+msgstr "النتائج الملغاة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_case.py:0
+msgid ""
+"Cannot close case with pending lab tests. The following lab requests are not"
+" completed: %s. Please ensure all lab tests are completed."
+msgstr ""
+"لايمكن اغلاق الحالة مع وجود نتائج مخبرية معلقة"
+" هذه النتائج غير مكتملة %s."
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_case.py:0
+msgid ""
+"Cannot close case with unapproved prescriptions. The following prescriptions"
+" are not approved: %s. Please ensure all prescriptions are approved."
+msgstr ""
+"لايمكن اغلاق الحالة مع وجود وصفات طبية معلقة"
+" هذه الوصفات غير مكتملة %s."
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_room.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_room__capacity
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_form
+msgid "Capacity"
+msgstr "السعة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_kanban
+msgid "Capacity:"
+msgstr "السعة:"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/consumable_line.py:0
+#: code:addons/hms/models/hms_lab_result.py:0
+#: code:addons/hms/models/hms_prescription.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__case_id
+#: model:ir.model.fields,field_description:hms.field_hms_consumable_line__case_id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__case_id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__case_id
+#: model:ir.model.fields,field_description:hms.field_hms_note__case_id
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__case_id
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_prescriptions
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Case"
+msgstr "حالة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Case & Dispensing"
+msgstr "الحالة والصرف"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Case & Request State"
+msgstr "حالة الحالة والطلب"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+msgid "Case Details"
+msgstr "تفاصيل الحالة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__name
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_cases
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_medical_record
+msgid "Case ID"
+msgstr "رقم الحالة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+msgid "Case ID'"
+msgstr "معرف الحالة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+msgid "Case Information"
+msgstr "تفاصيل الحالة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Case Name"
+msgstr "اسم الحالة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__case_note_ids
+msgid "Case Notes"
+msgstr "ملاحظات الحالة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Case Search"
+msgstr "بحث الحالة"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Case Status Overview"
+msgstr "نظرة عامة على الحالات"
+
+#. module: hms
+#: model:ir.actions.report,name:hms.action_report_case_summary
+#: model:ir.actions.report,name:hms.action_report_case_summary_en
+msgid "Case Summary"
+msgstr "ملخص الحالة"
+
+#. module: hms
+#: model:ir.model,name:hms.model_report_hms_report_case_summary
+msgid "Case Summary Report "
+msgstr "ملخص الحالة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "Case Summary'"
+msgstr "ملخص الحالة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_medrecs_last7
+msgid "Case'"
+msgstr "حالة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__case_ids
+#: model:ir.model.fields,field_description:hms.field_hr_employee__case_ids
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_form
+msgid "Cases"
+msgstr "الحالات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Cases With Lab Requests"
+msgstr "حالات بطلبات مختبر"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Cases With Prescriptions"
+msgstr "حالات بوصفات طبية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Cases Without Nurse"
+msgstr "حالات بدون ممرض"
+
+#. module: hms
+#: model:ir.actions.act_window,name:hms.action_change_employee_password_wizard
+#: model_terms:ir.ui.view,arch_db:hms.view_change_employee_password_wizard_form
+msgid "Change Employee Password"
+msgstr "تغير كلمة مرور الموظف"
+
+#. module: hms
+#: model:ir.model,name:hms.model_change_employee_password_wizard
+msgid "Change Employee User Password"
+msgstr "تغير كلمة مرور الموظف"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_kanban_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_change_employee_password_wizard_form
+msgid "Change Password"
+msgstr "تغيير كلمة المرور"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_models_stock_location.py:0
+#: code:addons/hms/models/stock_location.py:0
+#: model:ir.model.fields,help:hms.field_stock_location__is_pharmacy
+msgid "Check this box if this location is used as a pharmacy storage"
+msgstr ""
+
+#. module: hms
+#: model:hr.job,name:hms.hr_job_chemist
+#: model:res.groups,name:hms.group_hms_chemist
+msgid "Chemist"
+msgstr "صيدلي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Chemists"
+msgstr "الصيادلة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request
+msgid "Choose Doctor"
+msgstr "اختار الطبيب"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_override_web_login_modern
+msgid "Choose a user"
+msgstr "اختر مستخدمًا"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request
+msgid "Choose the best way to schedule your appointment."
+msgstr "اختار طريقتك المفضلة لطلب الموعد"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_disease__is_chronic
+msgid "Chronic Disease"
+msgstr "مرض مزمن"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Citizenship"
+msgstr "الجنسية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_template
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "City"
+msgstr "المدينة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Close Case"
+msgstr "إغلاق الحالة"
+
+#. module: hms
+#: model:ir.model.fields.selection,name:hms.selection__hms_case__state__closed
+msgid "Closed"
+msgstr "مغلق"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Closed Cases"
+msgstr "الحالات المغلقة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_insurance__code
+msgid "Code"
+msgstr "الرمز"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Company"
+msgstr "الشركة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_medrecs_last7
+msgid "Company'"
+msgstr "الشركة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "Complete medical history and records"
+msgstr "التاريخ الطبي الكامل"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_lab_request__state__completed
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Completed"
+msgstr "مكتمل"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Completed Cases"
+msgstr "الحالات المكتملة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Completed Results"
+msgstr "النتائج المكتملة"
+
+#. module: hms
+#: model:ir.ui.menu,name:hms.hms_menu_config
+msgid "Configuration"
+msgstr "الإعدادات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "Configure your connection parameters"
+msgstr "اعدادات الاتصال والامان"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_form
+msgid "Confirm"
+msgstr "تأكيد"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+#: code:addons/hms/models/hms_prescription.py:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_appointment__state__confirmed
+#: model:ir.model.fields.selection,name:hms.selection__hms_prescription__state__confirmed
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+msgid "Confirmed"
+msgstr "تم التأكيد"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_admin_summary_30d
+msgid "Confirmed Appointments'"
+msgstr "المواعيد المؤكدة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Confirmed Prescriptions"
+msgstr "الوصفات المؤكدة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "Connection &amp; Security"
+msgstr "الاتصال والامان"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "Consultants'"
+msgstr "الاستشاريوون"
+
+#. module: hms
+#: model:ir.model.fields.selection,name:hms.selection__hms_note__note_type__consultation
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Consultation"
+msgstr "استشارة"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Consultation Cases"
+msgstr "الحالات المطلوب الاستشارة بها"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__consultation_note
+#: model:ir.model.fields,field_description:hms.field_hms_case__consultation_note_edit
+msgid "Consultation Note"
+msgstr "ملخص الاستشارة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__consultation_note_acc
+msgid "Consultation Note (Read-Only)"
+msgstr "ملخص الاستشارة"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_case__consultation_note
+msgid "Consultation note for this case."
+msgstr "ملخص الاستشارة لهذه الحالة"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Consultations"
+msgstr "الاستشارات"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__consulting_doctor_ids
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Consulting Doctors"
+msgstr "الأطباء المستشارون"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/consumable_line.py:0
+#: model:ir.model,name:hms.model_hms_consumable_line
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_consumable_line_form
+msgid "Consumable Line"
+msgstr "بند المستهلكات"
+
+#. module: hms
+#: model:ir.actions.act_window,name:hms.action_hms_consumable_line
+msgid "Consumable Lines"
+msgstr "بنود المستهلكات"
+
+#. module: hms
+#: model:ir.actions.act_window,name:hms.action_product_consumable_mange
+msgid "Consumable Mangement"
+msgstr "ادارة المستهلكات"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__consumable_line_ids
+#: model:ir.ui.menu,name:hms.menu_hms_consumable_mange
+#: model_terms:ir.ui.view,arch_db:hms.view_product_template_search_hms
+msgid "Consumables"
+msgstr "المستهلكات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "Consumables'"
+msgstr "مستهلكات"
+
+#. module: hms
+#: model:ir.model,name:hms.model_res_partner
+msgid "Contact"
+msgstr "جهة الاتصال"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Contact Information"
+msgstr "معلومات الاتصال"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_kanban_hms
+msgid "Contracts"
+msgstr "العقود"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Cost Range"
+msgstr "نطاق التكلفة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_template
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Country"
+msgstr "الدولة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_insurance__coverage
+msgid "Coverage Details"
+msgstr "تفاصيل التغطية"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_insurance__coverage_percentage
+msgid "Coverage Percentage"
+msgstr "نسبة التغطية"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+msgid "Create Case"
+msgstr "انشء حالة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_medical_record_wizard_form
+msgid "Create Medical Record"
+msgstr "إنشاء سجل طبي"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hr_employee.py:0
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_kanban_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_grant_portal_wizard_form
+msgid "Create User"
+msgstr "إنشاء مستخدم"
+
+#. module: hms
+#: model_terms:ir.actions.act_window,help:hms.action_hms_note
+msgid "Create your first medical note"
+msgstr "أنشئ ملاحظتك الطبية الأولى"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__created_by
+#: model:ir.model.fields,field_description:hms.field_hms_case__created_by
+msgid "Created By"
+msgstr "تم الإنشاء بواسطة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_change_employee_password_wizard__create_uid
+#: model:ir.model.fields,field_description:hms.field_grant_portal_wizard__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_bed__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_case__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_consumable_line__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_dashboard__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_disease__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_insurance__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request_line__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_note__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_role__create_uid
+#: model:ir.model.fields,field_description:hms.field_hms_room__create_uid
+#: model:ir.model.fields,field_description:hms.field_medical_record_wizard__create_uid
+msgid "Created by"
+msgstr "تم الإنشاء بواسطة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_change_employee_password_wizard__create_date
+#: model:ir.model.fields,field_description:hms.field_grant_portal_wizard__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_bed__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_case__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_consumable_line__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_dashboard__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_disease__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_insurance__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request_line__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_role__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_room__create_date
+#: model:ir.model.fields,field_description:hms.field_medical_record_wizard__create_date
+msgid "Created on"
+msgstr "تم الإنشاء في"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Creation Date"
+msgstr "تاريخ الإنشاء"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Customer'"
+msgstr "عميل"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_dashboard__name
+#: model:ir.ui.menu,name:hms.hms_menu_dashboard
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_note__create_date
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__date
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_appointments
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_prescriptions
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__date_requested
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+msgid "Date Requested"
+msgstr "تاريخ الطلب"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_prescription_template
+msgid "Date'"
+msgstr "تاريخ"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/bed.py:0 code:addons/hms/models/hms_room.py:0
+#: model:ir.model,name:hms.model_hr_department
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__department_id
+#: model:ir.model.fields,field_description:hms.field_hms_bed__department_id
+#: model:ir.model.fields,field_description:hms.field_hms_room__department_id
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Department"
+msgstr "القسم"
+
+#. module: hms
+#: model:ir.ui.menu,name:hms.menu_hms_hospital_departments
+msgid "Departments"
+msgstr "الأقسام"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Departure"
+msgstr "المغادرة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_disease__description
+msgid "Description"
+msgstr "الوصف"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__diagnosis_ids
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Diagnosis"
+msgstr "التشخيص"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__diagnosis_text
+msgid "Diagnosis (Text)"
+msgstr "التشخيص (نص)"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Diagnosis Details"
+msgstr "تفاصيل التشخيص"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "Diagnosis'"
+msgstr "تشخيص"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Disc %'"
+msgstr ""
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__discharge_date
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_cases
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_medical_record
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Discharge Date"
+msgstr "تاريخ الخروج"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "Discharge'"
+msgstr ""
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Discharged Today"
+msgstr "المخرجون اليوم"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_admin_summary_30d
+msgid "Discharges'"
+msgstr "الخروج"
+
+#. module: hms
+#: model:ir.model,name:hms.model_hms_disease
+msgid "Disease"
+msgstr "المرض"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_disease__name
+msgid "Disease Name"
+msgstr "اسم المرض"
+
+#. module: hms
+#: model:ir.actions.act_window,name:hms.action_hms_disease
+#: model:ir.ui.menu,name:hms.menu_hms_disease
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Diseases"
+msgstr "الأمراض"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_medical_record
+msgid "Diseases:"
+msgstr "الأمراض"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_form
+msgid "Dispense"
+msgstr "صرف"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+#: code:addons/hms/models/hms_prescription.py:0
+msgid "Dispense %s"
+msgstr "اصرف %s"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+msgid "Dispense Medication"
+msgstr "اصرف الدواء"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription.py:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_prescription__state__dispensed
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_prescriptions
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Dispensed"
+msgstr "تم الصرف"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription_line.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__dispensed_date
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+msgid "Dispensed Date"
+msgstr "تاريخ الصرف"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Dispensed Prescriptions"
+msgstr "الوصفات المصروفة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Dispensing Status"
+msgstr "حالة الصرف"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_change_employee_password_wizard__display_name
+#: model:ir.model.fields,field_description:hms.field_grant_portal_wizard__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_bed__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_case__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_consumable_line__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_dashboard__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_disease__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_insurance__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request_line__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_note__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_role__display_name
+#: model:ir.model.fields,field_description:hms.field_hms_room__display_name
+#: model:ir.model.fields,field_description:hms.field_medical_record_wizard__display_name
+msgid "Display Name"
+msgstr "اسم العرض"
+
+#. module: hms
+#: model:hr.job,name:hms.hr_job_doctor
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__doctor_id
+#: model:ir.model.fields.selection,name:hms.selection__hms_note__role__doctor
+#: model:res.groups,name:hms.group_hms_doctor
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_appointments
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_medical_record
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Doctor"
+msgstr "طبيب"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+msgid "Doctor %s is already booked between %s and %s."
+msgstr "الطبيب %s مشغول بين %s و %s"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+msgid "Doctor %s is not working at the selected time."
+msgstr "الطبيب لايعمل في الموعد المحدد"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Doctor Cases"
+msgstr "حالات الطبيب"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+#: model_terms:ir.ui.view,arch_db:hms.report_prescription_template
+msgid "Doctor'"
+msgstr "الطبيب"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Doctors"
+msgstr "الأطباء"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_override_web_login_modern
+msgid "Don't have an account?"
+msgstr "ليس لديك حساب؟"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_appointment__state__done
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_form
+msgid "Done"
+msgstr "منتهي"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription_line.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__dosage
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+msgid "Dosage"
+msgstr "الجرعة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_prescription_template
+msgid "Dosage'"
+msgstr "الجرعة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+#: code:addons/hms/models/hms_lab_request.py:0
+#: code:addons/hms/models/hms_prescription.py:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_appointment__state__draft
+#: model:ir.model.fields.selection,name:hms.selection__hms_case__state__draft
+#: model:ir.model.fields.selection,name:hms.selection__hms_lab_request__state__draft
+#: model:ir.model.fields.selection,name:hms.selection__hms_prescription__state__draft
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Draft Cases"
+msgstr "حالات مسودة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Draft Prescriptions"
+msgstr "وصفات مسودة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Draft Requests"
+msgstr "طلبات مسودة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Due Date'"
+msgstr "تاريخ الاستلام"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription_line.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__duration
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+msgid "Duration"
+msgstr "المدة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_prescription_template
+msgid "Duration'"
+msgstr "المدة"
+
+#. module: hms
+#: model:ir.model.constraint,message:hms.constraint_hms_medical_record_unique_patient_record
+msgid "Each patient can only have one medical record!"
+msgstr "يمكن أن يكون لكل مريض سجل طبي واحد فقط!"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Education"
+msgstr "التعليم"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_grant_portal_wizard__email
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__patient_email
+#: model_terms:ir.ui.view,arch_db:hms.hms_override_web_login_modern
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_template
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_tree
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#. module: hms
+#: model:hr.department,name:hms.hms_department_emergency
+#: model:ir.model.fields.selection,name:hms.selection__hms_appointment__urgency__emergency
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Emergency"
+msgstr "طوارئ"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_res_partner__emergency_contact_id
+#: model:ir.model.fields,field_description:hms.field_res_users__emergency_contact_id
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Emergency Contact"
+msgstr "جهة اتصال الطوارئ"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Emergency Department"
+msgstr "قسم الطوارئ"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+msgid "Emergency Department Beds"
+msgstr "أسرة قسم الطوارئ"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_res_partner__emergency_phone
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Emergency Phone"
+msgstr "هاتف الطوارئ"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Emergency Relation"
+msgstr "صلة القرابة في الطوارئ"
+
+#. module: hms
+#: model:ir.model,name:hms.model_hr_employee
+#: model:ir.model.fields,field_description:hms.field_change_employee_password_wizard__employee_id
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Employee Name"
+msgstr "اسم الموظف"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Employee Type"
+msgstr "نوع الموظف"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Employees in my department"
+msgstr "الموظفون في قسمي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Empty Rooms (0%)"
+msgstr "غرف فارغة (0%)"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Enter consultation notes here..."
+msgstr "قم بادخال الملاحظات الاستشارية هنا"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Enter general notes here..."
+msgstr "قم بادخال الملاحظات العامة هنا"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Enter medical history notes here..."
+msgstr "قم بادخال التاريخ الصحي هنا"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_medical_record_wizard_form
+msgid "Enter medical history..."
+msgstr "قم بادخال التاريخ الصحي هنا"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Enter vitals notes here..."
+msgstr "ادخل القياسات الطبية هنا"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription.py:0
+msgid "Error while dispensing medication: %s"
+msgstr "خطأ خلال صرف الدواء %s"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+msgid "Error while dispensing test: %s"
+msgstr "خطأ خلال صرف التحليل %s"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_custom_external_layout
+msgid "Excellence in Healthcare &amp; Compassion"
+msgstr "الافضل في الرعاية الصحية والعناية بالمرضى "
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__expected_end
+msgid "Expected End"
+msgstr "النهاية المتوقعة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Family Status"
+msgstr "الحالة العائلية"
+
+#. module: hms
+#: model:ir.model.fields.selection,name:hms.selection__res_partner__gender__female
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Female"
+msgstr "أنثى"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_room.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_room__floor
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Floor"
+msgstr "الطابق"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_kanban
+msgid "Floor:"
+msgstr "الطابق:"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "Follow, download or pay your invoices"
+msgstr "قم بمتابعة و تنزيل و تحميل فواتيرك الطبية هنا"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__message_follower_ids
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__message_follower_ids
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__message_follower_ids
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__message_follower_ids
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__message_follower_ids
+msgid "Followers"
+msgstr "المتابعون"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__message_partner_ids
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__message_partner_ids
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__message_partner_ids
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__message_partner_ids
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "المتابعون (الشركاء)"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_appointment__activity_type_icon
+#: model:ir.model.fields,help:hms.field_hms_case__activity_type_icon
+#: model:ir.model.fields,help:hms.field_hms_lab_request__activity_type_icon
+#: model:ir.model.fields,help:hms.field_hms_lab_result__activity_type_icon
+#: model:ir.model.fields,help:hms.field_hms_prescription__activity_type_icon
+#: model:ir.model.fields,help:hms.field_hms_prescription_line__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "أيقونة Font Awesome مثل fa-tasks"
+
+#. module: hms
+#: model:ir.actions.client,name:hms.hms_dashboards_action
+msgid "Front Desk Dashboard"
+msgstr "لوحة تحكم الاستقبال"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+msgid "Full Bed Identifier"
+msgstr "معرف السرير الكامل"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_template
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Full Name"
+msgstr "الاسم الكامل"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Full Occupancy (100%)"
+msgstr "إشغال كامل (100%)"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_res_partner__gender
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Gender"
+msgstr "الجنس"
+
+#. module: hms
+#: model:ir.model.fields.selection,name:hms.selection__hms_note__note_type__general
+msgid "General"
+msgstr "عام"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request
+msgid "General Appointment"
+msgstr "موعد عام"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_navbar_logo
+msgid "General Hospital Patient Portal"
+msgstr "بوابة المريض"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_form
+msgid "General Info"
+msgstr "معلومات عامة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_medical_record
+msgid "General Information"
+msgstr "المعلومات العامة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__general_note
+#: model:ir.model.fields,field_description:hms.field_hms_case__general_note_edit
+msgid "General Note"
+msgstr "الملاحظات العامة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__general_note_acc
+msgid "General Note (Read-Only)"
+msgstr "الملاحظات العامة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "General Notes"
+msgstr "ملاحظات عامة"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_case__general_note
+msgid "General note for this case."
+msgstr "الملاحظات العامة لهذه الحاله"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Generate"
+msgstr "توليد"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_medrecs_last7
+msgid "Generated On'"
+msgstr "تاريخ الطباعة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_success
+msgid "Go to login"
+msgstr "انتقل لتسجيل الدخول"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/res_partner.py:0
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_grant_portal_wizard_form
+msgid "Grant Portal Access"
+msgstr "منح صلاحية الوصول للبوابة"
+
+#. module: hms
+#: model:ir.model,name:hms.model_grant_portal_wizard
+msgid "Grant Portal Access Wizard"
+msgstr "معالج منح صلاحية الوصول للبوابة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Group By"
+msgstr "تجميع حسب"
+
+#. module: hms
+#: model:ir.model,name:hms.model_hms_dashboard
+msgid "HMS Dashboard"
+msgstr "لوحة تحكم نظام إدارة المستشفى"
+
+#. module: hms
+#: model:ir.model,name:hms.model_hms_lab_request
+msgid "HMS Lab Request"
+msgstr "طلب مختبر نظام إدارة المستشفى"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request_line.py:0
+#: model:ir.model,name:hms.model_hms_lab_request_line
+msgid "HMS Lab Request Line"
+msgstr "طلب مختبر"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_result.py:0
+#: model:ir.model,name:hms.model_hms_lab_result
+msgid "HMS Lab Result"
+msgstr "نتيجة مختبر نظام إدارة المستشفى"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription.py:0
+#: model:ir.model,name:hms.model_hms_prescription
+msgid "HMS Prescription"
+msgstr "وصفة نظام إدارة المستشفى"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription_line.py:0
+#: model:ir.model,name:hms.model_hms_prescription_line
+msgid "HMS Prescription Line"
+msgstr "بند وصفة نظام إدارة المستشفى"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hr_employee__hms_role_id
+msgid "HMS Role"
+msgstr "دور نظام إدارة المستشفى"
+
+#. module: hms
+#: model:ir.model,name:hms.model_report_hms_report_admin_summary_30d
+msgid "HMS: Admin Summary (last 30 days)"
+msgstr "ملخص العمليات 30 يوما"
+
+#. module: hms
+#: model:mail.template,name:hms.email_template_appointment_cancellation
+msgid "HMS: Appointment Cancellation"
+msgstr "الغاء الموعد"
+
+#. module: hms
+#: model:mail.template,name:hms.email_template_appointment_confirmation
+msgid "HMS: Appointment Confirmation"
+msgstr "تاكيد الموعد"
+
+#. module: hms
+#: model:mail.template,name:hms.email_template_lab_results_ready
+msgid "HMS: Lab Results Ready"
+msgstr "نتائج التحاليل جاهزة"
+
+#. module: hms
+#: model:ir.model,name:hms.model_report_hms_report_medrecs_last7
+msgid "HMS: Medical Records — last 7 days (latest case per patient)"
+msgstr "السجلات الصحية خلال اخر 7 ايام"
+
+#. module: hms
+#: model:mail.template,name:hms.email_template_prescription_ready
+msgid "HMS: Prescription Ready for Pickup"
+msgstr "الوصفة جاهزة للاستلام"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Has Emergency Contact"
+msgstr "لديه جهة اتصال للطوارئ"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__has_message
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__has_message
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__has_message
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__has_message
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__has_message
+msgid "Has Message"
+msgstr "لديه رسالة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Has User Account"
+msgstr "لديه حساب مستخدم"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Help"
+msgstr "مساعدة"
+
+#. module: hms
+#. odoo-javascript
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_lab_request__urgency__high
+msgid "High"
+msgstr "عالي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "High Capacity (4+ beds)"
+msgstr "سعة عالية (4+ أسرة)"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "High Cost Cases"
+msgstr "حالات عالية التكلفة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "High Occupancy (75%+)"
+msgstr "إشغال عالي (75%+)"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "High Urgency"
+msgstr "استعجال عالي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Hired Last Month"
+msgstr "تم التعيين الشهر الماضي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Hired This Month"
+msgstr "تم التعيين هذا الشهر"
+
+#. module: hms
+#: model:ir.ui.menu,name:hms.hms_menu_root
+msgid "Hospital"
+msgstr "المستشفى"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/bed.py:0 model:ir.model,name:hms.model_hms_bed
+msgid "Hospital Bed"
+msgstr "سرير المستشفى"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hr_department__is_hospital
+msgid "Hospital Department"
+msgstr "قسم المستشفى"
+
+#. module: hms
+#: model:ir.actions.act_window,name:hms.action_hms_hospital_departments
+msgid "Hospital Departments"
+msgstr "أقسام المستشفى"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_override_web_login_modern
+msgid "Hospital Logo"
+msgstr "شعار المستشفى"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_override_web_login_modern
+msgid "Hospital Management System"
+msgstr "نظام إدارة المستشفى"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Hospital Management — Dashboard"
+msgstr "ادارة المشفى - الصفحى الرئيسية"
+
+#. module: hms
+#: model:mail.message.subtype,name:hms.mt_hms_notice
+msgid "Hospital Notice"
+msgstr "إشعار المستشفى"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/controllers/portal.py:0 code:addons/hms/models/bed.py:0
+#: code:addons/hms/models/hms_appointment.py:0
+#: code:addons/hms/models/hms_lab_request.py:0
+#: code:addons/hms/models/hms_notes.py:0
+#: code:addons/hms/models/hms_prescription.py:0
+msgid "Hospital Notification"
+msgstr "اشعارات المستشفى"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Hospital Role"
+msgstr "دور المستشفى"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_room.py:0 model:ir.model,name:hms.model_hms_room
+msgid "Hospital Room"
+msgstr "غرفة المستشفى"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Hospital Staff"
+msgstr "طاقم المستشفى"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Hospital Staff Search"
+msgstr "بحث طاقم المستشفى"
+
+#. module: hms
+#: model:ir.actions.report,name:hms.action_report_admin_summary_30d
+msgid "Hospital Summary (Last 30 Days)"
+msgstr "ملخص العمليات 30 يوما"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_admin_summary_30d
+msgid "Hospital Summary (Last 30 Days)'"
+msgstr "ملخص العمليات 30 يوما"
+
+#. module: hms
+#: model:ir.model,name:hms.model_hms_role
+msgid "Hospital System Role"
+msgstr "دور نظام المستشفى"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_disease__code
+msgid "ICD-10 Code"
+msgstr "رمز ICD-10"
+
+#. module: hms
+#: model:hr.department,name:hms.hms_department_icu
+msgid "ICU"
+msgstr "العناية المركزة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+msgid "ICU Beds"
+msgstr "أسرة العناية المركزة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "ICU Rooms"
+msgstr "غرف العناية المركزة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_change_employee_password_wizard__id
+#: model:ir.model.fields,field_description:hms.field_grant_portal_wizard__id
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__id
+#: model:ir.model.fields,field_description:hms.field_hms_bed__id
+#: model:ir.model.fields,field_description:hms.field_hms_case__id
+#: model:ir.model.fields,field_description:hms.field_hms_consumable_line__id
+#: model:ir.model.fields,field_description:hms.field_hms_dashboard__id
+#: model:ir.model.fields,field_description:hms.field_hms_disease__id
+#: model:ir.model.fields,field_description:hms.field_hms_insurance__id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request_line__id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__id
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__id
+#: model:ir.model.fields,field_description:hms.field_hms_note__id
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__id
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__id
+#: model:ir.model.fields,field_description:hms.field_hms_role__id
+#: model:ir.model.fields,field_description:hms.field_hms_room__id
+#: model:ir.model.fields,field_description:hms.field_medical_record_wizard__id
+msgid "ID"
+msgstr "المعرف"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "ID Number"
+msgstr "رقم الهوية"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__activity_exception_icon
+#: model:ir.model.fields,field_description:hms.field_hms_case__activity_exception_icon
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__activity_exception_icon
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__activity_exception_icon
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__activity_exception_icon
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__activity_exception_icon
+msgid "Icon"
+msgstr "الأيقونة"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_appointment__activity_exception_icon
+#: model:ir.model.fields,help:hms.field_hms_case__activity_exception_icon
+#: model:ir.model.fields,help:hms.field_hms_lab_request__activity_exception_icon
+#: model:ir.model.fields,help:hms.field_hms_lab_result__activity_exception_icon
+#: model:ir.model.fields,help:hms.field_hms_prescription__activity_exception_icon
+#: model:ir.model.fields,help:hms.field_hms_prescription_line__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "أيقونة للإشارة إلى نشاط استثنائي."
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Identity"
+msgstr "الهوية"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_case__message_needaction
+#: model:ir.model.fields,help:hms.field_hms_lab_request__message_needaction
+#: model:ir.model.fields,help:hms.field_hms_lab_result__message_needaction
+#: model:ir.model.fields,help:hms.field_hms_prescription__message_needaction
+#: model:ir.model.fields,help:hms.field_hms_prescription_line__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "إذا تم تحديده، فإن الرسائل الجديدة تتطلب انتباهك."
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_case__message_has_error
+#: model:ir.model.fields,help:hms.field_hms_case__message_has_sms_error
+#: model:ir.model.fields,help:hms.field_hms_lab_request__message_has_error
+#: model:ir.model.fields,help:hms.field_hms_lab_request__message_has_sms_error
+#: model:ir.model.fields,help:hms.field_hms_lab_result__message_has_error
+#: model:ir.model.fields,help:hms.field_hms_lab_result__message_has_sms_error
+#: model:ir.model.fields,help:hms.field_hms_prescription__message_has_error
+#: model:ir.model.fields,help:hms.field_hms_prescription__message_has_sms_error
+#: model:ir.model.fields,help:hms.field_hms_prescription_line__message_has_error
+#: model:ir.model.fields,help:hms.field_hms_prescription_line__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "إذا تم التحديد، فهذا يعني أن بعض الرسائل لديها خطأ في التسليم."
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_note__is_important
+msgid "Important"
+msgstr "مهم"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+#: code:addons/hms/models/hms_lab_request.py:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_appointment__state__in_progress
+#: model:ir.model.fields.selection,name:hms.selection__hms_lab_request__state__in_progress
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "In Progress"
+msgstr "قيد التنفيذ"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "In Progress Results"
+msgstr "نتائج قيد التنفيذ"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "In Service"
+msgstr "قيد الخدمة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Inactive Employees"
+msgstr "الموظفون غير النشطين"
+
+#. module: hms
+#: model:ir.actions.act_window,name:hms.action_hms_insurance
+#: model:ir.model,name:hms.model_hms_insurance
+#: model:ir.model.fields,field_description:hms.field_hms_case__insurance_id
+#: model:ir.ui.menu,name:hms.menu_hms_insurance
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Insurance"
+msgstr "التأمين"
+
+#. module: hms
+#: model:ir.actions.act_window,name:hms.action_insurance_companies
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Insurance Companies"
+msgstr "شركات التأمين"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_insurance__name
+#: model:ir.model.fields,field_description:hms.field_res_partner__insurance_id
+#: model:ir.model.fields,field_description:hms.field_res_users__insurance_id
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_insurance_only
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Insurance Company"
+msgstr "شركة التأمين"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__insurance_coverage
+msgid "Insurance Coverage (%)"
+msgstr "نسبة التـأمين %"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__insurance_covered
+msgid "Insurance Covered"
+msgstr "تغطية التـأمين"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Insurance Details"
+msgstr "تفاصيل التأمين"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_insurance__insurance_number
+msgid "Insurance Number"
+msgstr "رقم التأمين"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_insurance_only
+msgid "Insurance Policies"
+msgstr "خطط التأمين"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Internal Notes"
+msgstr "ملاحظات داخلية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_insurance_only
+msgid "Internal notes for insurance company"
+msgstr "ملاحظات شركة التامين"
+
+#. module: hms
+#: model:ir.model,name:hms.model_stock_location
+msgid "Inventory Locations"
+msgstr "مواقع المخزون"
+
+#. module: hms
+#: model:ir.actions.report,name:hms.action_report_invoice_hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__invoice_id
+msgid "Invoice"
+msgstr "الفاتورة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Invoice Date'"
+msgstr "تاريخ الفاتورة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Invoice Lines'"
+msgstr "محتويات الفاتورة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Invoice Number'"
+msgstr "رقم الفاتورة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Invoice'"
+msgstr "الفاتورة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request_line.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request_line__is_abnormal
+msgid "Is Abnormal"
+msgstr "غير طبيعي"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_product_product__is_consumable
+#: model:ir.model.fields,field_description:hms.field_product_template__is_consumable
+msgid "Is Consumable"
+msgstr "قابل للاستهلاك"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription.py:0
+#: code:addons/hms/models/hms_prescription_line.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__is_dispensed
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__is_dispensed
+msgid "Is Dispensed"
+msgstr "دواء"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hr_employee__is_Doctor
+msgid "Is Doctor"
+msgstr "طبيب"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__message_is_follower
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__message_is_follower
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__message_is_follower
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__message_is_follower
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__message_is_follower
+msgid "Is Follower"
+msgstr "متابع"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_res_partner__is_insurance_company
+#: model:ir.model.fields,field_description:hms.field_res_users__is_insurance_company
+msgid "Is Insurance Company"
+msgstr "شركة تأمين"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hr_employee__is_Lab_Technician
+msgid "Is Lab Technician"
+msgstr "فني مختبر"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_product_product__is_lab_test
+#: model:ir.model.fields,field_description:hms.field_product_template__is_lab_test
+msgid "Is Lab Test"
+msgstr "اختبار مختبر"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_product_product__is_medicine
+#: model:ir.model.fields,field_description:hms.field_product_template__is_medicine
+msgid "Is Medicine"
+msgstr "دواء"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hr_employee__is_Nurse
+msgid "Is Nurse"
+msgstr "ممرضة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_res_partner__is_patient
+#: model:ir.model.fields,field_description:hms.field_res_users__is_patient
+msgid "Is Patient"
+msgstr "مريض"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_models_stock_location.py:0
+#: model:ir.model.fields,field_description:hms.field_stock_location__is_pharmacy
+msgid "Is Pharmacy"
+msgstr ""
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_res_partner__is_staff
+#: model:ir.model.fields,field_description:hms.field_res_users__is_staff
+msgid "Is Staff Member"
+msgstr "عضو طاقم"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_role__job_id
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Job Position"
+msgstr "المنصب الوظيفي"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__disease_history
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__disease_ids
+#: model:ir.model.fields,field_description:hms.field_medical_record_wizard__disease_ids
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Known Diseases"
+msgstr "أمراض معروفة"
+
+#. module: hms
+#: model:hr.job,name:hms.hr_job_lab_attendant
+#: model:res.groups,name:hms.group_hms_lab_attendant
+msgid "Lab Attendant"
+msgstr "مساعد مختبر"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Lab Attendants"
+msgstr "مساعدو المختبر"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request_line.py:0
+#: code:addons/hms/models/hms_lab_result.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request_line__lab_request_id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__lab_request_id
+#: model:ir.model.fields,field_description:hms.field_hms_note__lab_request_id
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Lab Request"
+msgstr "طلب مختبر"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_line_form
+msgid "Lab Request Line"
+msgstr "التحليل المطلوب"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__lab_request_line_ids
+msgid "Lab Request Lines"
+msgstr "بنود طلب المختبر"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Lab Request Search"
+msgstr "بحث طلب المختبر"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_result.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__lab_request_state
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Lab Request State"
+msgstr "حالة طلب المختبر"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_kanban
+msgid "Lab Request •"
+msgstr "طلب التحاليل"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+#: model:ir.actions.act_window,name:hms.action_hms_lab_request
+#: model:ir.model.fields,field_description:hms.field_hms_case__lab_request_ids
+#: model:ir.ui.menu,name:hms.hms_menu_lab_requests
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_list
+msgid "Lab Requests"
+msgstr "طلبات المختبر"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+msgid "Lab Requests Trend"
+msgstr "التحاليل المنجزة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_admin_summary_30d
+msgid "Lab Requests'"
+msgstr "طلبات التحاليل"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_note__lab_result_id
+#: model:ir.model.fields.selection,name:hms.selection__hms_note__note_type__lab_result
+#: model_terms:ir.ui.view,arch_db:hms.view_lab_result_form
+msgid "Lab Result"
+msgstr "نتيجة المختبر"
+
+#. module: hms
+#: model:ir.actions.report,name:hms.report_lab_result_document
+msgid "Lab Result Report"
+msgstr "تقرير نتيجة المختبر"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+msgid "Lab Result Report'"
+msgstr "ملخص نتيجة التحليل"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Lab Result Search"
+msgstr "بحث نتيجة المختبر"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+#: code:addons/hms/models/hms_lab_request_line.py:0
+#: model:ir.actions.act_window,name:hms.action_lab_result
+#: model:ir.model.fields,field_description:hms.field_hms_case__lab_result_ids
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__lab_result_ids
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request_line__lab_result_ids
+#: model:ir.ui.menu,name:hms.hms_menu_lab_results
+#: model_terms:ir.ui.view,arch_db:hms.view_lab_result_list
+msgid "Lab Results"
+msgstr "نتائج المختبر"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Lab Results Received"
+msgstr "نتائج التحاليل المنجزة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_admin_summary_30d
+msgid "Lab Results'"
+msgstr "نتائج التحاليل"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_result.py:0
+#: model:hr.job,name:hms.hr_job_lab_technician
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__lab_technician_id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__lab_technician_id
+#: model:ir.model.fields.selection,name:hms.selection__hms_note__role__lab
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Lab Technician"
+msgstr "فني المختبر"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+msgid "Lab Technician'"
+msgstr "فني المختبر"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_result.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__lab_request_line_id
+msgid "Lab Test"
+msgstr "مختبرات"
+
+#. module: hms
+#: model:ir.actions.act_window,name:hms.action_product_lab_test
+#: model:ir.ui.menu,name:hms.hms_menu_lab_tests
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_form
+#: model_terms:ir.ui.view,arch_db:hms.view_product_template_search_hms
+msgid "Lab Tests"
+msgstr "اختبارات المختبر"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Lab Tests Today"
+msgstr "التحاليل المخبرية اليوم"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_form
+msgid "Lab Tests lines"
+msgstr "محتويات التحليل المخبري"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+msgid "Lab request %s for case %s has been completed."
+msgstr "طلب التحليل %s للحالة %s تم الانتهاء منه"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+msgid "Lab request %s for case %s needs review."
+msgstr "طلب التحليل %s للحالة %s بحاجة الى مراجعة "
+
+#. module: hms
+#: model:hr.department,name:hms.hms_department_lab
+#: model:ir.ui.menu,name:hms.hms_menu_laboratory
+msgid "Laboratory"
+msgstr "المختبر"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "Laboratory'"
+msgstr "المختبر"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_change_employee_password_wizard__write_uid
+#: model:ir.model.fields,field_description:hms.field_grant_portal_wizard__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_bed__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_case__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_consumable_line__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_dashboard__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_disease__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_insurance__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request_line__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_note__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_role__write_uid
+#: model:ir.model.fields,field_description:hms.field_hms_room__write_uid
+#: model:ir.model.fields,field_description:hms.field_medical_record_wizard__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_change_employee_password_wizard__write_date
+#: model:ir.model.fields,field_description:hms.field_grant_portal_wizard__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_bed__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_case__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_consumable_line__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_dashboard__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_disease__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_insurance__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request_line__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_note__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_role__write_date
+#: model:ir.model.fields,field_description:hms.field_hms_room__write_date
+#: model:ir.model.fields,field_description:hms.field_medical_record_wizard__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_role__group_id
+msgid "Link to Odoo security group for access control"
+msgstr "رابط إلى مجموعة أودو الأمنية للتحكم في الوصول"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_role__job_id
+msgid "Link to the job position associated with this role"
+msgstr "رابط إلى المنصب الوظيفي المرتبط بهذا الدور"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_override_web_login_modern
+msgid "Log in"
+msgstr "تسجيل الدخول"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_override_web_login_modern
+msgid "Log in as superuser"
+msgstr "تسجيل الدخول كمشرف"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_grant_portal_wizard__login
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_template
+msgid "Logo"
+msgstr "الشعار"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Long Stay (7+ days)"
+msgstr "إقامة طويلة (7+ أيام)"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_lab_request__urgency__low
+msgid "Low"
+msgstr "منخفض"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Low Capacity (1 bed)"
+msgstr "سعة منخفضة (سرير واحد)"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Low Cost Cases"
+msgstr "حالات منخفضة التكلفة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Low Occupancy (25%-)"
+msgstr "إشغال منخفض (25%-)"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Low Urgency"
+msgstr "استعجال منخفض"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__main_doctor_id
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_cases
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Main Doctor"
+msgstr "الطبيب الرئيسي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "Main Doctor'"
+msgstr "الطبيب الرئيسي"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/bed.py:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_bed__state__maintenance
+msgid "Maintenance"
+msgstr "صيانة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+msgid "Maintenance Beds"
+msgstr "أسرة الصيانة"
+
+#. module: hms
+#: model:ir.model.fields.selection,name:hms.selection__res_partner__gender__male
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Male"
+msgstr "ذكر"
+
+#. module: hms
+#: model_terms:ir.actions.act_window,help:hms.action_prescription
+msgid "Manage prescriptions here."
+msgstr "قم بإدارة الوصفات هنا."
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Manager"
+msgstr "المدير"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Marital Status"
+msgstr "الحالة الاجتماعية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_form
+msgid "Mark Out of Service"
+msgstr "وضع خارج الخدمة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_form
+msgid "Mark as Out of Service"
+msgstr "قم بتأشيره كخارج عن الخدمة"
+
+#. module: hms
+#: model:hr.department,name:hms.hms_department_maternity
+msgid "Maternity"
+msgstr "الامومة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+msgid "Maternity Department Beds"
+msgstr "أسرة قسم الأمومة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Maternity Rooms"
+msgstr "غرف الأمومة"
+
+#. module: hms
+#: model:hr.department,name:hms.hms_department_medical
+msgid "Medical"
+msgstr "طبي"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_res_partner__medical_case_ids
+#: model:ir.model.fields,field_description:hms.field_res_users__medical_case_ids
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_medical_record
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Medical Cases"
+msgstr "الحالات الطبية"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_medical_record_wizard__medical_history
+#: model:ir.model.fields.selection,name:hms.selection__hms_note__note_type__medical_history
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Medical History"
+msgstr "التاريخ الطبي"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__mdh_note
+#: model:ir.model.fields,field_description:hms.field_hms_case__medical_history_note
+msgid "Medical History Note"
+msgstr "التاريخ الطبي"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__mdh_note_acc
+msgid "Medical History Note (Read-Only)"
+msgstr "التاريخ الطبي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Medical Information"
+msgstr "معلومات طبية"
+
+#. module: hms
+#: model:ir.model,name:hms.model_hms_note
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_note_form
+msgid "Medical Note"
+msgstr "ملاحظة طبية"
+
+#. module: hms
+#: model:ir.actions.act_window,name:hms.action_hms_note
+msgid "Medical Notes"
+msgstr "ملاحظات طبية"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__medical_record_id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__medical_record_id
+#: model:ir.model.fields,field_description:hms.field_hms_note__medical_record_id
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__medical_record_id
+#: model:ir.model.fields,field_description:hms.field_res_partner__medical_record_id
+#: model:ir.model.fields,field_description:hms.field_res_users__medical_record_id
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_form
+msgid "Medical Record"
+msgstr "السجل الطبي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Medical Record ID"
+msgstr "معرّف السجل الطبي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Medical Record Search"
+msgstr "بحث السجل الطبي"
+
+#. module: hms
+#: model:ir.model,name:hms.model_medical_record_wizard
+msgid "Medical Record Wizard"
+msgstr "معالج السجل الطبي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_medrecs_last7
+msgid "Medical Record'"
+msgstr "السجل الصحي"
+
+#. module: hms
+#: model:ir.actions.act_window,name:hms.hms_medical_record_action
+#: model:ir.ui.menu,name:hms.hms_menu_medical_records
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_tree
+msgid "Medical Records"
+msgstr "السجلات الطبية"
+
+#. module: hms
+#: model:ir.actions.report,name:hms.action_report_medrecs_last7
+msgid "Medical Records - Last 7 Days"
+msgstr "السجلات الصحية - 7 ايام"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_medrecs_last7
+msgid "Medical Records - Last 7 Days'"
+msgstr "السجلات الصحية - 7 ايام"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_case__medical_history_note
+msgid "Medical history note for this case."
+msgstr "التاريخ الطبي لهذه الحالة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+msgid "Medications"
+msgstr "الادوية"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription_line.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__product_id
+msgid "Medicine"
+msgstr "دواء"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_prescription_template
+msgid "Medicine'"
+msgstr "الدواء"
+
+#. module: hms
+#: model:ir.actions.act_window,name:hms.action_product_medicine
+#: model:ir.ui.menu,name:hms.hms_menu_medicines
+#: model_terms:ir.ui.view,arch_db:hms.view_product_template_search_hms
+msgid "Medicines"
+msgstr "الأدوية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_prescription_template
+msgid "Medicines'"
+msgstr "الادوية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Medium Capacity (2-3 beds)"
+msgstr "سعة متوسطة (2-3 أسرة)"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Medium Urgency"
+msgstr "استعجال متوسط"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__message_has_error
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__message_has_error
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__message_has_error
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__message_has_error
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__message_has_error
+msgid "Message Delivery error"
+msgstr "خطأ في تسليم الرسالة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__message_ids
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__message_ids
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__message_ids
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__message_ids
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__message_ids
+msgid "Messages"
+msgstr "الرسائل"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request_line.py:0
+msgid "Minimum value must be less than maximum value in normal range."
+msgstr "القيمة الصغرة يجب ان تكون اقل من القيمة الكبرى"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Minors (Under 18)"
+msgstr "قاصر (أقل من 18)"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Mobile"
+msgstr "الجوال"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Mobile Phone"
+msgstr "هاتف محمول"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+msgid "Month"
+msgstr "الشهر"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "My Active Cases"
+msgstr "حالاتي النشطة"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+#: model:ir.actions.server,name:hms.action_open_my_activities
+msgid "My Activities"
+msgstr "نشاطاتي"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__my_activity_date_deadline
+#: model:ir.model.fields,field_description:hms.field_hms_case__my_activity_date_deadline
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__my_activity_date_deadline
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__my_activity_date_deadline
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__my_activity_date_deadline
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "المهلة النهائية لنشاطي"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request_confirmation
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_appointments
+msgid "My Appointments"
+msgstr "مواعيدي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "My Cases"
+msgstr "حالاتي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "My Department"
+msgstr "قسمي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request
+msgid "My Doctors"
+msgstr "اطبائي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_lab_results
+msgid "My Lab Results"
+msgstr "نتائج مختبراتي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_cases
+msgid "My Medical Cases"
+msgstr "حالاتي الطبية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_medical_record
+msgid "My Medical Record"
+msgstr "سجلي الصحي"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+msgid "My Nurse Tasks"
+msgstr "مهماتي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_prescriptions
+msgid "My Prescriptions"
+msgstr "وصفاتي الطبية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_medrecs_last7
+msgid "N/A'"
+msgstr ""
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request_line.py:0
+#: code:addons/hms/models/hms_lab_result.py:0
+#: code:addons/hms/models/hms_prescription.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__name
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request_line__name
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__name
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__name
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Name"
+msgstr "الاسم"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__new_results
+msgid "New Lab Results"
+msgstr "نتائج مخبرية جديدة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_change_employee_password_wizard__new_password
+msgid "New Password"
+msgstr "كلمة مرور جديدة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+msgid "New Patient"
+msgstr "مريض جديد"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_admin_summary_30d
+msgid "New Patients'"
+msgstr "مرضى جدد"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_room.py:0
+msgid "New Room"
+msgstr "غرفة جديدة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/controllers/portal.py:0
+msgid "New appointment request from %s"
+msgstr "طلب موعد جديد من قبل %s"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/bed.py:0
+msgid "New bed"
+msgstr "سرير جديد"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__activity_calendar_event_id
+#: model:ir.model.fields,field_description:hms.field_hms_case__activity_calendar_event_id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__activity_calendar_event_id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__activity_calendar_event_id
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__activity_calendar_event_id
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "حدث تقويم النشاط التالي"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__activity_date_deadline
+#: model:ir.model.fields,field_description:hms.field_hms_case__activity_date_deadline
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__activity_date_deadline
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__activity_date_deadline
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__activity_date_deadline
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "المهلة النهائية للنشاط التالي"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__activity_summary
+#: model:ir.model.fields,field_description:hms.field_hms_case__activity_summary
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__activity_summary
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__activity_summary
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__activity_summary
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__activity_summary
+msgid "Next Activity Summary"
+msgstr "ملخص النشاط التالي"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__activity_type_id
+#: model:ir.model.fields,field_description:hms.field_hms_case__activity_type_id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__activity_type_id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__activity_type_id
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__activity_type_id
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__activity_type_id
+msgid "Next Activity Type"
+msgstr "نوع النشاط التالي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_prescriptions
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+msgid "No"
+msgstr "لا"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "No Department"
+msgstr "لا يوجد قسم"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "No Emergency Contact"
+msgstr "لا يوجد جهة اتصال للطوارئ"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_appointment__state__no_show
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+msgid "No Show"
+msgstr "عدم الحضور"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__no_show_reason
+msgid "No Show Reason"
+msgstr "سبب عدم الحضور"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "No User Account"
+msgstr "لا يوجد حساب مستخدم"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "No active cases"
+msgstr "لا حالات نشطة"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "No appointments today"
+msgstr "لا مواعيد اليوم"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "No consultation cases"
+msgstr "لا حالات استشارية"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "No draft appointments"
+msgstr "لا طلبات مواعيد"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "No draft cases"
+msgstr "لا حالات جديدة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/wizards/md_wizard.py:0
+msgid "No medical history provided."
+msgstr "لا تاريخ صحي"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "No new patients"
+msgstr "لامرضى جدد"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "No pending activities"
+msgstr "لا نشاطات معلقة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription.py:0
+msgid ""
+"No pharmacy or internal location configured. Please configure a stock "
+"location first."
+msgstr ""
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_medrecs_last7
+msgid "No records in the last 7 days'"
+msgstr "لا سجلات خلال السبع ايام السابقة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_lab_request__urgency__normal
+msgid "Normal"
+msgstr "طبيعي"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request_line.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request_line__normal_range
+msgid "Normal Range"
+msgstr "نطاق القيم الطبيعية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+msgid "Normal Range'"
+msgstr "النطاق الطبيعي"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request_line.py:0
+msgid ""
+"Normal range must only contain numbers and a single dash (e.g. '3.5 - 7.2')."
+" Letters or other characters are not allowed."
+msgstr "النطاق الطبيعي يجب ان يكون رقمين مفصولين ب -"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+msgid "Normal'"
+msgstr "طبيعي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Not Dispensed"
+msgstr "لم يتم صرفه"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+#: code:addons/hms/models/hms_prescription.py:0
+msgid "Not enough stock for %s. Available: %s %s"
+msgstr ""
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_note__note
+#: model:ir.model.fields,field_description:hms.field_hms_note__note_acc
+msgid "Note"
+msgstr "ملاحظة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_note_form
+msgid "Note Content"
+msgstr "الملاحظة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_note__note_type
+msgid "Note Type"
+msgstr "النوع"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_medical_record_wizard_form
+msgid "Note:"
+msgstr "ملاحظة:"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__notes
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__notes
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__notes
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__notes
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_insurance_only
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+#: model_terms:ir.ui.view,arch_db:hms.view_lab_result_form
+msgid "Notes"
+msgstr "ملاحظات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+#: model_terms:ir.ui.view,arch_db:hms.report_prescription_template
+msgid "Notes'"
+msgstr "ملاحظات"
+
+#. module: hms
+#: model:mail.message.subtype,description:hms.mt_hms_notice
+msgid "Notifications related to hospital operations"
+msgstr "إشعارات متعلقة بعمليات المستشفى"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__message_needaction_counter
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__message_needaction_counter
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__message_needaction_counter
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__message_needaction_counter
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__message_needaction_counter
+msgid "Number of Actions"
+msgstr "عدد الإجراءات"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__message_has_error_counter
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__message_has_error_counter
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__message_has_error_counter
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__message_has_error_counter
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__message_has_error_counter
+msgid "Number of errors"
+msgstr "عد"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_case__message_needaction_counter
+#: model:ir.model.fields,help:hms.field_hms_lab_request__message_needaction_counter
+#: model:ir.model.fields,help:hms.field_hms_lab_result__message_needaction_counter
+#: model:ir.model.fields,help:hms.field_hms_prescription__message_needaction_counter
+#: model:ir.model.fields,help:hms.field_hms_prescription_line__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "عدد الرسائل التي تتطلب إجراء"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_case__message_has_error_counter
+#: model:ir.model.fields,help:hms.field_hms_lab_request__message_has_error_counter
+#: model:ir.model.fields,help:hms.field_hms_lab_result__message_has_error_counter
+#: model:ir.model.fields,help:hms.field_hms_prescription__message_has_error_counter
+#: model:ir.model.fields,help:hms.field_hms_prescription_line__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "عدد الرسائل التي بها خطأ في التسليم"
+
+#. module: hms
+#: model:hr.job,name:hms.hr_job_nurse
+#: model:ir.model.fields,field_description:hms.field_hms_case__nurse_id
+#: model:ir.model.fields.selection,name:hms.selection__hms_note__role__nurse
+#: model:res.groups,name:hms.group_hms_nurse
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Nurse"
+msgstr "ممرض"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hr_employee__nurse_case_ids
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Nurse Cases"
+msgstr "حالات الممرض"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "Nurse'"
+msgstr "ممرضة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Nurses"
+msgstr "الممرضون"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_room.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_room__occupancy_rate
+msgid "Occupancy (%)"
+msgstr "نسبة الإشغال (%)"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Occupancy Rate Range"
+msgstr "نطاق معدل الإشغال"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Occupancy Status"
+msgstr "حالة الإشغال"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_kanban
+msgid "Occupancy:"
+msgstr "الإشغال:"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/bed.py:0 code:addons/hms/models/hms_room.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_room__is_occupied
+#: model:ir.model.fields.selection,name:hms.selection__hms_bed__state__occupied
+msgid "Occupied"
+msgstr "مشغول"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+msgid "Occupied Beds"
+msgstr "الأسرة المشغولة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Occupied Rooms"
+msgstr "الغرف المشغولة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Old Results (30+ Days)"
+msgstr "نتائج الفحوص القديمة (قبل اكثر من شهر)"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Ongoing Cases"
+msgstr "الحالات الجارية"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+msgid "Only confirmed appointments can be started."
+msgstr ""
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+msgid "Only draft requests can be confirmed."
+msgstr ""
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+msgid ""
+"Only draft, confirmed, or in-progress appointments can be marked as done."
+msgstr ""
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+msgid "Only in-progress requests can be marked as Completed."
+msgstr ""
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+msgid "Only requested requests can be marked as In Progress."
+msgstr ""
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Open Cases"
+msgstr "الحالات النشطة"
+
+#. module: hms
+#: model:ir.model.fields.selection,name:hms.selection__hms_note__role__other
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Other"
+msgstr "اخرى"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_room.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_room__out_of_service
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Out of Service"
+msgstr "خارج الخدمة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_res_partner__outsider_patient
+#: model:ir.model.fields,field_description:hms.field_res_users__outsider_patient
+msgid "Outsider Patient"
+msgstr "مريض خارجي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Overdue Prescriptions"
+msgstr "الوصفات المتأخرة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Overdue Requests"
+msgstr "الطلبات المتأخرة"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Overview, analytics and quick actions"
+msgstr "نظرة عامة , احصائيات و روابط سريعة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "PIN Code"
+msgstr "الرمز المحلي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_custom_external_layout
+msgid "Page <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr ""
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Passport"
+msgstr "جواز السفر"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_grant_portal_wizard__password
+#: model_terms:ir.ui.view,arch_db:hms.hms_override_web_login_modern
+msgid "Password"
+msgstr "كلمة المرور"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription.py:0
+#: model:ir.model.fields,field_description:hms.field_grant_portal_wizard__patient_id
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__patient_id
+#: model:ir.model.fields,field_description:hms.field_hms_case__patient_id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__patient_id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__patient_id
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__patient_id
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__patient_id
+#: model:ir.model.fields,field_description:hms.field_medical_record_wizard__patient_id
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_appointments
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_lab_results
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_prescriptions
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_kanban_hms
+msgid "Patient"
+msgstr "مريض"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Patient & Status"
+msgstr "المريض و الحالة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Patient & Technician"
+msgstr "المريض و فني المختبر"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Patient / Insurance"
+msgstr "تأمين المريض"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+#: model:ir.model,name:hms.model_hms_appointment
+msgid "Patient Appointment"
+msgstr "مواعيد المريض"
+
+#. module: hms
+#: model:ir.model,name:hms.model_hms_case
+msgid "Patient Case"
+msgstr "ملف زيارة المريض"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+#: model_terms:ir.ui.view,arch_db:hms.report_prescription_template
+msgid "Patient ID'"
+msgstr "معرف المريض"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Patient Info"
+msgstr "معلومات المريض"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_template
+msgid "Patient Registration"
+msgstr "تسجيل المرضى"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__patient_share
+msgid "Patient Share"
+msgstr "نسبة المريض"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Patient Status"
+msgstr "حالة المريض"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Patient Visit"
+msgstr "زيارة المريض"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_tree
+msgid "Patient Visits / Cases"
+msgstr "زيارات المريض"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+msgid "Patient Vitals"
+msgstr "القياسات الطبية"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+msgid "Patient did not attend the appointment (auto-detected)."
+msgstr "المريض لم يحضر على الموعد"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/res_partner.py:0
+msgid "Patient email address is not set!"
+msgstr "البريد الالكتروني للمريض غير متوفر"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_res_partner__outsider_patient
+#: model:ir.model.fields,help:hms.field_res_users__outsider_patient
+msgid "Patient registered through the registration page"
+msgstr "المريض سجل من صفحة تسجيل المرضى"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+#: model_terms:ir.ui.view,arch_db:hms.report_medrecs_last7
+#: model_terms:ir.ui.view,arch_db:hms.report_prescription_template
+msgid "Patient'"
+msgstr "مريض"
+
+#. module: hms
+#: model:ir.model,name:hms.model_hms_medical_record
+msgid "Patient's Medical Record"
+msgstr "الملف الصحي للمريض"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_medical_record
+msgid "Patient:"
+msgstr "مريض"
+
+#. module: hms
+#: model:ir.actions.act_window,name:hms.hms_patient_action
+#: model:ir.ui.menu,name:hms.hms_menu_patients
+#: model:ir.ui.menu,name:hms.hms_menu_patients_list
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Patients"
+msgstr "المرضى"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Patients Today"
+msgstr "المرضى اليوم"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Patients with Emergency Contact"
+msgstr "المرضى الذين يملكون معلومات تواصل الطوارئ"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Patients without Emergency Contact"
+msgstr "المرضى من دون معلومات تواصل في حالة الطوارئ"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Pending Lab Requests"
+msgstr "طلبات التحاليل المعلقة"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Pending Lab Results"
+msgstr "نتئج التحاليل المعلقة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Pending Results"
+msgstr "نتائج تحاليل تحتاج المراجعة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_medrecs_last7
+msgid "Period'"
+msgstr "الفترة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_admin_summary_30d
+msgid "Period:'"
+msgstr "الفترة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Personal Information"
+msgstr "معلومات شخصية"
+
+#. module: hms
+#: model:hr.department,name:hms.hms_department_pharmacy
+#: model:ir.ui.menu,name:hms.hms_menu_pharmacy
+msgid "Pharmacy"
+msgstr "الصيدلية"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__patient_phone
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_template
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_tree
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Phone"
+msgstr "رقم الهاتف"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_insurance__plan_code
+msgid "Plan Code"
+msgstr "رقم خطة التأمين"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+#: code:addons/hms/models/hms_prescription.py:0
+msgid "Please configure a picking type for dispensing."
+msgstr ""
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_medical_record_wizard_form
+msgid ""
+"Please make sure to fill in all required fields correctly, you wont be able "
+"to access this page again."
+msgstr ""
+"تأكد من ملئ جميع الحقول المطلوبة بشكل صحيح و لن تتمكن من الوصول لهذا السجل "
+"للتعديل لاحقا"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Portal Users"
+msgstr "مستخدمين البوابة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request
+msgid "Preferred Date"
+msgstr "التاريخ الانسب"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request
+msgid "Preferred Time"
+msgstr "الوقت الانسب"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+msgid "Prescribe Medication"
+msgstr "اوصف الدواء"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription_line.py:0
+#: model:ir.actions.act_window,name:hms.action_prescription
+#: model:ir.actions.report,name:hms.action_report_prescription
+#: model:ir.model.fields,field_description:hms.field_hms_note__prescription_id
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__prescription_id
+#: model:ir.model.fields.selection,name:hms.selection__hms_note__note_type__prescription
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_form
+msgid "Prescription"
+msgstr "وصفة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription.py:0
+msgid "Prescription %s for case %s needs to be dispensed."
+msgstr "الوصفة %s للحالة %s بحالجة الى صرف"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription.py:0
+msgid "Prescription %s for case %s needs to be validated."
+msgstr "الوصفة %s للحالة %s بحاجة للمراجعة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Prescription Date"
+msgstr "تاريخ الوصفة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+msgid "Prescription Details"
+msgstr "تفاصيل الوصفة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_prescriptions
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Prescription ID"
+msgstr "رقم الوصفة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_prescription_template
+msgid "Prescription ID'"
+msgstr "معرف الوصفة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+msgid "Prescription Information"
+msgstr "تفاصيل الوصفة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__prescription_line_ids
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_form
+msgid "Prescription Lines"
+msgstr "الادوية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Prescription Month"
+msgstr "الوصفات هذا الشهر"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription.py:0
+msgid "Prescription Ready"
+msgstr "الوصفة جاهزة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Prescription Search"
+msgstr "ابحث في الوصفات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Prescription Week"
+msgstr "وصفات هذا الاسبوع"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_kanban
+msgid "Prescription •"
+msgstr "الوصفة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_prescription_template
+msgid "Prescription'"
+msgstr "الوصفة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__prescription_ids
+#: model:ir.ui.menu,name:hms.hms_menu_prescriptions
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_tree
+msgid "Prescriptions"
+msgstr "وصفات"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Prescriptions To Dispense"
+msgstr "وصفات بحاجة الى صرف"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+msgid "Prescriptions Trend"
+msgstr "الوصفات الطبية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Prescriptions With Multiple Medicines"
+msgstr "وصفات باكثر من دواء"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Prescriptions With Notes"
+msgstr "وصفات مع ملاحظات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Prescriptions Without Notes"
+msgstr "وصفات بدون ملاحظات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_admin_summary_30d
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "Prescriptions'"
+msgstr "وصفات طبية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_kanban
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_kanban
+msgid "Print"
+msgstr "اطبع"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Print Badge"
+msgstr "اطبع"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_form
+msgid "Print Prescription"
+msgstr "اطبع الوصفة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_lab_result_form
+msgid "Print Result"
+msgstr "اطبع النتيجة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Print Summary"
+msgstr "اطبع الملخص"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Private Address"
+msgstr "العنوان الخاص"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Private Contact"
+msgstr "معلومات التواصل الخاصة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Private Information"
+msgstr "المعلومات الخاصة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Private Phone"
+msgstr "رقم الهاتف الخاص"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/consumable_line.py:0
+#: model:ir.model,name:hms.model_product_template
+#: model:ir.model.fields,field_description:hms.field_hms_consumable_line__product_id
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+msgid "Product"
+msgstr "المنتج"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_consumable_line__product_tmpl_id
+msgid "Product Template"
+msgstr ""
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Product'"
+msgstr "المنتج"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Qty'"
+msgstr "الكمية"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/consumable_line.py:0
+#: code:addons/hms/models/hms_prescription_line.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_consumable_line__quantity
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__quantity
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+msgid "Quantity"
+msgstr "الكمية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_prescription_template
+msgid "Quantity'"
+msgstr "الكمية"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Quick Actions"
+msgstr "روابط سريعى"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Quick Links"
+msgstr "روابط سريعة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__reason
+msgid "Reason for Appointment"
+msgstr "سبب الزيارة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Recent Results (Last 7 Days)"
+msgstr "النتائج الاخيرة (7 ايام)"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Recently Registered Patients"
+msgstr "المرضى المسجلون حديثا"
+
+#. module: hms
+#: model:hr.job,name:hms.hr_job_receptionist
+#: model:ir.model.fields.selection,name:hms.selection__hms_note__role__receptionist
+#: model:res.groups,name:hms.group_hms_receptionist
+msgid "Receptionist"
+msgstr "الاستقبال"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Receptionists"
+msgstr "موظفي الاستقبال"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_result.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__recommendations
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Recommendations"
+msgstr "توصيات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+msgid "Recommendations'"
+msgstr "التوصيات"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_medical_record__name
+#: model:ir.model.fields,field_description:hms.field_medical_record_wizard__name
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Record ID"
+msgstr "رقم السجل"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_medical_record
+msgid "Record ID:"
+msgstr "معرف السجل"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Records With Allergies"
+msgstr "سجلات المرضى الذين يعانون من الحساسية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Records With Blood Type"
+msgstr "سجلات المرضى حسب الزمرة الدموية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Records With Cases"
+msgstr "سجلات المرضى المقيولين في المستشفى"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Records With Diseases"
+msgstr "سجلات المرضى ذوي التاريخ المرضي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Records With Important Notes"
+msgstr "سجلات المرضى التي تحتوي ملاحظات مهمة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Records With Notes"
+msgstr "سجلات التي تحتوي ملاحظات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Records Without Allergies"
+msgstr "سجلات المرضى بلا حساسية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Records Without Blood Type"
+msgstr "سجلات المرضى غير معروفي زمرة الدم"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Records Without Cases"
+msgstr "سجلات مرضى بلا زيارات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Records Without Diseases"
+msgstr "سجلات المرضى بلا التاريخ المرضي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_medical_record_search
+msgid "Records Without Notes"
+msgstr "سجلات المرضى بلا ملاحظات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request_confirmation
+msgid "Reference Number:"
+msgstr "الرقم المرجعي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_template
+msgid "Register"
+msgstr "تسجيل"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_override_web_login_modern
+msgid "Register as a patient"
+msgstr "تسجيل المرضى"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_success
+msgid "Registration Complete"
+msgstr "تم اتمام التسجيل"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Reject Case"
+msgstr "ارفض الحالة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__appointment_id
+msgid "Related Appointment"
+msgstr "موعد الزيارة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Related User"
+msgstr "حساب الموظف"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_res_partner__emergency_relation
+#: model:ir.model.fields,field_description:hms.field_res_users__emergency_relation
+msgid "Relation to Patient"
+msgstr "العلاقة مع المريض"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request_confirmation
+msgid "Request Another"
+msgstr "اطلب اخر"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request
+msgid "Request Appointment"
+msgstr "اطلب موعد"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Request Date"
+msgstr "تاريخ الطلب"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+msgid "Request ID"
+msgstr "معرف الطلب"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Request Month"
+msgstr "شهر الطلب"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Request Name"
+msgstr "كود الطلب"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Request State"
+msgstr "حالة الطلب"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Request Week"
+msgstr "اسبوع الطلب"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "Request new medical appointments"
+msgstr "اطلب موعد صحي جديد"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request
+msgid "Request with My Doctor"
+msgstr "طلب موعد مع طبيبك"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "Request'"
+msgstr "طلب"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_lab_request__state__requested
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Requested"
+msgstr "بانتظار الموافقة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__requested_by_id
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Requested By"
+msgstr "تم طلب التحليل من قبل"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Requested Results"
+msgstr "نتائج التحليل"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Requests With Abnormal Results"
+msgstr "تحاليل مع نتائج خارج النطاق الطبيعي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Requests Without Results"
+msgstr "التحاليل الجارية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Requests Without Technician"
+msgstr "تحاليل مجدولة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_override_web_login_modern
+msgid "Reset Password"
+msgstr "تغيير كلمة المرور"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_form
+msgid "Reset to Draft"
+msgstr "ايقاف الوصفة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__activity_user_id
+#: model:ir.model.fields,field_description:hms.field_hms_case__activity_user_id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__activity_user_id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__activity_user_id
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__activity_user_id
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__activity_user_id
+msgid "Responsible User"
+msgstr "المستخدم"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_form
+msgid "Restore Bed"
+msgstr "اعد السرير"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_result.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__attachment_ids
+msgid "Result Attachments"
+msgstr "النتائج"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_result.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__date_result
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_lab_results
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Result Date"
+msgstr "التاريخ"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+msgid "Result Date'"
+msgstr "تاريخ النتيجة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_lab_results
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Result ID"
+msgstr "رقم النتيجة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Result Month"
+msgstr "الشهر"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Result Week"
+msgstr "الاسبوع"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Results With Attachments"
+msgstr "مدخلة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Results With Notes"
+msgstr "مع ملاحظات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Results With Recommendations"
+msgstr "مع توصيات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Results Without Attachments"
+msgstr "غير مدخلة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Results Without Notes"
+msgstr "بلا ملاحظات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_result_search
+msgid "Results Without Recommendations"
+msgstr "بلا توصيات"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Results to Validate"
+msgstr "نتائج بحاجة الى مراجعة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "Review your medical cases and history"
+msgstr "تاريخك الطبي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Role"
+msgstr "نوع المستخدم"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_role__code
+msgid "Role Code"
+msgstr "كود المستخدم"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_role__name
+msgid "Role Name"
+msgstr "صفة المستخدم"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/bed.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_bed__room_id
+#: model:ir.model.fields,field_description:hms.field_hms_case__room_id
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Room"
+msgstr "غرفة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Room Identifier"
+msgstr "معرف الغرفة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_room.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_room__name
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Room Number"
+msgstr "رقم الغرفة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Room Search"
+msgstr "البحث"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+msgid "Room by Department"
+msgstr "حسب القسم"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "Room'"
+msgstr "غرفة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+#: model:ir.actions.act_window,name:hms.action_hms_room
+#: model:ir.ui.menu,name:hms.menu_hms_room
+msgid "Rooms"
+msgstr "غرف"
+
+#. module: hms
+#: model:ir.model.fields.selection,name:hms.selection__hms_appointment__urgency__routine
+msgid "Routine"
+msgstr "طبيعي"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__message_has_sms_error
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__message_has_sms_error
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__message_has_sms_error
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__message_has_sms_error
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "خطئ بارسال sms'"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_medical_record_wizard_form
+msgid "Save"
+msgstr "حفظ"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Schedule"
+msgstr "حدد الموعد"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/res_partner.py:0
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Schedule Appointment"
+msgstr "انشئ موعد"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_role__group_id
+msgid "Security Group"
+msgstr "مجموعة صلاحيات المستخدم"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request
+msgid "Select Department"
+msgstr "اختر القسم"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request
+msgid "Select My Doctor"
+msgstr "اختر طبيبك"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_case.py:0
+msgid "Selected bed is not available."
+msgstr "السرير المختار غير متوفر"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Seniors (65+)"
+msgstr "كبار السن"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Service Status"
+msgstr "التوفر"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Settings"
+msgstr "الإعدادات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+msgid "Short Stay (<3 days)"
+msgstr "زيارة قصيرة (اقل من 3 ايام)"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_res_partner__show_create_medical_record
+#: model:ir.model.fields,field_description:hms.field_res_users__show_create_medical_record
+msgid "Show Create Medical Record"
+msgstr "السجل الطبي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Source'"
+msgstr "المصدر"
+
+#. module: hms
+#: model:ir.actions.act_window,name:hms.action_hms_hr_employee
+#: model:ir.ui.menu,name:hms.menu_hms_staff
+msgid "Staff"
+msgstr "الموظفين"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_form
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_form
+msgid "Start"
+msgstr "ابدأ"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/res_partner.py:0
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Start Hospital Visit"
+msgstr "انشئ ملف حالة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+#: code:addons/hms/models/hms_prescription.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__state
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__state
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "State"
+msgstr "الحالة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/bed.py:0 code:addons/hms/models/hms_appointment.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__state
+#: model:ir.model.fields,field_description:hms.field_hms_bed__state
+#: model:ir.model.fields,field_description:hms.field_hms_case__state
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_appointments
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_cases
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_lab_results
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_medical_record
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_prescriptions
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Status"
+msgstr "الحالة"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_appointment__activity_state
+#: model:ir.model.fields,help:hms.field_hms_case__activity_state
+#: model:ir.model.fields,help:hms.field_hms_lab_request__activity_state
+#: model:ir.model.fields,help:hms.field_hms_lab_result__activity_state
+#: model:ir.model.fields,help:hms.field_hms_prescription__activity_state
+#: model:ir.model.fields,help:hms.field_hms_prescription_line__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"الحالة بناءً على الأنشطة\n"
+"متأخر: تاريخ الاستحقاق قد مر بالفعل\n"
+"اليوم: تاريخ النشاط هو اليوم\n"
+"مخطط: أنشطة مستقبلية."
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+msgid "Status by Department"
+msgstr "الحالة حسب القسم"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+msgid "Status'"
+msgstr "الحالة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "Stay (days)'"
+msgstr "مدة الاقامة"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__stay_days
+msgid "Stay Days"
+msgstr "أيام الإقامة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/consumable_line.py:0
+#: code:addons/hms/models/hms_lab_request_line.py:0
+#: code:addons/hms/models/hms_prescription_line.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_consumable_line__stock_move_id
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request_line__stock_move_id
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__stock_move_id
+msgid "Stock Move"
+msgstr "نقل المخزون"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_template
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Street"
+msgstr "الشارع"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Street 2"
+msgstr "الشارع 2"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Street 2..."
+msgstr "الشارع 2..."
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Street..."
+msgstr "الشارع..."
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Subtotal'"
+msgstr "المجموع"
+
+#. module: hms
+#: model:hr.department,name:hms.hms_department_surgery
+msgid "Surgery"
+msgstr "الجراحة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_bed_search
+msgid "Surgery Department Beds"
+msgstr "أسرة قسم الجراحة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_room_search
+msgid "Surgery Rooms"
+msgstr "غرف الجراحة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+msgid "System Settings"
+msgstr "اعدادات النظام"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Tags"
+msgstr "الوسوم"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Tax ID / VAT'"
+msgstr "معرف الضريبة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Taxes'"
+msgstr "الضرائب"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_lab_results
+msgid "Technician"
+msgstr "فني"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "Technician'"
+msgstr "الفني"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Terms &amp; Conditions'"
+msgstr ""
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_lab_results
+msgid "Test"
+msgstr "تحليل"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request_line.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request_line__product_id
+msgid "Test Name"
+msgstr "اسم الفحص"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+msgid "Test Name'"
+msgstr "اسم الاختبار"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+msgid "Test Results'"
+msgstr "نتائج الاختبار"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_success
+msgid "Thank you,"
+msgstr "شكرًا لك,"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "The default working hours are set in configuration."
+msgstr "ساعات العمل الافتراضية محددة في الإعدادات."
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request_line.py:0
+msgid "The entered value cannot be negative."
+msgstr "القيمة المدخلة لايمكن ان تكون سالبة"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_lab_request__lab_technician_id
+#: model:ir.model.fields,help:hms.field_hms_lab_result__lab_technician_id
+msgid "The lab technician responsible for this request."
+msgstr "فني المختبر المسؤول"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request
+msgid ""
+"The system will automatically schedule an appointment between 9:00 AM – 5:00"
+" PM when your doctor is available."
+msgstr "هذا النظام سيحدد الموعد الاقرب مع طبيبك تلقائيا"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hr_employee.py:0
+msgid "This employee already has a user."
+msgstr "هذا الموظف لديه مستخدم بالفعل"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/wizards/grant_portal_wizard.py:0
+msgid "This patient already has a portal user."
+msgstr "هذا المريض لديه وصول الى البوابة بالفعل"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_note__name
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Title"
+msgstr "العنوان"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Today's Appointments"
+msgstr "المواعيد اليوم"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__total_cost
+msgid "Total Cost"
+msgstr "التكلفة الإجمالية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+msgid "Total Cost'"
+msgstr "اجمالي التكلفة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_medrecs_last7
+msgid "Total Patients'"
+msgstr "اجمالي المرضى"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_form
+msgid "Total Quantity"
+msgstr "الكمية الإجمالية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Total'"
+msgstr "الاجمالي"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_case__new_results
+msgid "True if there are new lab results for doctor to review"
+msgstr "قيمة صحيحة إذا كانت هناك نتائج مختبر جديدة لمراجعة الطبيب"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_appointment__activity_exception_decoration
+#: model:ir.model.fields,help:hms.field_hms_case__activity_exception_decoration
+#: model:ir.model.fields,help:hms.field_hms_lab_request__activity_exception_decoration
+#: model:ir.model.fields,help:hms.field_hms_lab_result__activity_exception_decoration
+#: model:ir.model.fields,help:hms.field_hms_prescription__activity_exception_decoration
+#: model:ir.model.fields,help:hms.field_hms_prescription_line__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "نوع نشاط الاستثناء في السجل."
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription_line.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__uom_id
+msgid "Unit"
+msgstr "الوحدة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/consumable_line.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_consumable_line__unit_price
+msgid "Unit Price"
+msgstr "سعر الوحدة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Unit Price'"
+msgstr "سعر الوحدة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request_line.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request_line__uom_id
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+msgid "Unit of Measure"
+msgstr "وحدة القياس"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+#: model_terms:ir.ui.view,arch_db:hms.report_prescription_template
+msgid "Unit'"
+msgstr "الوحدة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "Untaxed Amount'"
+msgstr "الكمية التي لاتخضع للضريبة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_case_summary_template
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+msgid "UoM'"
+msgstr "معرف الوحدة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_prescription_search
+msgid "Upcoming Prescriptions"
+msgstr "الوصفات القادمة"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__urgency
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__urgency
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_lab_request_search
+msgid "Urgency"
+msgstr "الأولوية"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+#: model:ir.model.fields.selection,name:hms.selection__hms_appointment__urgency__urgent
+#: model:ir.model.fields.selection,name:hms.selection__hms_lab_request__urgency__urgent
+msgid "Urgent"
+msgstr "عاجل"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_appointment__user_id
+#: model:ir.model.fields,field_description:hms.field_hms_case__user_id
+msgid "User"
+msgstr "المستخدم"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "User avatar"
+msgstr "صورة المستخدم"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request_line.py:0
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request_line__value
+msgid "Value"
+msgstr "القيمة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_lab_result_template
+msgid "Value'"
+msgstr "القيمة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_cases
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_prescriptions
+msgid "View Details"
+msgstr "التفاصيل"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+msgid "View Lab Results"
+msgstr "اطلع على نتائج التحليل"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request_confirmation
+msgid "View My Appointments"
+msgstr "ادارة المواعيد"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "View and manage your medical appointments"
+msgstr "قم بادارة وطلب المواعيد الصحية"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_note__show_in_portal
+msgid "Visible to Patient"
+msgstr "مرئي للمريض"
+
+#. module: hms
+#: model:ir.actions.act_window,name:hms.hms_case_action
+#: model:ir.ui.menu,name:hms.hms_menu_visits
+msgid "Visits"
+msgstr "الزيارات"
+
+#. module: hms
+#: model:ir.model.fields.selection,name:hms.selection__hms_note__note_type__vitals
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Vitals"
+msgstr "القيم الصحية"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__vitals_note
+#: model:ir.model.fields,field_description:hms.field_hms_case__vitals_note_edit
+msgid "Vitals Note"
+msgstr "ملاحظات القيم الصحية"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__vitals_note_acc
+msgid "Vitals Note (Read-Only)"
+msgstr "ملاحظات القيم الصحية"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_notes.py:0
+msgid "Vitals for this case already recorded at this time."
+msgstr ""
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "Website"
+msgstr "الموقع الإلكتروني"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_case__website_message_ids
+#: model:ir.model.fields,field_description:hms.field_hms_lab_request__website_message_ids
+#: model:ir.model.fields,field_description:hms.field_hms_lab_result__website_message_ids
+#: model:ir.model.fields,field_description:hms.field_hms_prescription__website_message_ids
+#: model:ir.model.fields,field_description:hms.field_hms_prescription_line__website_message_ids
+msgid "Website Messages"
+msgstr "رسائل الموقع"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_case__website_message_ids
+#: model:ir.model.fields,help:hms.field_hms_lab_request__website_message_ids
+#: model:ir.model.fields,help:hms.field_hms_lab_result__website_message_ids
+#: model:ir.model.fields,help:hms.field_hms_prescription__website_message_ids
+#: model:ir.model.fields,help:hms.field_hms_prescription_line__website_message_ids
+msgid "Website communication history"
+msgstr "تاريخ التواصل عبر الموقع"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_appointment_view_search
+msgid "Week"
+msgstr "الأسبوع"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "Welcome,"
+msgstr "مرحبا ,"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hms_patient_register_success
+msgid ""
+"We’ve sent you an activation email. Please check your inbox and follow the "
+"link to set your password and access your portal."
+msgstr ""
+"أرسلنا لك رسالة تفعيل عبر البريد الإلكتروني. يرجى التحقق من صندوق الوارد "
+"واتباع الرابط لتعيين كلمة المرور والوصول إلى بوابتك."
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "With Active Cases"
+msgstr "مع حالات نشطة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_res_partner_search_hms
+msgid "Without Medical Record"
+msgstr "بدون سجل طبي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Work Email"
+msgstr "البريد الإلكتروني الوظيفي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Work Information"
+msgstr "معلومات العمل"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "Work Permit"
+msgstr "تصريح العمل"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_view_search_hms
+msgid "Work Phone"
+msgstr "هاتف العمل"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_case_details
+#: model_terms:ir.ui.view,arch_db:hms.portal_my_prescriptions
+#: model_terms:ir.ui.view,arch_db:hms.portal_prescription_details
+msgid "Yes"
+msgstr "نعم"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request_confirmation
+msgid "You can track the status of your request anytime under"
+msgstr "يمكنك تتبع حالة الطلب في اي وقت"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request.py:0
+msgid "You cannot cancel a completed request."
+msgstr "لايمكن الغاء الطلب المكتمل"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_case.py:0
+msgid ""
+"You cannot close a case without a diagnosis (either textual or disease)."
+msgstr "لايمكن اغلاق ملف الحالة دون تشخيص"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_appointment.py:0
+msgid "You have an appointment with %s at %s"
+msgstr ""
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_lab_request_line.py:0
+msgid "You must enter a valid numeric value in the 'value' field."
+msgstr "عليك ادخال رقم في خانة القيمة"
+
+#. module: hms
+#: model:mail.template,subject:hms.email_template_lab_results_ready
+msgid "Your Lab Results are Ready"
+msgstr "نتائج التحاليل المخبرية جاهزة"
+
+#. module: hms
+#: model:mail.template,subject:hms.email_template_prescription_ready
+msgid "Your Prescription is Ready for Pickup"
+msgstr "الوصفة الطبية جاهزة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.portal_appointment_request_confirmation
+msgid "Your appointment request has been submitted successfully."
+msgstr "تمت الموافقة على طلب الموعد خاصتك"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_prescription.py:0
+msgid "Your prescription %s has been dispensed and is ready for pickup."
+msgstr "وصفتك الطبية %s جاهزة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "ZIP"
+msgstr "الرمز البريدي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.report_invoice_template
+#: model_terms:ir.ui.view,arch_db:hms.report_prescription_template
+msgid "_________________________"
+msgstr "________________________"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.res_partner_form_hms
+msgid "active"
+msgstr "نشط"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "bills"
+msgstr "فواتير"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "care team"
+msgstr "فريق الرعاية"
+
+#. module: hms
+#. odoo-javascript
+#: code:addons/hms/static/src/xml/hms_dashboards.xml:0
+msgid "cases to review"
+msgstr "حالات بحاجة الى المراجعة"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_medical_record_wizard_form
+msgid "close"
+msgstr "إغلاق"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "consumables"
+msgstr "المستهلكات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "diagnosis"
+msgstr "التشخيص"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.hr_employee_form_hms
+msgid "e.g. myprivateemail@example.com"
+msgstr "مثال: myprivateemail@example.com"
+
+#. module: hms
+#: model:ir.model.fields,field_description:hms.field_hms_insurance__company
+msgid "insurance company"
+msgstr "شركة التأمين"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "labs"
+msgstr "المختبرات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "my bills"
+msgstr "فواتيري"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "prescriptions"
+msgstr "الوصفات الطبية"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.medical_portal_cards
+msgid "security"
+msgstr "الامان"
+
+#. module: hms
+#: model:ir.model.fields,help:hms.field_hms_case__vitals_note
+msgid "vitals note for this case."
+msgstr "ملاحظة القياسات الحيوية لهذه الحالة."
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_case.py:0
+msgid "you have a new patient: %s at room: %s case : %s"
+msgstr "لديك مريض جديد %s في الغرفة %s ملف الحالة %s"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_case.py:0
+msgid ""
+"your patient scheduled for :%s name: %s has arrived at room: %s case : %s"
+msgstr "موعد %s للمريض %s بغرفة %s ملف الحالة %s"
+
+#. module: hms
+#: model:ir.actions.report,name:hms.action_report_case_summary_ar
+msgid "ملخص الحالة"
+msgstr ""

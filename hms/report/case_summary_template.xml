@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <!-- لفّافة واحدة تستدعي القالب الأساسي -->
+    <template id="report_case_summary">
+      <t t-call="hms.report_case_summary_template"/>
+    </template>
+
+    <!-- القالب الأساسي (نفس هيكلك مع _() للترجمة) -->
+<template id="report_case_summary_template">
+  <t t-call="web.html_container">
+    <t t-foreach="docs" t-as="doc">
+      <t t-call="web.external_layout">
+        <!-- RTL/LTR auto based on lang -->
+        <div class="page"
+             t-attf-style="direction: {{ 'rtl' if docs._context.get('lang','')[:2]=='ar' else 'ltr' }};
+                            text-align: {{ 'right' if docs._context.get('lang','')[:2]=='ar' else 'left' }};">
+          <!-- === [NEW] Styles & Header with Logo === -->
+          <t t-set="is_ar" t-value="docs._context.get('lang','')[:2]=='ar'"/>
+          <style>
+            .hms-header{display:flex; align-items:center; justify-content:center; margin:0 60 200px}
+            .hms-header.rtl{flex-direction:row-reverse}
+            .hms-logo{max-height:85px; max-width:260px}
+            .hms-divider{border:0;border-top:3px solid #22B8C7;margin:8px 0 16px}
+            .hms-section h4{margin:12px 0 6px}
+            .hms-table thead th{border-bottom:1px solid #ccc}
+            .hms-table td,.hms-table th{padding:4px 6px;border-bottom:1px solid #eee}
+            .hms-footer{margin-top:420px;padding-top:8px;border-top:3px solid #ddd;text-align:center;font-size:17px}
+          </style>
+
+          <hr class="hms-divider"/>
+          <!-- === [/NEW] === -->
+
+          <div class="oe_structure"/>
+
+          <div class="row">
+            <div class="col-12 text-center mb-4">
+              <h2><t t-translate="true">Case Summary'</t></h2>
+            </div>
+          </div>
+
+          <!-- Top meta -->
+          <div class="row mb-3">
+            <div class="col-6">
+              <strong><t t-translate="true">Case ID'</t></strong>:
+              <span t-field="doc.name"/><br/>
+              <strong><t t-translate="true">Patient'</t></strong>:
+              <span t-field="doc.patient_id.name"/><br/>
+              <strong><t t-translate="true">Medical Record'</t></strong>:
+              <span t-field="doc.medical_record_id.name"/>
+            </div>
+            <div class="col-6">
+              <strong><t t-translate="true">Admission'</t></strong>:
+              <span t-field="doc.admission_date" t-options='{"widget": "datetime"}'/><br/>
+              <strong><t t-translate="true">Discharge'</t></strong>:
+              <span t-field="doc.discharge_date" t-options='{"widget": "datetime"}'/><br/>
+              <strong><t t-translate="true">Stay (days)'</t></strong>:
+              <span t-field="doc.stay_days"/>
+            </div>
+          </div>
+
+          <!-- Team & logistics -->
+          <div class="row mb-3">
+            <div class="col-6">
+              <strong><t t-translate="true">Main Doctor'</t></strong>:
+              <span t-field="doc.main_doctor_id.name"/><br/>
+              <t t-if="doc.consulting_doctor_ids">
+                <strong><t t-translate="true">Consultants'</t></strong>:
+                <span t-esc="', '.join([n for n in doc.consulting_doctor_ids.mapped('name') if n])"/><br/>
+              </t>
+              <strong><t t-translate="true">Nurse'</t></strong>:
+              <span t-field="doc.nurse_id.name"/>
+            </div>
+            <div class="col-6">
+              <strong><t t-translate="true">Room'</t></strong>:
+              <span t-field="doc.room_id.name"/><br/>
+              <strong><t t-translate="true">Bed'</t></strong>:
+              <span t-field="doc.bed_id.name"/><br/>
+              <strong><t t-translate="true">Status'</t></strong>:
+              <span t-field="doc.state"/>
+            </div>
+          </div>
+
+          <!-- Diagnosis -->
+          <div class="mb-3 hms-section">
+            <h4><t t-translate="true">Diagnosis'</t></h4>
+            <t t-if="doc.diagnosis_ids">
+              <ul>
+                <li t-foreach="doc.diagnosis_ids" t-as="d"><span t-esc="d.name"/></li>
+              </ul>
+            </t>
+            <t t-if="doc.diagnosis_text">
+              <p><span t-field="doc.diagnosis_text"/></p>
+            </t>
+          </div>
+
+          <!-- Prescriptions -->
+          <div class="mb-3 hms-section" t-if="doc.prescription_ids">
+            <h4><t t-translate="true">Prescriptions'</t></h4>
+            <t t-foreach="doc.prescription_ids" t-as="pres">
+              <div class="mb-2">
+                <strong><t t-translate="true">Prescription'</t></strong>:
+                <span t-field="pres.name"/>
+                <span> — </span>
+                <span t-field="pres.date" t-options='{"widget":"date"}'/>
+                <table class="table table-sm table-hover hms-table mt-1">
+                  <thead>
+                    <tr>
+                      <th><t t-translate="true">Medicine'</t></th>
+                      <th><t t-translate="true">Qty'</t></th>
+                      <th><t t-translate="true">UoM'</t></th>
+                      <th><t t-translate="true">Dosage'</t></th>
+                      <th><t t-translate="true">Duration'</t></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr t-foreach="pres.prescription_line_ids" t-as="l">
+                      <td><span t-field="l.product_id.name"/></td>
+                      <td><span t-field="l.quantity"/></td>
+                      <td><span t-field="l.uom_id.name"/></td>
+                      <td><span t-field="l.dosage"/></td>
+                      <td><span t-field="l.duration"/></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </t>
+          </div>
+
+          <!-- Labs -->
+          <div class="mb-3 hms-section" t-if="doc.lab_request_ids">
+            <h4><t t-translate="true">Laboratory'</t></h4>
+            <table class="table table-sm table-hover hms-table">
+              <thead>
+                <tr>
+                  <th><t t-translate="true">Request'</t></th>
+                  <th><t t-translate="true">Status'</t></th>
+                  <th><t t-translate="true">Technician'</t></th>
+                  <th><t t-translate="true">Date'</t></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr t-foreach="doc.lab_request_ids" t-as="lr">
+                  <td><span t-field="lr.name"/></td>
+                  <td><span t-field="lr.state"/></td>
+                  <td><span t-field="lr.lab_technician_id.name"/></td>
+                  <td><span t-field="lr.date_requested" t-options='{"widget":"datetime"}'/></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Consumables -->
+          <div class="mb-3 hms-section" t-if="doc.consumable_line_ids">
+            <h4><t t-translate="true">Consumables'</t></h4>
+            <table class="table table-sm table-hover hms-table">
+              <thead>
+                <tr>
+                  <th><t t-translate="true">Product'</t></th>
+                  <th><t t-translate="true">Qty'</t></th>
+                  <th><t t-translate="true">Unit Price'</t></th>
+                  <th><t t-translate="true">Subtotal'</t></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr t-foreach="doc.consumable_line_ids" t-as="cl">
+                  <td><span t-field="cl.product_id.name"/></td>
+                  <td><span t-field="cl.quantity"/></td>
+                  <td><span t-field="cl.unit_price"/></td>
+                  <td><span t-esc="round((cl.unit_price or 0.0) * (cl.quantity or 0.0), 2)"/></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Financials -->
+          <div class="mb-3 hms-section">
+            <strong><t t-translate="true">Total Cost'</t></strong>:
+            <span t-field="doc.total_cost"/><br/>
+            <t t-if="doc.invoice_id">
+              <strong><t t-translate="true">Invoice'</t></strong>:
+              <span t-field="doc.invoice_id.name"/> —
+              <span t-field="doc.invoice_id.payment_state"/>
+            </t>
+          </div>
+
+          <!-- === [NEW] Footer with hospital name === -->
+          <div class="hms-footer">
+            <span t-esc="env.company.name"/>
+          </div>
+          <!-- === [/NEW] === -->
+
+          <div class="oe_structure"/>
+        </div>
+      </t>
+    </t>
+  </t>
+</template>
+
+
+    <record id="action_report_case_summary" model="ir.actions.report">
+      <field name="name">Case Summary</field>
+      <field name="model">hms.case</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">hms.report_case_summary</field>
+      <field name="report_file">hms.report_case_summary</field>
+      <field name="print_report_name">'Case Summary - %s' % (object.name)</field>
+      <field name="binding_model_id" ref="model_hms_case"/>
+      <field name="binding_type">report</field>
+    </record>
+    <!-- EN -->
+<record id="action_report_case_summary_en" model="ir.actions.report">
+  <field name="name">Case Summary</field>
+  <field name="model">hms.case</field>
+  <field name="report_type">qweb-pdf</field>
+  <!-- لازم يطابق الـ wrapper template: <template id="report_case_summary"> -->
+  <field name="report_name">hms.report_case_summary</field>
+  <field name="report_file">hms.report_case_summary</field>
+  <field name="print_report_name">'Case Summary - %s' % (object.name)</field>
+  <!-- اختياري: لربطه بزر Print القياسي -->
+  <field name="binding_model_id" ref="hms.model_hms_case"/>
+  <field name="binding_type">report</field>
+  <field name="binding_view_types">form</field>
+</record>
+
+<!-- AR -->
+<record id="action_report_case_summary_ar" model="ir.actions.report">
+  <field name="name">ملخص الحالة</field>
+  <field name="model">hms.case</field>
+  <field name="report_type">qweb-pdf</field>
+  <field name="report_name">hms.report_case_summary</field>
+  <field name="report_file">hms.report_case_summary</field>
+  <field name="print_report_name">'ملخص الحالة - %s' % (object.name)</field>
+  <field name="binding_model_id" ref="hms.model_hms_case"/>
+  <field name="binding_type">report</field>
+  <field name="binding_view_types">form</field>
+</record>
+
+
+  </data>
+</odoo>
+

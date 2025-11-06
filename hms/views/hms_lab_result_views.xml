@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- list View for Lab Results -->
+    <record id="view_lab_result_list" model="ir.ui.view">
+        <field name="name">hms.lab.result.tree</field>
+        <field name="model">hms.lab.result</field>
+        <field name="arch" type="xml">
+            <list string="Lab Results">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="lab_request_line_id"/>
+                <field name="date_result"/>
+                <field name="lab_technician_id"/>
+                <field name="lab_request_state"/>
+                <field name="attachment_ids" widget="binary"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View for Lab Results -->
+    <record id="view_lab_result_form" model="ir.ui.view">
+        <field name="name">hms.lab.result.form</field>
+        <field name="model">hms.lab.result</field>
+        <field name="arch" type="xml">
+            <form string="Lab Result">
+                <header>
+                    <button name="print_lab_result_report" type="object" string="Print Result" class="btn-primary" />
+                <field name="lab_request_state" widget="statusbar" readonly="1"/>
+                </header>       
+                <sheet>
+                    <group>
+                            <field name="name" readonly="1"/>
+                            <field name="case_id"/>
+                            <field name="patient_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="lab_request_line_id"/> 
+                            <field name="lab_technician_id" options="{'no_create': True}" domain="[('department_id.name', 'ilike', 'lab')]"/>
+                            <field name="date_result"/>
+                        </group>
+                    <notebook>          
+                        <page string="Attachments">
+                            <field name="attachment_ids" widget="binary"/>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Additional notes or instructions..."
+                             context="{ 'default_case_id': case_id, }"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_hms_lab_result_search" model="ir.ui.view">
+        <field name="name">hms.lab.result.search</field>
+        <field name="model">hms.lab.result</field>
+        <field name="arch" type="xml">
+            <search string="Lab Result Search">
+                <!-- Search fields for quick search -->
+                <field name="name" string="Result ID" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="patient_id" string="Patient" filter_domain="[('patient_id.name', 'ilike', self)]"/>
+                <field name="case_id" string="Case" filter_domain="[('case_id.name', 'ilike', self)]"/>
+                <field name="lab_request_id" string="Lab Request" filter_domain="[('lab_request_id.name', 'ilike', self)]"/>
+                <field name="lab_technician_id" string="Lab Technician" filter_domain="[('lab_technician_id.name', 'ilike', self)]"/>
+                <field name="recommendations" string="Recommendations" filter_domain="[('recommendations', 'ilike', self)]"/>
+                <field name="notes" string="Notes" filter_domain="[('notes', 'ilike', self)]"/>
+                
+               
+                <separator/>
+                
+                <!-- Lab request state filters -->
+                <filter string="Requested Results" name="requested_results" domain="[('lab_request_state', '=', 'requested')]"/>
+                <filter string="In Progress Results" name="in_progress_results" domain="[('lab_request_state', '=', 'in_progress')]"/>
+                <filter string="Completed Results" name="completed_results" domain="[('lab_request_state', '=', 'completed')]"/>
+                <filter string="Cancelled Results" name="cancelled_results" domain="[('lab_request_state', '=', 'cancelled')]"/>
+                
+                <separator/>
+                
+                <!-- Special filters -->
+                <filter string="Results Without Recommendations" name="no_recommendations" domain="[('recommendations', '=', False)]"/>
+                <filter string="Results With Recommendations" name="with_recommendations" domain="[('recommendations', '!=', False)]"/>
+                <filter string="Results Without Notes" name="no_notes" domain="[('notes', '=', False)]"/>
+                <filter string="Results With Notes" name="with_notes" domain="[('notes', '!=', False)]"/>
+                <filter string="Results Without Attachments" name="no_attachments" domain="[('attachment_ids', '=', False)]"/>
+                <filter string="Results With Attachments" name="with_attachments" domain="[('attachment_ids', '!=', False)]"/>
+                
+                <!-- Time-based filters -->
+                <filter string="Recent Results (Last 7 Days)" name="recent_results" domain="[('date_result', '>=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d 00:00:00'))]"/>
+                <filter string="Old Results (30+ Days)" name="old_results" domain="[('date_result', '&lt;', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d 00:00:00'))]"/>
+                
+                <!-- Group By section -->
+                <group name="group_by">
+                    <filter string="Lab Request State" name="group_by_request_state" context="{'group_by': 'lab_request_state'}"/>
+                    <filter string="Patient" name="group_by_patient" context="{'group_by': 'patient_id'}"/>
+                    <filter string="Case" name="group_by_case" context="{'group_by': 'case_id'}"/>
+                    <filter string="Lab Technician" name="group_by_technician" context="{'group_by': 'lab_technician_id'}"/>
+                    <filter string="Lab Request" name="group_by_lab_request" context="{'group_by': 'lab_request_id'}"/>
+                    <filter string="Result Date" name="group_by_date" context="{'group_by': 'date_result:day'}"/>
+                    <filter string="Result Week" name="group_by_week" context="{'group_by': 'date_result:week'}"/>
+                    <filter string="Result Month" name="group_by_month" context="{'group_by': 'date_result:month'}"/>
+                </group>
+                
+                <!-- Search Panel for faceted search -->
+                <searchpanel>
+                    <field name="lab_request_state" string="Request State" icon="fa-hourglass" select="multi" enable_counters="1"/>
+                    <field name="patient_id" string="Patient" icon="fa-user" select="multi" enable_counters="1"/>
+                    <field name="case_id" string="Case" icon="fa-stethoscope" select="multi" enable_counters="1"/>
+                    <field name="lab_technician_id" string="Lab Technician" icon="fa-user-nurse" select="multi" enable_counters="1"/>
+                    <field name="lab_request_id" string="Lab Request" icon="fa-flask" select="multi" enable_counters="1"/>
+                    
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- QWeb Report Definition -->
+    <record id="report_lab_result_document" model="ir.actions.report">
+        <field name="name">Lab Result Report</field>
+        <field name="model">hms.lab.result</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hms.report_lab_result_template</field>                                        
+        <field name="report_file">hms.report_lab_result_template</field>                  
+        <field name="print_report_name">'Lab Result - %s' % (object.name)</field>
+    </record>
+
+
+
+
+
+    <!--  Kanban View -->           
+<record id="view_hms_lab_result_kanban" model="ir.ui.view">
+    <field name="name">hms.lab.result.kanban</field>
+    <field name="model">hms.lab.result</field>
+    <field name="arch" type="xml">
+        <kanban class="hms-partner-kanban" default_group_by="lab_request_state">
+            <field name="name"/>
+            <field name="case_id"/>
+            <field name="patient_id"/>
+            <field name="lab_request_line_id"/>
+            <field name="date_result"/>
+            <field name="lab_technician_id"/>
+            <field name="lab_request_state"/>
+            <field name="attachment_ids"/>
+
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_card hms-kanban-card">
+
+                        <!-- Header -->
+                        <div class="hms-card-header">
+                            <img t-att-src="'/hms/static/src/img/icons8-result-98.png'" class="hms-avatar"/>
+                            <div class="hms-title">
+                                <strong><t t-esc="record.name.value"/></strong>
+                                <div class="hms-subtitle">
+                                    <t t-if="record.lab_technician_id.raw_value">
+                                        <field name="lab_technician_id"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Body -->
+                        <div class="hms-card-body">
+                            <div>
+                                <i class="fa fa-user"/> <field name="patient_id"/>
+                            </div>
+                            <div>
+                                <i class="fa fa-flask"/> <field name="lab_request_line_id"/>
+                            </div>
+                            <div>
+                                <i class="fa fa-calendar"/> <field name="date_result"/>
+                            </div>
+                            <div>
+                                <i class="fa fa-folder"/> <field name="case_id"/>
+                            </div>
+                            <div t-if="record.attachment_ids.raw_value">
+                                <i class="fa fa-paperclip"/> 
+                                <field name="attachment_ids" widget="many2many_tags"/>
+                            </div>
+                        </div>
+
+                        <!-- Footer / Status -->
+                        <div class="status-indicator">
+                            <span t-attf-class="state-badge state-#{record.lab_request_state.raw_value}">
+                                <t t-esc="record.lab_request_state.value"/>
+                            </span>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="btn-print-lp">
+                            <button type="object"
+                                    name="print_lab_result_report"
+                                    string="Print"
+                                    class="btn btn-sm btn-primary"
+                                    icon="fa-print"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+
+
+    <!-- Action to open Lab Results -->
+    <record id="action_lab_result" model="ir.actions.act_window">
+        <field name="name">Lab Results</field>
+        <field name="res_model">hms.lab.result</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_hms_prescription" model="ir.sequence">
+        <field name="name">HMS Prescription</field>
+        <field name="code">hms.prescription</field>
+        <field name="prefix">PR/</field>
+        <field name="padding">4</field>
+        <field name="implementation">standard</field>
+        <field name="company_id" eval="False"/> 
+    </record>
+
+    <record id="seq_hms_lab_result" model="ir.sequence">
+        <field name="name">HMS Lab Result</field>
+        <field name="code">hms.lab.result</field>
+        <field name="prefix">LR/</field>
+        <field name="padding">4</field>
+        <field name="implementation">standard</field>
+        <field name="company_id" eval="False"/> 
+    </record>       
+
+
+    <record id="seq_hms_lab_request" model="ir.sequence">
+        <field name="name">HMS Lab Request</field>
+        <field name="code">hms.lab.request</field>
+        <field name="prefix">LRQ/</field>
+        <field name="padding">4</field>
+        <field name="implementation">standard</field>
+        <field name="company_id" eval="False"/> 
+    </record>
+
+    <record id="seq_hms_appointment" model="ir.sequence">
+            <field name="name">HMS Appointment</field>
+            <field name="code">hms.appointment</field>
+            <field name="prefix">AP/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+    </record>
+</odoo>
+   

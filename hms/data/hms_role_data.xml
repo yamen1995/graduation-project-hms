@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- HMS Roles -->
+        <record id="hms_role_doctor" model="hms.role">
+            <field name="name">Doctor</field>
+            <field name="code">doctor</field>
+            <field name="group_id" ref="hms.group_hms_doctor"/>
+            <field name="job_id" ref="hms.hr_job_doctor"/>  <!-- map to HR job -->
+        </record>
+
+        <record id="hms_role_nurse" model="hms.role">
+            <field name="name">Nurse</field>
+            <field name="code">nurse</field>
+            <field name="group_id" ref="hms.group_hms_nurse"/>
+            <field name="job_id" ref="hms.hr_job_nurse"/>
+        </record>
+
+        <record id="hms_role_receptionist" model="hms.role">
+            <field name="name">Receptionist</field>
+            <field name="code">receptionist</field>
+            <field name="group_id" ref="hms.group_hms_receptionist"/>
+            <field name="job_id" ref="hms.hr_job_receptionist"/>
+        </record>
+
+        <record id="hms_role_chemist" model="hms.role">
+            <field name="name">Chemist</field>
+            <field name="code">chemist</field>
+            <field name="group_id" ref="hms.group_hms_chemist"/>
+            <field name="job_id" ref="hms.hr_job_chemist"/>
+        </record>
+
+        <record id="hms_role_lab_attendant" model="hms.role">
+            <field name="name">Lab Attendant</field>
+            <field name="code">lab_attendant</field>
+            <field name="group_id" ref="hms.group_hms_lab_attendant"/>
+            <field name="job_id" ref="hms.hr_job_lab_attendant"/>
+        </record>
+        <record id="mt_hms_notice" model="mail.message.subtype">
+            <field name="name">Hospital Notice</field>
+            <field name="description">Notifications related to hospital operations</field>
+            <field name="internal">True</field>
+            <field name="default" eval="False"/>
+            <field name="sequence">10</field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Cases List Page -->
+        <template id="portal_my_cases" name="My Cases">
+            <t t-call="portal.portal_layout">
+                <t t-set="title" t-value="'My Cases'"/>
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>My Medical Cases</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th><t t-translate="true">Case ID</t></th>
+                                        <th><t t-translate="true">Main Doctor</t></th>
+                                        <th><t t-translate="true">Status</t></th>
+                                        <th><t t-translate="true">Admission Date</t></th>
+                                        <th><t t-translate="true">Discharge Date</t></th>
+                                        <th><t t-translate="true">Actions</t></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="cases" t-as="case">
+                                        <tr>
+                                            <td>
+                                                <span t-esc="case.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="case.main_doctor_id.display_name"/>
+                                            </td>
+                                            <td>
+                                                <span t-attf-class="badge bg-{{ {
+                                                    'draft': 'secondary',
+                                                    'active': 'success',
+                                                    'closed': 'info'
+                                                }[case.state] or 'secondary' }}"
+                                                    t-esc="case.state"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="case.admission_date"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="case.discharge_date or 'N/A'"/>
+                                            </td>
+                                            <td>
+                                                <a t-att-href="'/my/cases/' + str(case.id)" 
+                                                   class="btn btn-sm btn-outline-primary">
+                                                    <t t-translate="true">View Details</t>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Case Details Page -->
+        <template id="portal_case_details" name="Case Details">
+            <t t-call="portal.portal_layout">
+                <t t-set="title" t-value="'Case Details'"/>
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2><t t-translate="true">Case Details</t>: <span t-esc="case.name"/></h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><t t-translate="true">Case Information</t></h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <strong><t t-translate="true">Case ID</t>:</strong>
+                                            <span t-esc="case.name" class="ms-2"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <strong><t t-translate="true">Main Doctor</t>:</strong>
+                                            <span t-esc="case.main_doctor_id.display_name" class="ms-2"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <strong><t t-translate="true">Status</t>:</strong>
+                                            <span t-attf-class="badge bg-{{ {
+                                                'draft': 'secondary',
+                                                'active': 'success',
+                                                'closed': 'info'
+                                            }[case.state] or 'secondary' }}"
+                                                t-esc="case.state" class="ms-2"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <strong><t t-translate="true">Admission Date</t>:</strong>
+                                            <span t-esc="case.admission_date" class="ms-2"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <strong><t t-translate="true">Discharge Date</t>:</strong>
+                                            <span t-esc="case.discharge_date or 'N/A'" class="ms-2"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <strong><t t-translate="true">Nurse</t>:</strong>
+                                            <span t-esc="case.nurse_id.display_name or 'N/A'" class="ms-2"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Prescriptions Section -->
+                            <div class="card mt-4">
+                                <div class="card-header">
+                                    <h5><t t-translate="true">Prescriptions</t></h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th><t t-translate="true">Prescription ID</t></th>
+                                                <th><t t-translate="true">Date</t></th>
+                                                <th><t t-translate="true">Status</t></th>
+                                                <th><t t-translate="true">Dispensed</t></th>
+                                                <th><t t-translate="true">Actions</t></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="case.prescription_ids" t-as="prescription">
+                                                <tr>
+                                                    <td>
+                                                        <span t-esc="prescription.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="prescription.date"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-attf-class="badge bg-{{ {
+                                                            'draft': 'secondary',
+                                                            'confirmed': 'warning',
+                                                            'dispensed': 'success',
+                                                            'cancelled': 'danger'
+                                                        }[prescription.state] or 'secondary' }}"
+                                                            t-esc="prescription.state"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-if="prescription.is_dispensed" class="badge bg-success"><t t-translate="true">Yes</t></span>
+                                                        <span t-else="" class="badge bg-secondary"><t t-translate="true">No</t></span>
+                                                    </td>
+                                                    <td>
+                                                        <a t-att-href="'/my/prescriptions/' + str(prescription.id)" 
+                                                           class="btn btn-sm btn-outline-primary">
+                                                            <t t-translate="true">View Details</t>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Lab Requests Section -->
+                            <div class="card mt-4">
+                                <div class="card-header">
+                                    <h5><t t-translate="true">Lab Requests</t></h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th><t t-translate="true">Request ID</t></th>
+                                                <th><t t-translate="true">Date Requested</t></th>
+                                                <th><t t-translate="true">Status</t></th>
+                                                <th><t t-translate="true">Urgency</t></th>
+                                                <th><t t-translate="true">Actions</t></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="case.lab_request_ids" t-as="lab_request">
+                                                <tr>
+                                                    <td>
+                                                        <span t-esc="lab_request.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="lab_request.date_requested"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-attf-class="badge bg-{{ {
+                                                            'draft': 'secondary',
+                                                            'requested': 'info',
+                                                            'in_progress': 'warning',
+                                                            'completed': 'success',
+                                                            'cancelled': 'danger'
+                                                        }[lab_request.state] or 'secondary' }}"
+                                                            t-esc="lab_request.state"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-attf-class="badge bg-{{ {
+                                                            'low': 'secondary',
+                                                            'normal': 'info',
+                                                            'high': 'warning',
+                                                            'urgent': 'danger'
+                                                        }[lab_request.urgency] or 'secondary' }}"
+                                                            t-esc="lab_request.urgency"/>
+                                                    </td>
+                                                    <td>
+                                                        <a t-att-href="'/my/lab_requests/' + str(lab_request.id)" 
+                                                           class="btn btn-sm btn-outline-primary">
+                                                            <t t-translate="true">View Details</t>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

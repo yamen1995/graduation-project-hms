@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <!-- QWeb template: hms.report_medrecs_last7 (يُستدعى باسم report_name) -->
+<template id="report_medrecs_last7">
+  <t t-call="web.html_container">
+    <t t-call="web.external_layout">
+
+      <!-- Helpers -->
+      <t t-set="is_ar" t-value="env.context.get('lang','')[:2]=='ar'"/>
+      <t t-set="_" t-value="env._"/>
+
+      <div class="page"
+           t-attf-style="direction: {{ 'rtl' if is_ar else 'ltr' }}; text-align: {{ 'right' if is_ar else 'left' }};">
+        <style>
+          .rx-wrap{ font-family:"DejaVu Sans","Noto Naskh Arabic","Arial",sans-serif; color:#222; }
+          .rx-title{ font-size:20px; font-weight:700; letter-spacing:.3px; margin:8px 0 2px; text-align:center; }
+          .rx-sub{ font-size:12.5px; color:#666; margin:0 0 14px; text-align:center; }
+          .rx-meta{ display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; margin:8px 0 16px; font-size:13px; }
+          .rx-badge{ display:inline-block; padding:4px 8px; border:1px solid #e0e0e0; border-radius:8px; background:#fafafa; }
+          .rx-table{ width:100%; border-collapse:separate; border-spacing:0; font-size:13px; }
+          .rx-table thead th{ background:#f7f9fc; border-bottom:2px solid #e6eef5; font-weight:700; padding:8px 10px; white-space:nowrap; }
+          .rx-table tbody td{ padding:8px 10px; border-bottom:1px solid #f0f0f0; vertical-align:top; }
+          .rx-table tbody tr:nth-child(even){ background:#fcfdff; }
+          .rx-table .col-patient{ width:28%; }
+          .rx-table .col-mr{ width:32%; }
+          .rx-table .col-case{ width:22%; }
+          .rx-table .col-date{ width:18%; text-align:{{ 'left' if is_ar else 'right' }}; }
+          .text-muted{ color:#6c757d; }
+          .text-center{ text-align:center; }
+        </style>
+
+        <div class="rx-wrap">
+          <!-- عنوان التقرير -->
+          <div class="rx-title"><t t-translate="true">Medical Records - Last 7 Days'</t></div>
+          <div class="rx-sub">
+            <strong><t t-translate="true">Period'</t></strong>:
+            <t t-esc="start and start.strftime('%Y-%m-%d %H:%M')"/> — 
+            <t t-esc="end and end.strftime('%Y-%m-%d %H:%M')"/>
+          </div>
+
+          <!-- ميتا -->
+          <div class="rx-meta">
+            <div class="rx-badge"><strong><t t-translate="true">Total Patients'</t></strong>: <t t-esc="len(rows)"/></div>
+            <div class="rx-badge"><strong><t t-translate="true">Generated On'</t></strong>: <t t-esc="end and end.strftime('%Y-%m-%d %H:%M')"/></div>
+            <div class="rx-badge"><strong><t t-translate="true">Company'</t></strong>: <t t-esc="company.name"/></div>
+          </div>
+
+          <!-- الجدول -->
+          <table class="rx-table">
+            <thead>
+              <tr>
+                <th class="col-patient"><t t-translate="true">Patient'</t></th>
+                <th class="col-mr"><t t-translate="true">Medical Record'</t></th>
+                <th class="col-case"><t t-translate="true">Case'</t></th>
+                <th class="col-date"><t t-translate="true">Admission'</t></th>
+              </tr>
+            </thead>
+            <tbody>
+              <t t-if="rows">
+                <t t-set="rows" t-value="sorted(rows, key=lambda x: x.get('admission'), reverse=True)"/>
+                <tr t-foreach="rows" t-as="r">
+                  <td>
+                    <t t-if="r.get('patient')"><span t-esc="r['patient'].name"/></t>
+                    <t t-else=""><em class="text-muted"><t t-translate="true">N/A'</t></em></t>
+                  </td>
+                  <td>
+                    <t t-if="r.get('medical_record')"><span t-esc="r['medical_record'].name"/></t>
+                    <t t-else=""><em class="text-muted"><t t-translate="true">N/A'</t></em></t>
+                  </td>
+                  <td><span t-esc="r['case'].name"/></td>
+                  <td class="col-date">
+                    <t t-if="r.get('admission')">
+                      <t t-esc="r['admission'].strftime('%Y-%m-%d %H:%M')"/>
+                    </t>
+                    <t t-else=""><em class="text-muted"><t t-translate="true">N/A'</t></em></t>
+                  </td>
+                </tr>
+              </t>
+              <tr t-if="not rows">
+                <td colspan="4" class="text-center">
+                  <em class="text-muted"><t t-translate="true">No records in the last 7 days'</t></em>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </t>
+  </t>
+</template>
+
+
+
+
+    <!-- Report Action -->
+    <record id="action_report_medrecs_last7" model="ir.actions.report">
+      <field name="name">Medical Records - Last 7 Days</field>
+      <field name="model">hms.case</field>
+      <field name="report_type">qweb-pdf</field>
+      <field name="report_name">hms.report_medrecs_last7</field> <!-- لازم يطابق _name في البايثون بدون 'report.' -->
+      <field name="report_file">hms.report_medrecs_last7</field>
+      <field name="print_report_name">'MedRecs_Last7_%s' % (context.get('uid') or '')</field>
+    </record>
+
+  </data>
+</odoo>

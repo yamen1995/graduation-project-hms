@@ -1,0 +1,26 @@
+<odoo>
+    <record id="view_medical_record_wizard_form" model="ir.ui.view">
+        <field name="name">medical.record.wizard.form</field>
+        <field name="model">medical.record.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Create Medical Record">
+            <div class="alert alert-info" role="alert" context="{'new_md': True}">
+                <strong> <span t-translation="translate">Note:</span></strong>  <span t-translation="translate">Please make sure to fill in all required fields correctly, you wont be able to access this page again.</span>
+            </div>
+                <group>
+                    <field name="patient_id" readonly="1"/>
+                    <field name="blood_type"/>
+                    <field name="allergies"/>
+                    <field name="disease_ids" widget="many2many_tags"/>
+                    <div class="o_note_card o_note_edit">
+                        <field name="medical_history" widget="text" nolabel="1" class="o_note_text" placeholder="Enter medical history..."/>
+                    </div>
+                </group>
+                <footer>
+                    <button name="action_create_medical_record" string="Save" type="object" class="btn-primary"/>
+                    <button name="action_close" string="close" action="action_close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

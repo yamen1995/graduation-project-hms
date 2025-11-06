@@ -1,0 +1,17 @@
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
+
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
+
+    is_consumable = fields.Boolean(string="Is Consumable")
+    is_lab_test = fields.Boolean(string="Is Lab Test")
+    is_medicine = fields.Boolean(string="Is Medicine")
+
+    @api.constrains('is_medicine', 'is_lab_test')
+    def _check_is_medicine_and_lab_test_mutually_exclusive(self):
+        for record in self:
+            if record.is_medicine and record.is_lab_test:
+                raise ValidationError(_("A product cannot be both a Medicine and a Lab Test."))
+
+    

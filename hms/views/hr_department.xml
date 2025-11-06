@@ -1,0 +1,23 @@
+<odoo>
+    <!-- Inherit hr.department form -->
+    <record id="view_hr_department_form_inherit_hms" model="ir.ui.view">
+        <field name="name">hr.department.form.inherit.hms</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_hospital" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+
+    <record id="action_hms_hospital_departments" model="ir.actions.act_window">
+    <field name="name">Hospital Departments</field>
+    <field name="res_model">hr.department</field>
+    <field name="view_mode">kanban,list,form</field>
+    <field name="domain">[('is_hospital','=',True)]</field>
+    <field name="context">{"search_default_is_hospital": True , "default_is_hospital": True}</field>
+</record>
+
+</odoo>

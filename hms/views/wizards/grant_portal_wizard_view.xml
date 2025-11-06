@@ -1,0 +1,22 @@
+<odoo>
+    <record id="view_grant_portal_wizard_form" model="ir.ui.view">
+        <field name="name">grant.portal.wizard.form</field>
+        <field name="model">grant.portal.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Grant Portal Access">
+                <group>
+                    <field name="patient_id" readonly="1"/>
+                    <field name="login"/>
+                    <field name="password" password="True"/>
+                </group>
+                <footer>
+                    <button string="Create User" type="object"
+                            name="action_create_user"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary"
+                            special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

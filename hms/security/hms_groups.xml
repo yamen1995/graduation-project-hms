@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+            <record id="hms_privilege_staff" model="res.groups.privilege">
+            <field name="name">Hospital staff</field>
+            <field name="description">Groups for hospital staff roles</field>
+            <field name="placeholder">Choose Role</field>
+            <field name="category_id" ref="base.module_category_human_resources"/>
+        </record>
+
+        <!-- Doctor Group -->
+        <record id="group_hms_doctor" model="res.groups">
+            <field name="name">Doctor</field>
+            <field name="privilege_id" ref="hms_privilege_staff"/>
+        </record>
+
+        <!-- Nurse Group -->
+        <record id="group_hms_nurse" model="res.groups">
+            <field name="name">Nurse</field>
+            <field name="privilege_id" ref="hms_privilege_staff"/>
+        </record>
+
+        <!-- Receptionist Group -->
+        <record id="group_hms_receptionist" model="res.groups">
+            <field name="name">Receptionist</field>
+            <field name="privilege_id" ref="hms_privilege_staff"/>
+        </record>
+
+        <!-- Chemist Group -->
+        <record id="group_hms_chemist" model="res.groups">
+            <field name="name">Chemist</field>
+            <field name="privilege_id" ref="hms_privilege_staff"/>
+        </record>
+
+        <!-- Lab Attendant Group -->
+        <record id="group_hms_lab_attendant" model="res.groups">
+            <field name="name">Lab Attendant</field>
+            <field name="privilege_id" ref="hms_privilege_staff"/>
+            
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,136 @@
+<odoo>
+    <data>
+        <!-- QWeb Report Template -->
+        <template id="report_prescription_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+
+                        <!-- ===== [NEW] اتجاه تلقائي + ستايل احترافي + هيدر وفوتر ===== -->
+                        <t t-set="is_ar" t-value="docs._context.get('lang','')[:2]=='ar'"/>
+                        <t t-set="_" t-value="env._"/>
+                        <style>
+                          /* هامش سفلي إضافي للفوتر الثابت */
+                          @page { size: A4; margin: 15mm 12mm 18mm 12mm; }
+
+                          .page{
+                            font-family: "DejaVu Sans","Noto Naskh Arabic","Arial",sans-serif;
+                            font-size: 13.5px; line-height: 1.6; color:#222;
+                            padding-bottom: 24mm; /* يمنع تداخل الفوتر مع المحتوى */
+                          }
+
+                          /* Header (logo) */
+                          .rx-header{ display:flex; justify-content:center; align-items:center; margin: 2mm 0 5mm; }
+                          .rx-logo{ max-height: 85px; max-width: 260px; }
+                          .rx-divider{ border:0; border-top:2px solid #8a8f98; margin:4px 0 12px; }
+
+                          /* Titles + spacing */
+                          h2, h3, h4 { margin: 8px 0 10px; }
+                          .mb-4{ margin-bottom: 1rem !important; }
+                          .mt-4{ margin-top: 1rem !important; }
+                          .mt-5{ margin-top: 2rem !important; }
+
+                          /* Table styling */
+                          .table thead th{ border-bottom:1px solid #cfcfcf; font-weight:600; }
+                          .table td, .table th{ padding: 6px 8px; border-bottom:1px solid #eee; }
+                          .hms-footer{margin-top:400px;padding-top:8px;border-top:3px solid #ddd;text-align:center;font-size:17px}
+
+
+                        </style>
+
+
+                        <!-- ===== [/NEW] ===== -->
+
+                        <div class="page"
+                             t-attf-style="direction: {{ 'rtl' if is_ar else 'ltr' }}; text-align: {{ 'right' if is_ar else 'left' }};">
+                            <div class="oe_structure"/>
+
+                            <!-- عنوان التقرير -->
+                            <div class="row">
+                                <div class="col-12 text-center mb-4">
+                                    <h2><t t-translate="true">Prescription'</t></h2>
+                                </div>
+                            </div>
+
+                            <!-- الميتا -->
+                            <div class="row mb-4">
+                                <div class="col-6">
+                                    <strong><t t-translate="true">Patient'</t></strong>:
+                                    <span t-field="doc.patient_id.name"/><br/>
+                                    <strong><t t-translate="true">Patient ID'</t></strong>:
+                                    <span t-field="doc.patient_id.id"/><br/>
+                                </div>
+                                <div class="col-6" t-attf-style="text-align: {{ 'left' if is_ar else 'right' }};">
+                                    <strong><t t-translate="true">Prescription ID'</t></strong>:
+                                    <span t-field="doc.name"/><br/>
+                                    <strong><t t-translate="true">Date'</t></strong>:
+                                    <span t-field="doc.date" t-options='{"widget": "date"}'/><br/>
+                                    <t t-if="doc.case_id.main_doctor_id">
+                                        <strong><t t-translate="true">Doctor'</t></strong>:
+                                        <span t-field="doc.case_id.main_doctor_id.name"/><br/>
+                                    </t>
+                                </div>
+                            </div>
+
+                            <!-- جدول الأدوية -->
+                            <h3><t t-translate="true">Medicines'</t></h3>
+                            <table class="table table-sm table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 40%;"><t t-translate="true">Medicine'</t></th>
+                                        <th style="width: 15%;"><t t-translate="true">Quantity'</t></th>
+                                        <th style="width: 15%;"><t t-translate="true">Unit'</t></th>
+                                        <th style="width: 30%;"><t t-translate="true">Dosage'</t></th>
+                                        <th style="width: 30%;"><t t-translate="true">Duration'</t></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.prescription_line_ids" t-as="line">
+                                        <td><span t-field="line.product_id.name"/></td>
+                                        <td><span t-field="line.quantity"/></td>
+                                        <td><span t-field="line.uom_id.name"/></td>
+                                        <td><span t-field="line.dosage"/></td>
+                                        <td><span t-field="line.duration"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- ملاحظات -->
+                            <div t-if="doc.notes" class="mt-4">
+                                <h4><t t-translate="true">Notes'</t></h4>
+                                <p><span t-field="doc.notes"/></p>
+                            </div>
+
+                            <!-- توقيع الطبيب -->
+                            <div class="row mt-5">
+                                <div class="col-6"/>
+                                <div class="col-6 text-center">
+                                    <p>_________________________</p>
+                                    <p><t t-esc="_(&quot;Doctor's Signature&quot;)"/></p>
+                                </div>
+                            </div>
+
+                            <div class="oe_structure"/>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="hms-footer">
+                            <span t-esc="env.company.name"/>
+                        </div>
+
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <!-- Report Action (بدون تعديل وظيفي) -->
+        <record id="action_report_prescription" model="ir.actions.report">
+            <field name="name">Prescription</field>
+            <field name="model">hms.prescription</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hms.report_prescription_template</field>
+            <field name="report_file">hms.report_prescription_template</field>
+            <field name="print_report_name">'Prescription - %s' % (object.name)</field>
+        </record>
+    </data>
+</odoo>

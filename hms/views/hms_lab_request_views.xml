@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View for Lab Request -->
+    <record id="view_hms_lab_request_form" model="ir.ui.view">
+        <field name="name">hms.lab.request.form</field>
+        <field name="model">hms.lab.request</field>
+        <field name="arch" type="xml">
+            <form string="Lab Request">
+                <header>
+            <button name="action_confirm" string="Confirm" type="object" class="btn-primary" invisible="state!='draft'" groups ="hms.group_hms_lab_attendant,base.group_system"/>
+            <button name="action_start" string="Start" type="object" class="btn-primary" invisible="state!='requested'" groups ="hms.group_hms_lab_attendant,base.group_system"/>
+            <button name="action_done" string="Done" type="object" class="btn-primary" invisible="state!='in_progress'" groups ="hms.group_hms_lab_attendant,base.group_system"/>
+            <button name="action_cancel" string="Cancel" type="object" class="btn-primary" invisible="state=='completed'" groups ="hms.group_hms_lab_attendant,base.group_system,hms.group_hms_nurse,hms.group_hms_doctor"/>
+            <field name="state" widget="statusbar" statusbar_visible="draft,requested,in_progress,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="case_id" options="{'no_create': True}"
+                                readonly="1"
+                                groups="hms.group_hms_lab_attendant" />
+                            <field name="case_id" options="{'no_create': True}"
+                                groups="hms.group_hms_nurse,hms.group_hms_doctor,base.group_system" />
+
+
+                            <field name="patient_id" readonly="1" />
+
+                            <field name="requested_by_id" options="{'no_create': True}" readonly="1" />
+
+                        </group>
+                        <group>
+
+                            <field name="date_requested" options="{'no_create': True}"
+                                readonly="1"
+                                groups="hms.group_hms_lab_attendant" />
+                            <field name="date_requested" options="{'no_create': True}"
+                                groups="hms.group_hms_nurse,hms.group_hms_doctor,base.group_system" />
+
+                            <field name="urgency" options="{'no_create': True}"
+                                widget="priority"
+                                readonly="1"
+                                groups="hms.group_hms_lab_attendant" />
+                            <field name="urgency" options="{'no_create': True}"
+                                widget="priority"
+                                groups="hms.group_hms_nurse,hms.group_hms_doctor,base.group_system" />
+
+
+                            <!-- Editable version (only for lab attendant + system admin) -->
+                            <field name="lab_technician_id"
+                                options="{'no_create': True}"
+                                domain="[('department_id.name', 'ilike', 'lab')]"
+                                groups="hms.group_hms_lab_attendant,base.group_system" />
+
+                            <!-- Readonly version (for all other users) -->
+                            <field name="lab_technician_id"
+                                options="{'no_create': True}"
+                                domain="[('department_id.name', 'ilike', 'lab')]"
+                                readonly="1"
+                                groups="hms.group_hms_nurse,hms.group_hms_doctor" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lab Tests" name="lab_tests">
+                            <field name="lab_request_line_ids"
+                                context="{'default_lab_request_id': id}" mode="list,form">
+                                <list editable="bottom" string="Lab Tests lines"
+                                    decoration-info="is_abnormal" decoration-danger="is_abnormal">
+
+                                    <field name="product_id" readonly="1" groups="hms.group_hms_lab_attendant"/>
+                                    <field name="product_id" groups="hms.group_hms_nurse,hms.group_hms_doctor,base.group_system"/>
+
+                                    <!-- value -->
+                                    <field name="value"
+                                        groups="hms.group_hms_lab_attendant,base.group_system" />
+                                    <field name="value" readonly="1"
+                                        groups="hms.group_hms_nurse,hms.group_hms_doctor" />
+
+                                    <!-- uom_id -->
+                                    <field name="uom_id" options="{'no_create': False}"
+                                        groups="hms.group_hms_lab_attendant,base.group_system" />
+                                    <field name="uom_id" options="{'no_create': False}" readonly="1"
+                                        groups="hms.group_hms_nurse,hms.group_hms_doctor" />
+
+                                    <!-- normal_range -->
+                                    <field name="normal_range"
+                                        groups="hms.group_hms_lab_attendant,base.group_system" />
+                                    <field name="normal_range" readonly="1"
+                                        groups="hms.group_hms_nurse,hms.group_hms_doctor" />
+
+                                    <field name="is_abnormal" readonly="1" />
+
+                                    <!-- lab_result_ids -->
+                                    <field name="lab_result_ids" widget="many2many_tags"
+                                        groups="hms.group_hms_lab_attendant,base.group_system" />
+                                    <field name="lab_result_ids" widget="many2many_tags"
+                                        readonly="1"
+                                        groups="hms.group_hms_nurse,hms.group_hms_doctor" />
+
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes" placeholder="Additional notes or instructions..."
+                                context="{ 'default_case_id': case_id, 'default_medical_record_id': medical_record_id }" />
+                        </page>
+
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- list View lab request -->
+    <record id="view_hms_lab_request_list" model="ir.ui.view">
+        <field name="name">hms.lab.request.tree</field>
+        <field name="model">hms.lab.request</field>
+        <field name="arch" type="xml">
+            <list string="Lab Requests" decoration-info="state == 'draft'"
+                decoration-warning="state == 'requested'" decoration-success="state == 'completed'"
+                decoration-muted="state == 'cancelled'">
+                <field name="name" />
+                <field name="case_id" />
+                <field name="patient_id" />
+                <field name="requested_by_id" />
+                <field name="date_requested" />
+                <field name="urgency" widget="priority" />
+                <field name="state" />
+                <field name="lab_technician_id" />
+            </list>
+        </field>
+    </record>
+        <!-- Professional search view for hms.lab.request -->
+    <record id="view_hms_lab_request_search" model="ir.ui.view">
+        <field name="name">hms.lab.request.search</field>
+        <field name="model">hms.lab.request</field>
+        <field name="arch" type="xml">
+            <search string="Lab Request Search">
+                <!-- Search fields for quick search -->
+                <field name="name" string="Request Name" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="patient_id" string="Patient" filter_domain="[('patient_id.name', 'ilike', self)]"/>
+                <field name="case_id" string="Case" filter_domain="[('case_id.name', 'ilike', self)]"/>
+                <field name="requested_by_id" string="Requested By" filter_domain="[('requested_by_id.name', 'ilike', self)]"/>
+                <field name="lab_technician_id" string="Lab Technician" filter_domain="[('lab_technician_id.name', 'ilike', self)]"/>
+                
+            
+                <separator/>
+                
+                <!-- State filters -->
+                <filter string="Draft Requests" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Requested" name="requested" domain="[('state', '=', 'requested')]"/>
+                <filter string="In Progress" name="in_progress" domain="[('state', '=', 'in_progress')]"/>
+                <filter string="Completed" name="completed" domain="[('state', '=', 'completed')]"/>
+                <filter string="Cancelled" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                
+                <separator/>
+                
+                <!-- Urgency filters -->
+                <filter string="High Urgency" name="high_urgency" domain="[('urgency', '=', '2')]"/>
+                <filter string="Medium Urgency" name="medium_urgency" domain="[('urgency', '=', '1')]"/>
+                <filter string="Low Urgency" name="low_urgency" domain="[('urgency', '=', '0')]"/>
+                
+                <separator/>
+                
+                <!-- Special filters -->
+                <filter string="Requests Without Technician" name="no_technician" domain="[('lab_technician_id', '=', False)]"/>
+                <filter string="Requests With Abnormal Results" name="abnormal_results" domain="[('lab_request_line_ids.is_abnormal', '=', True)]"/>
+                <filter string="Requests Without Results" name="no_results" domain="[('lab_request_line_ids.value', '=', False)]"/>
+                
+                <!-- Time-based filters -->
+                <filter string="Overdue Requests" name="overdue_requests" domain="[('date_requested', '&lt;', context_today().strftime('%Y-%m-%d 00:00:00')), ('state', 'in', ('draft', 'requested', 'in_progress'))]"/>
+                <filter string="Pending Results" name="pending_results" domain="[('state', 'in', ('requested', 'in_progress'))]"/>
+                
+                <!-- Group By section -->
+                <group name="group_by">
+                    <filter string="Status" name="group_by_state" context="{'group_by': 'state'}"/>
+                    <filter string="Urgency" name="group_by_urgency" context="{'group_by': 'urgency'}"/>
+                    <filter string="Patient" name="group_by_patient" context="{'group_by': 'patient_id'}"/>
+                    <filter string="Case" name="group_by_case" context="{'group_by': 'case_id'}"/>
+                    <filter string="Requested By" name="group_by_requested_by" context="{'group_by': 'requested_by_id'}"/>
+                    <filter string="Lab Technician" name="group_by_technician" context="{'group_by': 'lab_technician_id'}"/>
+                    <filter string="Request Date" name="group_by_date" context="{'group_by': 'date_requested:day'}"/>
+                    <filter string="Request Week" name="group_by_week" context="{'group_by': 'date_requested:week'}"/>
+                    <filter string="Request Month" name="group_by_month" context="{'group_by': 'date_requested:month'}"/>
+                </group>
+                
+                <!-- Search Panel for faceted search -->
+                <searchpanel>
+                    <field name="state" string="Status" icon="fa-hourglass" select="multi" enable_counters="1"/>
+                    <field name="urgency" string="Urgency" icon="fa-exclamation-triangle" select="multi" enable_counters="1"/>
+                    <field name="patient_id" string="Patient" icon="fa-user" select="multi" enable_counters="1"/>
+                    <field name="case_id" string="Case" icon="fa-stethoscope" select="multi" enable_counters="1"/>
+                    <field name="requested_by_id" string="Requested By" icon="fa-user-md" select="multi" enable_counters="1"/>
+                    <field name="lab_technician_id" string="Lab Technician" icon="fa-user-nurse" select="multi" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- Form View for Lab Request Line -->
+    <record id="view_hms_lab_request_line_form" model="ir.ui.view">
+        <field name="name">hms.lab.request.line.form</field>
+        <field name="model">hms.lab.request.line</field>
+        <field name="arch" type="xml">
+            <form string="Lab Request Line">
+                <sheet>
+                    <group>
+                        <field name="product_id"
+                            groups="hms.group_hms_doctor,group_hms_nurse,base.group_system" />
+                        <field name="product_id" readonly="1" groups="hms.group_hms_lab_attendant" />
+
+                        <!-- value -->
+                        <field name="value" groups="hms.group_hms_lab_attendant,base.group_system" />
+                        <field name="value" readonly="1"
+                            groups="hms.group_hms_nurse,hms.group_hms_doctor" />
+
+                        <!-- uom_id -->
+                        <field name="uom_id" options="{'no_create': False}"
+                            groups="hms.group_hms_lab_attendant,base.group_system" />
+                        <field name="uom_id" options="{'no_create': False}" readonly="1"
+                            groups="hms.group_hms_nurse,hms.group_hms_doctor" />
+
+                        <!-- normal_range -->
+                        <field name="normal_range"
+                            groups="hms.group_hms_lab_attendant,base.group_system" />
+                        <field name="normal_range" readonly="1"
+                            groups="hms.group_hms_nurse,hms.group_hms_doctor" />
+
+                        <field name="is_abnormal" readonly="1" />
+
+                        <!-- lab_result_ids -->
+                        <field name="lab_result_ids" widget="many2many_tags"
+                            groups="hms.group_hms_lab_attendant,base.group_system" />
+                        <field name="lab_result_ids" widget="many2many_tags" readonly="1"
+                            groups="hms.group_hms_nurse,hms.group_hms_doctor" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!-- Kanban View for Lab Request -->
+    <record id="view_hms_lab_request_kanban" model="ir.ui.view">
+        <field name="name">hms.lab.request.kanban</field>
+        <field name="model">hms.lab.request</field>
+        <field name="arch" type="xml">
+            <kanban class="hms-partner-kanban" default_group_by="state">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="case_id"/>
+                <field name="date_requested"/>
+                <field name="urgency"/>
+                <field name="lab_technician_id"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card hms-kanban-card">
+
+                            <!-- Header -->
+                            <div class="hms-card-header">
+                                <img t-att-src="'/hms/static/src/img/icons8-lab-100.png'" class="hms-avatar" style="width:40px; height:40px;"/>
+                                <div>
+                                    <div class="hms-title">
+                                        <strong><field name="name"/></strong>
+                                    </div>
+                                    <div class="hms-subtitle">
+                                        Lab Request • <t t-esc="record.date_requested.value"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Body -->
+                            <div class="hms-card-body">
+                                <div>
+                                    <i class="fa fa-user"/> Patient: <field name="patient_id"/>
+                                </div>
+                                <div>
+                                    <i class="fa fa-stethoscope"/> Case: <field name="case_id"/>
+                                </div>
+                                <div>
+                                    <i class="fa fa-exclamation-triangle"/> Urgency:
+                                    <span t-esc="record.urgency.value"/>
+                                </div>
+                                <div>
+                                    <i class="fa fa-flask"/> Technician: <field name="lab_technician_id"/>
+                                </div>
+                            </div>
+
+                            <!-- Footer / Status -->
+                            <div class="status-indicator">
+                                <span t-attf-class="state-badge state-#{record.state.raw_value}">
+                                    <t t-esc="record.state.value"/>
+                                </span>
+                            </div>
+
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+
+
+    <!-- Action -->
+    <record id="action_hms_lab_request" model="ir.actions.act_window">
+        <field name="name">Lab Requests</field>
+        <field name="res_model">hms.lab.request</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+</odoo>

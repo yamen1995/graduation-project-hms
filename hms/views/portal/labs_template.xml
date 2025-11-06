@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Lab Results List Page -->
+        <template id="portal_my_lab_results" name="My Lab Results">
+            <t t-call="portal.portal_layout">
+                <t t-set="title" t-value="'My Lab Results'"/>
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2><t t-translate="true">My Lab Results</t></h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th><t t-translate="true">Result ID</t></th>
+                                        <th><t t-translate="true">Patient</t></th>
+                                        <th><t t-translate="true">Test</t></th>
+                                        <th><t t-translate="true">Result Date</t></th>
+                                        <th><t t-translate="true">Technician</t></th>
+                                        <th><t t-translate="true">Status</t></th>
+                                        <th><t t-translate="true">Attachments</t></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="lab_results" t-as="result">
+                                        <tr>
+                                            <td>
+                                                <span t-esc="result.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="result.patient_id.display_name"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="result.lab_request_line_id.product_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="result.date_result"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="result.lab_technician_id.display_name"/>
+                                            </td>
+                                            <td>
+                                                <span t-attf-class="badge bg-{{ {
+                                                    'draft': 'secondary',
+                                                    'validated': 'success',
+                                                    'sent': 'info'
+                                                }[result.state] or 'secondary' }}"
+                                                    t-esc="result.state"/>
+                                            </td>
+                                            <td>
+                                                <t t-foreach="result.attachment_ids" t-as="attachment">
+                                                    <a t-att-href="'/web/content/%s/%s' % (attachment.id, attachment.name)" 
+                                                       t-att-download="attachment.name"
+                                                       class="btn btn-sm btn-outline-primary me-1 mb-1">
+                                                        <i class="fa fa-download"></i>
+                                                        <span t-esc="attachment.name"/>
+                                                    </a>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

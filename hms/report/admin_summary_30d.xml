@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- قالب التقرير -->
+  <template id="report_admin_summary_30d">
+    <t t-call="web.html_container">
+      <t t-call="web.external_layout_standard">
+        <div class="page">
+          <t t-set="_" t-value="env._"/>
+          <style>
+            @page{ size:A4; margin:15mm 12mm 18mm 12mm; }
+            .title h2{ margin:0 0 2mm; font-weight:700 }
+            .muted{ color:#6b7280; font-size:12px }
+            .grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:6mm 0 }
+            .kpi{ border:1px solid #e5e7eb; border-left:4px solid #22B8C7; border-radius:8px; padding:8px 10px }
+            .kpi h4{ margin:0 0 2px; font-size:12px; color:#6b7280; font-weight:600 }
+            .kpi .v{ font-size:18px; font-weight:700 }
+            .tbl{ width:100%; border-collapse:collapse; margin-top:4mm }
+            .tbl th{ border-bottom:1px solid #e5e7eb; padding:6px 8px; text-align:left; font-size:12px }
+            .tbl td{ border-bottom:1px solid #f3f4f6; padding:6px 8px; font-size:12px }
+          </style>
+
+          <div class="title">
+            <h2><t t-translate="true">Hospital Summary (Last 30 Days)'</t></h2>
+          </div>
+          <div class="muted">
+            <t t-translate="true">Period:'</t> <t t-esc="format_datetime(start)"/> — <t t-esc="format_datetime(end)"/>
+          </div>
+
+          <!-- KPIs -->
+          <div class="grid">
+            <div class="kpi">
+              <h4><t t-translate="true">New Patients'</t></h4>
+              <div class="v" t-esc="kpis.get('patients_new',0)"/>
+            </div>
+            <div class="kpi">
+              <h4><t t-translate="true">Admissions'</t></h4>
+              <div class="v" t-esc="kpis.get('admissions',0)"/>
+            </div>
+            <div class="kpi">
+              <h4><t t-translate="true">Discharges'</t></h4>
+              <div class="v" t-esc="kpis.get('discharges',0)"/>
+            </div>
+            <div class="kpi">
+              <h4><t t-translate="true">Active Cases (now)'</t></h4>
+              <div class="v" t-esc="kpis.get('active_cases',0)"/>
+            </div>
+            <div class="kpi">
+              <h4><t t-translate="true">Confirmed Appointments'</t></h4>
+              <div class="v" t-esc="kpis.get('appointments_confirmed',0)"/>
+            </div>
+            <div class="kpi">
+              <h4><t t-translate="true">Prescriptions'</t></h4>
+              <div class="v" t-esc="kpis.get('prescriptions',0)"/>
+            </div>
+            <div class="kpi">
+              <h4><t t-translate="true">Lab Requests'</t></h4>
+              <div class="v" t-esc="kpis.get('lab_requests',0)"/>
+            </div>
+            <div class="kpi">
+              <h4><t t-translate="true">Lab Results'</t></h4>
+              <div class="v" t-esc="kpis.get('lab_results',0)"/>
+            </div>
+            <div class="kpi">
+              <h4><t t-translate="true">Avg. Length of Stay (days)'</t></h4>
+              <div class="v" t-esc="avg_los"/>
+            </div>
+          </div>
+
+        </div>
+      </t>
+    </t>
+  </template>
+
+  <!-- Action (نستخدمه بالـ Quick Actions) -->
+  <record id="action_report_admin_summary_30d" model="ir.actions.report">
+    <field name="name">Hospital Summary (Last 30 Days)</field>
+    <field name="model">hms.dashboard</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">hms.report_admin_summary_30d</field>
+    <field name="report_file">hms.report_admin_summary_30d</field>
+    <field name="print_report_name">'Hospital Summary - Last 30 Days'</field>
+  </record>
+
+</odoo>

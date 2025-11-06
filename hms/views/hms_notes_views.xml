@@ -1,0 +1,61 @@
+<odoo>
+    <record id="view_hms_note_form" model="ir.ui.view">
+        <field name="name">hms.note.form</field>
+        <field name="model">hms.note</field>
+        <field name="arch" type="xml">
+            <form string="Medical Note">
+                <sheet>
+                    <!-- Two-column layout -->
+                    <div class="note-two-col">
+                        <!-- LEFT: metadata -->
+                        <div class="note-left">
+                            <group>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="create_date" readonly="1"/>
+                                    <field name="user_id" readonly="1"/>
+                                    <field name="role" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="case_id"/>
+                                    <field name="medical_record_id"/>
+                                    <field name="is_important"/>
+                                    <field name="show_in_portal"/>
+                                </group>
+                            </group>
+                        </div>
+
+                        <!-- RIGHT: note editor -->
+                        <div class="note-right">
+                         <div class="o_form_label o_form_label_bold">
+                                Accumulated Notes (History)
+                            </div>
+                            <div class="o_note_card o_note_acc">
+                                <field name="note_acc" nolabel="1" readonly="1" class="o_note_text"/>
+                            </div>
+                            <div class="o_form_label o_form_label_bold">
+                                Note Content
+                            </div>
+                            <div class="o_note_card o_note_edit">
+                                <field name="note" widget="text" nolabel="1" class="o_note_text"/>
+                            </div>
+
+                           
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hms_note" model="ir.actions.act_window">
+        <field name="name">Medical Notes</field>
+        <field name="res_model">hms.note</field>
+        <field name="view_mode">form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first medical note
+            </p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit hr.employee form to add HMS fields and notebook pages -->
+<record id="hr_employee_form_hms" model="ir.ui.view">
+    <field name="name">hr.employee.form.hms</field>
+    <field name="model">hr.employee</field>
+    <field name="arch" type="xml">
+        <form string="Hospital Staff" class="hms-employee-form">
+                    <field name="active" invisible="1"/>
+                    <field name="user_id" invisible="1"/>
+                    <field name="user_partner_id" invisible="1"/>
+                    <field name="image_128" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="last_activity_time" invisible="1"/>
+                    <field name="last_activity" invisible="1"/>
+                    <field name="work_contact_id" invisible="1"/>
+
+            <!-- Smart Button Box -->
+            <sheet>
+            <field name="user_id" invisible="1"/>
+                <div name="button_box" class="oe_button_box">
+    <button name="action_create_user"
+            string="Create User"
+            type="object"
+            class="btn-primary" 
+            icon="fa-user-plus"
+            groups="base.group_system"
+            invisible="user_id"/>
+
+    <!-- Change User Password -->
+<button name="action_open_password_wizard"
+        string="Change Password"
+        type="object"
+        class="btn-primary"
+        icon="fa-key"
+        groups="base.group_system"
+        invisible="user_id == False"
+        context="{'default_employee_id': id}"/>
+
+  
+                </div>
+
+                <!-- Header -->
+                <div class="hms-header">
+                <group>
+                    <field name="image_1920" widget="image" nolabel="1" class="oe_avatar hms-employee-avatar"/>
+                </group>
+                    <group class="hms-employee-info">
+                    <group>
+                        <field name="name" string="Employee Name" h3="true"/>
+                    </group>
+                    <group>
+                        <field name="hms_role_id" string="Role"/>
+                    </group>
+                    </group>
+                </div>
+
+                <!-- Main Info -->
+                <div class="hms-form-content">
+                <group>
+                    <group>
+                        <field name="work_email"/>
+                        <field name="work_phone"/>
+                        <field name="mobile_phone"/>
+                    </group>
+                    <group>
+                        <field name="address_id"/>
+                        <field name="department_id"/>
+                        <field name="job_id"/>
+                    </group>
+                </group>
+
+                    <!-- Notebook for role-specific cases -->
+                    <notebook class="hms-notebook">
+                            <page name="public" string="Work Information">
+                                <div id="o_work_employee_container" class="d-lg-flex"> <!-- These two div are used to position org_chart -->
+                                    <div id="o_work_employee_main" class="flex-grow-1">
+                                        <group name="managers" string="Approvers" class="hide-group-if-empty" invisible="1">
+                                            <!-- is overridden in other hr related modules -->
+                                        </group>
+                                        <group name="departure" string="Departure" invisible="active">
+                                            <field name="departure_reason_id" options="{'no_edit': True, 'no_create': True, 'no_open': True}"/>
+                                            <field name="departure_description"/>
+                                            <field name="departure_date"/>
+                                        </group>
+                                        <group string="Schedule">
+                                            <field name="resource_calendar_id" help="The default working hours are set in configuration."/>
+                                            <field name="id" invisible="1"/>
+                                            <field name="tz" required="id"/>
+                                        </group>
+                                    </div>
+                                </div>
+                            </page>
+                                                        <page name="personal_information" string="Private Information" groups="hr.group_hr_user">
+                                <group>
+                                    <group string="Private Contact">
+                                        <label for="private_street" string="Private Address"/>
+                                        <div class="o_address_format">
+                                            <field name="private_street" placeholder="Street..." class="o_address_street"/>
+                                            <field name="private_street2" placeholder="Street 2..." class="o_address_street"/>
+                                            <field name="private_city" placeholder="City" class="o_address_city"/>
+                                            <field name="private_state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}" context="{'default_country_id': private_country_id}"/>
+                                            <field name="private_zip" placeholder="ZIP" class="o_address_zip"/>
+                                            <field name="private_country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                        </div>
+                                        <field name="private_email" placeholder="e.g. myprivateemail@example.com"/>
+                                        <field name="private_phone"/>
+                                        <label for="distance_home_work"/>
+                                        <div class="o_row" name="div_km_home_work">
+                                            <field name="distance_home_work" class="o_hr_narrow_field"/>
+                                            <span><field name="distance_home_work_unit"/></span>
+                                        </div>
+                                        <field name="private_car_plate"/>
+                                    </group>
+                                    <group string="Citizenship">
+                                        <field name="country_id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                        <field name="identification_id"/>
+                                        <field name="ssnid"/>
+                                        <field name="passport_id"/>
+                                        <field name="birthday"/>
+                                        <field name="place_of_birth"/>
+                                        <field name="country_of_birth"/>
+                                    </group>
+                                    <group string="Emergency" name="emergency">
+                                        <field name="emergency_contact"/>
+                                        <field name="emergency_phone" class="o_force_ltr"/>
+                                        <separator string="Family Status"/>
+                                        <field name="marital"/>
+                                        <field name="spouse_complete_name" invisible="marital not in ['married', 'cohabitant']"/>
+                                        <field name="spouse_birthdate" invisible="marital not in ['married', 'cohabitant']"/>
+                                        <field name="children"/>
+                                    </group>
+                                    <group string="Education">
+                                        <field name="certificate"/>
+                                        <field name="study_field"/>
+                                        <field name="study_school"/>
+                                        <separator name="has_work_permit" string="Work Permit"/>
+                                        <field name="visa_no"/>
+                                        <field name="permit_no"/>
+                                        <field name="visa_expire"/>
+                                        <field name="work_permit_expiration_date"/>
+                                        <field name="work_permit_name" invisible="1"/>
+                                        <field name="has_work_permit" widget="work_permit_upload" filename="work_permit_name"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="hr_settings" string="Settings" groups="hr.group_hr_user,base.group_system">
+                                <group>
+                                    <group string="Status" name="active_group">
+                                        <field name="employee_type"/>
+                                        <label for="user_id"/>
+                                        <div class="o_row">
+                                            <field name="user_id" string="Related User" help="" domain="[('company_ids', 'in', company_id), ('share', '=', False)]" context="{'default_create_employee_id': id}" widget="many2one_avatar_user"/>
+                                            <button string="Create User" class="btn btn-link" type="object" name="action_create_user" invisible="user_id"/>
+                                        </div>
+                                    </group>
+                                    <group string="Attendance/Point of Sale" name="identification_group">
+                                        <field name="pin" string="PIN Code"/>
+                                        <label for="barcode"/>
+                                        <div class="o_row">
+                                            <field name="barcode"/>
+                                            <button string="Generate" class="btn btn-link" type="object" name="generate_random_barcode" invisible="barcode"/>
+                                            <button name="313" string="Print Badge" class="btn btn-link" type="action" invisible="not barcode"/>
+                                        </div>
+                                    </group>
+                                    <group name="application_group" string="Application Settings" invisible="1"/>
+                                </group>
+                            </page>
+                        <page string="Doctor Cases" invisible="is_Doctor != True">
+                            <field name="case_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="patient_id"/>
+                                    <field name="state"/>
+                                </list>
+                                <form string="Case">
+                                    <sheet>
+                                        <group>
+                                            <field name="name"/>
+                                            <field name="patient_id"/>
+                                            <field name="state"/>
+                                            <field name="main_doctor_id"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+
+                        <page string="Nurse Cases" invisible="is_Nurse != True">
+                            <field name="nurse_case_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="patient_id"/>
+                                    <field name="state"/>
+                                </list>
+                                <form string="Case">
+                                    <sheet>
+                                        <group>
+                                            <field name="name"/>
+                                            <field name="patient_id"/>
+                                            <field name="state"/>
+                                            <field name="nurse_id"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+
+                    </notebook>
+                </div>
+            </sheet>
+        </form>
+    </field>
+</record>
+    <record id="hr_employee_kanban_hms" model="ir.ui.view">
+        <field name="name">hr.employee.kanban.hms</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <kanban class="hms-partner-kanban" create="hms.role_id.code != 'receptionist'">
+            <field name="name"/>
+            <field name="image_1920"/>
+            <field name="hms_role_id"/>
+            <field name="department_id"/>
+            <field name="work_email"/>
+            <field name="work_phone"/>
+            <field name="category_ids"/>
+            <field name="user_id"/>
+            <field name="activity_ids"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card hms-kanban-card">
+                            <!-- Card Header -->
+                            <div class="hms-card-header">
+<img t-att-src="record.image_1920 and '/web/image/hr.employee/' + record.id.value + '/image_1920' or '/web/static/img/placeholder.png'" 
+                                 class="hms-avatar"/>
+                                <div class="hms-title">
+                                    <strong><field name="name"/></strong>
+                                    <div class="hms-subtitle">
+                                        <t t-if="record.hms_role_id.raw_value"><field name="hms_role_id"/></t>
+                                    <t t-if="record.department_id.raw_value"> • <field name="department_id"/></t>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card Body -->
+                            <div class="hms-card-body">
+ <div t-if="record.work_email.raw_value">
+                                <i class="fa fa-envelope"/> <field name="work_email"/>
+                            </div>
+                            <div t-if="record.work_phone.raw_value">
+                                <i class="fa fa-phone"/> <field name="work_phone"/>
+                            </div>
+                            <div>
+                                <i class="fa fa-tags"/> 
+                                <field name="category_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            </div>
+                            </div>
+
+                            <!-- Quick Actions -->
+                            <div class="hms-card-actions" groups="hms.group_hms_receptionist,base.group_system">
+                            <field name="user_id" widget="many2one_avatar_user" readonly="1"/>
+                                <button name="action_create_user"
+            string="Create User"
+            type="object"
+            class="btn-primary" 
+            icon="fa-user-plus"
+            groups="base.group_system"
+            invisible="user_id"/>
+
+    <!-- Change User Password -->
+<button name="%(base.change_password_wizard_action)d"
+        string="Change Password"
+        type="action"
+        class="btn-primary" 
+        icon="fa-key"
+        groups="base.group_system"
+        invisible="user_id == False"
+        context="{'default_user_ids': [user_id.id]}"/>
+
+
+                                    <field name="activity_ids" widget="kanban_activity"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+<!-- Kanban -->
+<record id="hms_hr_employee_kanban_view_action" model="ir.actions.act_window.view">
+    <field name="sequence">1</field>
+    <field name="view_mode">kanban</field>
+    <field name="view_id" ref="hr_employee_kanban_hms"/>
+    <field name="act_window_id" ref="action_hms_hr_employee"/>
+</record>
+
+<!-- Form -->
+<record id="hms_hr_employee_form_view_action" model="ir.actions.act_window.view">
+    <field name="sequence">2</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="hr_employee_form_hms"/>
+    <field name="act_window_id" ref="action_hms_hr_employee"/>
+</record>
+
+
+    <!-- Search view for hr.employee -->
+    <record id="hr_employee_view_search_hms" model="ir.ui.view">
+        <field name="name">hr.employee.search.hms</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <search string="Hospital Staff Search">
+                <!-- Search fields for quick search -->
+                <field name="name" string="Name" filter_domain="['|', ('name', 'ilike', self), ('work_email', 'ilike', self)]"/>
+                <field name="work_email" string="Work Email"/>
+                <field name="work_phone" string="Work Phone"/>
+                <field name="mobile_phone" string="Mobile Phone"/>
+                <field name="private_phone" string="Private Phone"/>
+                <field name="identification_id" string="ID Number"/>
+                <field name="passport_id" string="Passport"/>
+                
+                <!-- Predefined filters -->
+                <filter string="Active Employees" name="active_employees" domain="[('active', '=', True)]"/>
+                <filter string="Inactive Employees" name="inactive_employees" domain="[('active', '=', False)]"/>
+                <filter string="No User Account" name="no_user_account" domain="[('user_id', '=', False)]"/>
+                <filter string="Has User Account" name="has_user_account" domain="[('user_id', '!=', False)]"/>
+                
+                <separator/>
+                
+                <!-- Role-specific filters -->
+                <filter string="Doctors" name="filter_doctor" domain="[('hms_role_id.code', '=', 'doctor')]"/>
+                <filter string="Nurses" name="filter_nurse" domain="[('hms_role_id.code', '=', 'nurse')]"/>
+                <filter string="Receptionists" name="filter_receptionist" domain="[('hms_role_id.code', '=', 'receptionist')]"/>
+                <filter string="Chemists" name="filter_chemist" domain="[('hms_role_id.code', '=', 'chemist')]"/>
+                <filter string="Lab Attendants" name="filter_lab_attendant" domain="[('hms_role_id.code', '=', 'lab_attendant')]"/>
+                
+                <separator/>
+                
+                <!-- Department filters -->
+                <filter string="My Department" name="my_department" domain="[('department_id', '=', user_id.department_id.id)]" help="Employees in my department"/>
+                <filter string="No Department" name="no_department" domain="[('department_id', '=', False)]"/>
+                
+                <!-- Date filters -->
+                <filter string="Hired This Month" name="hired_this_month" date="create_date" default_period="month"/>
+                <filter string="Hired Last Month" name="hired_last_month" date="create_date" default_period="month"/>
+                <filter string="Birthday This Month" name="birthday_this_month" domain="[('birthday', '!=', False)]" context="{'birthday_this_month': True}"/>
+                
+                <!-- Emergency contact filters -->
+                <filter string="Has Emergency Contact" name="has_emergency_contact" domain="[('emergency_contact', '!=', False)]"/>
+                <filter string="No Emergency Contact" name="no_emergency_contact" domain="[('emergency_contact', '=', False)]"/>
+                
+                <!-- Group By section -->
+                <group name="group_by">
+                    <filter string="Department" name="group_by_department" context="{'group_by': 'department_id'}"/>
+                    <filter string="Job Position" name="group_by_job" context="{'group_by': 'job_id'}"/>
+                    <filter string="Hospital Role" name="group_by_hms_role" context="{'group_by': 'hms_role_id'}"/>
+                    <filter string="Employee Type" name="group_by_employee_type" context="{'group_by': 'employee_type'}"/>
+                    <filter string="Manager" name="group_by_manager" context="{'group_by': 'parent_id'}"/>
+                    <filter string="Country" name="group_by_country" context="{'group_by': 'country_id'}"/>
+                    <filter string="Marital Status" name="group_by_marital" context="{'group_by': 'marital'}"/>
+                    <filter string="Active Status" name="group_by_active" context="{'group_by': 'active'}"/>
+                    <filter string="Creation Date" name="group_by_creation_date" context="{'group_by': 'create_date:month'}"/>
+                </group>
+                
+                <!-- Search Panel for faceted search -->
+                <searchpanel>
+                    <field name="department_id" string="Department" icon="fa-building" select="multi" enable_counters="1"/>
+                    <field name="hms_role_id" string="Hospital Role" icon="fa-user-md" select="multi" enable_counters="1"/>
+                    <field name="job_id" string="Job Position" icon="fa-briefcase" select="multi" enable_counters="1"/>
+                    <field name="category_ids" string="Tags" icon="fa-tags" select="multi" enable_counters="1"/>
+                    <field name="company_id" string="Company" icon="fa-building-o" select="multi" enable_counters="1"/>
+                    <field name="country_id" string="Country" icon="fa-globe" select="multi" enable_counters="1"/>
+                    <field name="marital" string="Marital Status" icon="fa-heart" select="multi" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+       
+
+</odoo>

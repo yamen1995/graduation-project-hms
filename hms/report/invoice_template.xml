@@ -1,0 +1,231 @@
+<odoo>
+  <data noupdate="0">
+
+    <!-- QWeb Report Template -->
+    <template id="report_invoice_template">
+      <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+          <t t-call="web.external_layout">
+
+            <!-- RTL/LTR + i18n + Styles -->
+            <t t-set="is_ar" t-value="docs._context.get('lang','')[:2]=='ar'"/>
+            <t t-set="_" t-value="env._"/>
+            <style>
+            .t-center{ text-align: center !important; }
+              /* صفحة A4 وهوامش + مساحة للفوتر */
+              @page{
+                size: A4;
+                margin: 15mm 12mm 22mm 12mm;         /* قاع أكبر للفوتر */
+                @bottom-center { content: element(invfooter); } /* اربط المارجن بوكس بالرَنّينج إليمنت */
+              }
+
+              .page{
+                font-family:"DejaVu Sans","Noto Naskh Arabic","Arial",sans-serif;
+                font-size:13.5px; line-height:1.6; color:#222;
+                padding-bottom:24mm; /* يمنع تداخل المحتوى مع الفوتر */
+              }
+
+              /* Header (logo) */
+              .inv-header{display:flex;justify-content:center;align-items:center;margin:2mm 0 5mm;}
+              .inv-logo{max-height:85px;max-width:260px;}
+              .inv-divider{border:0;border-top:2px solid #8a8f98;margin:4px 0 12px;}
+
+              /* عناوين + مسافات */
+              h2,h3,h4{margin:8px 0 10px;}
+              .mb-4{margin-bottom:1rem!important;}
+              .mt-4{margin-top:1rem!important;}
+              .mt-5{margin-top:2rem!important;}
+
+              /* جدول السطور */
+              .table thead th{border-bottom:1px solid #cfcfcf;font-weight:600;}
+              .table td,.table th{padding:6px 8px;border-bottom:1px solid #eee;vertical-align:top;}
+
+              .t-right{text-align:right;}
+              .t-left{text-align:left;}
+              .section-row td{font-weight:600;background:#f7f7f7;}
+              .note-row td{font-style:italic;color:#555;}
+
+              /* جدول الإجماليات */
+              .totals{width:45%;margin-left:auto;}
+              .totals td{padding:6px 8px;}
+              .totals .label{width:60%;}
+              .totals .amount{width:40%;text-align:right;}
+
+              /* Footer ثابت بأسفل كل صفحة */
+              .inv-footer{
+                position: running(invfooter);
+                text-align:center; font-size:13px; color:#444;
+                padding-top:6px; border-top:1px solid #ddd;
+                margin-top:100px;
+              }
+            </style>
+
+
+            <!-- محتوى التقرير -->
+            <div class="page"
+                 t-attf-style="direction: {{ 'rtl' if is_ar else 'ltr' }}; text-align: {{ 'right' if is_ar else 'left' }};">
+
+              <!-- العنوان -->
+              <div class="row">
+                <div class="col-12 text-center mb-4">
+                  <h2><t t-translate="true">Invoice'</t></h2>
+                </div>
+              </div>
+
+              <!-- بيانات أساسية -->
+              <div class="row mb-4">
+                <div class="col-6">
+                  <strong><t t-translate="true">Customer'</t></strong>:
+                  <span t-field="doc.partner_id.display_name"/><br/>
+                  <t t-if="doc.partner_id.vat">
+                    <strong><t t-translate="true">Tax ID / VAT'</t></strong>:
+                    <span t-field="doc.partner_id.vat"/><br/>
+                  </t>
+                  <t t-if="doc.partner_id.contact_address">
+                    <strong><t t-translate="true">Address'</t></strong>:
+                    <span t-field="doc.partner_id.contact_address"/><br/>
+                  </t>
+                </div>
+                <div class="col-6" t-attf-style="text-align: {{ 'left' if is_ar else 'right' }};">
+                  <strong><t t-translate="true">Invoice Number'</t></strong>:
+                  <span t-field="doc.name"/><br/>
+                  <strong><t t-translate="true">Invoice Date'</t></strong>:
+                  <span t-field="doc.invoice_date" t-options='{"widget":"date"}'/><br/>
+                  <t t-if="doc.invoice_date_due">
+                    <strong><t t-translate="true">Due Date'</t></strong>:
+                    <span t-field="doc.invoice_date_due" t-options='{"widget":"date"}'/><br/>
+                  </t>
+                  <t t-if="doc.invoice_origin">
+                    <strong><t t-translate="true">Source'</t></strong>:
+                    <span t-field="doc.invoice_origin"/><br/>
+                  </t>
+                  <strong><t t-translate="true">Status'</t></strong>:
+                  <span t-field="doc.payment_state"/>
+                </div>
+              </div>
+
+              <!-- سطور الفاتورة -->
+              <h3><t t-translate="true">Invoice Lines'</t></h3>
+              <table class="table table-sm table-hover">
+                <thead>
+                  <tr>
+                    <th style="width:30%;"><t t-translate="true">Product'</t></th>
+                    <!-- <th style="width:26%;"><t t-translate="true">Description'</t></th> -->
+                    <th style="width:10%;" class="t-center"><t t-translate="true">Qty'</t></th>
+                    <th style="width:10%;" class="t-center"><t t-translate="true">UoM'</t></th>
+                    <th style="width:12%;" class="t-center"><t t-translate="true">Unit Price'</t></th>
+                    <th style="width:6%;" class="t-center"><t t-translate="true">Disc %'</t></th>
+                    <th style="width:6%;" class="t-center"><t t-translate="true">Taxes'</t></th>
+                    <th style="width:12%;" class="t-center"><t t-translate="true">Subtotal'</t></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <t t-set="lines" t-value="doc.invoice_line_ids or doc.line_ids.filtered(lambda l: l.product_id)"/>
+                  <t t-foreach="lines" t-as="l">
+                    <!-- سطر عادي -->
+                    <tr>
+                      <td><span t-field="l.product_id.display_name"/></td>
+                      <!-- <td><span t-field="l.name"/></td> -->
+                      <td class="t-center"><span t-field="l.quantity"/></td>
+                      <td class="t-center"><span t-field="l.product_uom_id.name"/></td>
+                      <td class="t-center"><span t-field="l.price_unit"/></td>
+                      <td class="t-center"><span t-esc="(l.discount or 0.0)"/></td>
+                      <td class="t-center"><span t-esc="', '.join([n for n in l.tax_ids.mapped('name') if n])"/></td>
+                      <td class="t-center"><span t-field="l.price_subtotal"/></td>
+                    </tr>
+                  </t>
+                    <!-- سطر Section -->
+                  <t t-foreach="doc.line_ids.filtered(lambda l: l.display_type)" t-as="l">  
+                    <tr t-if="l.display_type == 'line_section'" class="section-row">
+                      <td colspan="8"><span t-field="l.name"/></td>
+                    </tr>
+
+                    <!-- سطر Note -->
+                    <tr t-if="l.display_type == 'line_note'" class="note-row">
+                      <td colspan="8"><span t-field="l.name"/></td>
+                    </tr>
+                  </t>
+                </tbody>
+              </table>
+
+              <!-- ملاحظات + إجماليات -->
+              <div class="row mt-4">
+                <div class="col-6">
+                  <t t-if="doc.narration">
+                    <strong class="text-muted"><t t-translate="true">Terms &amp; Conditions'</t></strong>
+                    <div><span t-field="doc.narration"/></div>
+                  </t>
+                </div>
+                <div class="col-6">
+                  <table class="totals">
+                    <tbody>
+                      <tr>
+                        <td class="label"><strong><t t-translate="true">Untaxed Amount'</t></strong></td>
+                        <td class="amount"><span t-field="doc.amount_untaxed"/></td>
+                      </tr>
+                      <tr t-if="doc.amount_tax">
+                        <td class="label"><strong><t t-translate="true">Taxes'</t></strong></td>
+                        <td class="amount"><span t-field="doc.amount_tax"/></td>
+                      </tr>
+                      <tr>
+                        <td class="label"><strong><t t-translate="true">Total'</t></strong></td>
+                        <td class="amount"><span t-field="doc.amount_total"/></td>
+                      </tr>
+                      <tr t-if="doc.amount_residual">
+                        <td class="label"><strong><t t-translate="true">Amount Due'</t></strong></td>
+                        <td class="amount"><span t-field="doc.amount_residual"/></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- توقيع -->
+              <div class="row mt-5">
+                <div class="col-6"/>
+                <div class="col-6 text-center">
+                  <p>_________________________</p>
+                  <p><t t-translate="true">Authorized Signature'</t></p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Footer ثابت بأسفل كل صفحة -->
+            <div class="inv-footer">
+              <span t-esc="env.company.name"/>
+            </div>
+
+          </t>
+        </t>
+      </t>
+    </template>
+
+    <!-- Report Action (لا يغيّر الإفتراضي؛ يضيف خيار طباعة جديد) -->
+<record id="action_report_invoice_hms" model="ir.actions.report">
+  <field name="name">Invoice</field>
+  <field name="model">account.move</field>
+  <field name="report_type">qweb-pdf</field>
+  <field name="report_name">hms.report_invoice_template</field>
+  <field name="report_file">hms.report_invoice_template</field>
+  <field name="print_report_name">'Invoice - %s' % (object.name)</field>
+  <field name="binding_model_id" ref="account.model_account_move"/>
+  <field name="binding_type">report</field>
+  <field name="binding_view_types">form</field>
+</record>
+    <!-- ===== ربط زر Print بالقالب نفسه عبر توريث قوالب أودو الافتراضية ===== -->
+    <!-- إن لم يوجد أحد القالبين في نسختك، احذف بلوكه ببساطة -->
+    <template id="override_account_report_invoice" inherit_id="account.report_invoice">
+      <xpath expr="." position="replace">
+        <t t-call="hms.report_invoice_template"/>
+      </xpath>
+    </template>
+
+    <template id="override_account_report_invoice_with_payments" inherit_id="account.report_invoice_with_payments">
+      <xpath expr="." position="replace">
+        <t t-call="hms.report_invoice_template"/>
+      </xpath>
+    </template>
+
+  </data>
+</odoo>

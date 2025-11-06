@@ -1,0 +1,204 @@
+<odoo>
+    <!-- ROOT -->
+    <menuitem id="hms_menu_root" name="Hospital" sequence="10"  web_icon="hms,static/description/icon.png"/>
+
+    <!-- Dashboard -->
+    <menuitem id="hms_menu_dashboard" name="Dashboard" parent="hms_menu_root" sequence="10" action="hms_dashboards_action"/>
+    
+    <!-- Patients -->
+    <menuitem id="hms_menu_patients" name="Patients" parent="hms_menu_root" sequence="20"/>
+    <menuitem id="hms_menu_patients_list" name="Patients" parent="hms_menu_patients" action="hms_patient_action" sequence="10"/>
+    <menuitem id="hms_menu_appointments" name="Appointments" parent="hms_menu_patients" action="hms_appointment_action" sequence="20"/>
+    <menuitem id="hms_menu_medical_records" name="Medical Records" parent="hms_menu_patients" sequence="30" action="hms_medical_record_action"/>
+    <menuitem id="hms_menu_visits" name="Visits" parent="hms_menu_patients" action="hms_case_action" sequence="40"/>
+
+    <!-- Pharmacy -->
+    <menuitem id="hms_menu_pharmacy" name="Pharmacy" parent="hms_menu_root" sequence="30"/>
+    <menuitem id="hms_menu_prescriptions" name="Prescriptions" parent="hms_menu_pharmacy" sequence="10" action="action_prescription"/>
+    <menuitem id="hms_menu_medicines" name="Medicines"
+              parent="hms_menu_pharmacy" action="action_product_medicine" sequence="20"/>
+
+    <!-- Laboratory -->
+    <menuitem id="hms_menu_laboratory" name="Laboratory" parent="hms_menu_root" sequence="40"/>
+    <menuitem id="hms_menu_lab_requests" name="Lab Requests" parent="hms_menu_laboratory" sequence="10" action="action_hms_lab_request"/>
+    <menuitem id="hms_menu_lab_results" name="Lab Results" parent="hms_menu_laboratory" sequence="10" action="action_lab_result"/>
+    <menuitem id="hms_menu_lab_tests" name="Lab Tests"
+              parent="hms_menu_laboratory" action="action_product_lab_test" sequence="20"/>
+
+    <!-- Configuration -->
+    <menuitem id="hms_menu_config" name="Configuration" parent="hms_menu_root" sequence="50"/>
+    <menuitem id="menu_hms_staff" name="Staff" parent="hms_menu_config" action="action_hms_hr_employee" sequence="10"/>
+    <menuitem id="menu_hms_room" name="Rooms" parent="hms_menu_config" sequence="20" action="action_hms_room"/>
+    <menuitem id="menu_hms_bed" name="Beds" parent="hms_menu_config" action="action_hms_bed" sequence="30"/>
+    <menuitem id="menu_hms_disease" name="Diseases" parent="hms_menu_config" action="action_hms_disease" sequence="40"/>
+    <menuitem id="menu_hms_hospital_departments" name="Departments" parent="hms_menu_config" action="action_hms_hospital_departments" sequence="50"/>
+    <menuitem id="menu_hms_insurance" name="Insurance" parent="hms_menu_config" action="action_insurance_companies" sequence="60"/>
+    <menuitem id="menu_hms_consumable_mange" name="Consumables" parent="hms_menu_config" action="action_product_consumable_mange" sequence="30"/>
+
+
+    <!-- GROUP ACCESS -->
+    <!-- Dashboard (all roles) -->
+    <record id="menu_hms_consumable_mange" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_nurse'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+        <record id="hms_menu_dashboard" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_doctor'),
+            ref('hms.group_hms_nurse'),
+            ref('hms.group_hms_receptionist'),
+            ref('hms.group_hms_lab_attendant'),
+            ref('hms.group_hms_chemist'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <!-- Patients / Submenus -->
+    <record id="hms_menu_patients_list" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_doctor'),
+            ref('hms.group_hms_nurse'),
+            ref('hms.group_hms_receptionist'),
+            ref('hms.group_hms_lab_attendant'),
+            ref('hms.group_hms_chemist'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <record id="hms_menu_appointments" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_doctor'),
+            ref('hms.group_hms_nurse'),
+            ref('hms.group_hms_receptionist'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <record id="hms_menu_medical_records" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_doctor'),
+            ref('hms.group_hms_nurse'),
+            ref('hms.group_hms_lab_attendant'),
+            ref('hms.group_hms_chemist'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <record id="hms_menu_visits" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_doctor'),
+            ref('hms.group_hms_nurse'),
+            ref('hms.group_hms_receptionist'),
+            ref('hms.group_hms_lab_attendant'),
+            ref('hms.group_hms_chemist'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <!-- Pharmacy -->
+    <record id="hms_menu_pharmacy" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_doctor'),
+            ref('hms.group_hms_nurse'),
+            ref('hms.group_hms_chemist'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <record id="hms_menu_prescriptions" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_doctor'),
+            ref('hms.group_hms_nurse'),
+            ref('hms.group_hms_chemist'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <!-- Laboratory -->
+    <record id="hms_menu_laboratory" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_doctor'),
+            ref('hms.group_hms_nurse'),
+            ref('hms.group_hms_lab_attendant'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <record id="hms_menu_lab_requests" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_doctor'),
+            ref('hms.group_hms_nurse'),
+            ref('hms.group_hms_lab_attendant'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <record id="hms_menu_lab_results" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_doctor'),
+            ref('hms.group_hms_lab_attendant'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <!-- Config -->
+    <record id="menu_hms_staff" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <record id="menu_hms_room" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_receptionist'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <record id="menu_hms_bed" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_receptionist'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <record id="menu_hms_disease" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_doctor'),
+            ref('hms.group_hms_nurse'),
+            ref('hms.group_hms_lab_attendant'),
+            ref('hms.group_hms_chemist'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <record id="menu_hms_hospital_departments" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_doctor'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <record id="menu_hms_insurance" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [ref('base.group_system')])]"/>
+    </record>
+
+
+    <record id="hms_menu_medicines" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_chemist'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+    <record id="hms_menu_lab_tests" model="ir.ui.menu">
+        <field name="group_ids" eval="[(6, 0, [
+            ref('hms.group_hms_lab_attendant'),
+            ref('base.group_system')
+        ])]"/>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,16 @@
+<odoo>
+    <!-- Override the default company record -->
+    <record id="base.main_company" model="res.company" forcecreate="False">
+        <field name="name">Script Surgeons Hospital</field>
+        <field name="email">scriptsurgeons4@gmail.com</field>
+        <field name="phone">+962 798525123</field>
+        <field name="street">123 Medical Street</field>
+        <field name="city">Amman</field>
+        <field name="country_id" ref="base.jo"/> <!-- Jordan -->
+        <field name="zip">11118</field>
+        <field name="website">https://github.com/yamen1995/Hospital-Management-System</field>
+
+        <!-- Company Logo -->
+        <field name="logo" type="base64" file="hms/static/src/img/logo.png"/>
+    </record>
+</odoo>

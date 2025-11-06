@@ -1,0 +1,100 @@
+<odoo>
+    <!-- Base Departments -->
+    <record id="hms_department_medical" model="hr.department">
+        <field name="name">Medical</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="is_hospital">True</field>
+    </record>
+    <record id="hms_department_medical" model="hr.department">
+    <field name="name">Medical</field>
+    <field name="company_id" ref="base.main_company"/>
+    <field name="is_hospital">True</field>
+</record>
+
+<record id="hms_department_icu" model="hr.department">
+    <field name="name">ICU</field>
+    <field name="company_id" ref="base.main_company"/>
+    <field name="parent_id" ref="hms_department_medical"/>
+    <field name="is_hospital">True</field>
+</record>
+
+<record id="hms_department_emergency" model="hr.department">
+    <field name="name">Emergency</field>
+    <field name="company_id" ref="base.main_company"/>
+    <field name="parent_id" ref="hms_department_medical"/>
+    <field name="is_hospital">True</field>
+</record>
+
+<record id="hms_department_surgery" model="hr.department">
+    <field name="name">Surgery</field>
+    <field name="company_id" ref="base.main_company"/>
+    <field name="parent_id" ref="hms_department_medical"/>
+    <field name="is_hospital">True</field>
+</record>
+
+<record id="hms_department_maternity" model="hr.department">
+    <field name="name">Maternity</field>
+    <field name="company_id" ref="base.main_company"/>
+    <field name="parent_id" ref="hms_department_medical"/>
+    <field name="is_hospital">True</field>
+</record>
+
+    <record id="hms_department_administration" model="hr.department">
+        <field name="name">Administration</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="is_hospital">True</field>
+    </record>
+
+    <record id="hms_department_pharmacy" model="hr.department">
+        <field name="name">Pharmacy</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="is_hospital">True</field>
+    </record>
+
+    <record id="hms_department_lab" model="hr.department">
+        <field name="name">Laboratory</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="is_hospital">True</field>
+    </record>
+    <!-- Doctor Job -->
+    <record id="hr_job_doctor" model="hr.job">
+        <field name="name">Doctor</field>
+        <field name="department_id" ref="hms_department_medical"/> 
+        <field name="contract_type_id" ref="hr.contract_type_full_time"/>
+    </record>
+
+    <!-- Nurse Job -->
+    <record id="hr_job_nurse" model="hr.job">
+        <field name="name">Nurse</field>
+        <field name="department_id" ref="hms_department_medical"/> 
+        <field name="contract_type_id" ref="hr.contract_type_full_time"/>
+    </record>
+
+    <!-- Receptionist Job -->
+    <record id="hr_job_receptionist" model="hr.job">
+        <field name="name">Receptionist</field>
+        <field name="department_id" ref="hms_department_administration"/> 
+        <field name="contract_type_id" ref="hr.contract_type_full_time"/>
+    </record>
+
+    <!-- Chemist Job -->
+    <record id="hr_job_chemist" model="hr.job">
+        <field name="name">Chemist</field>
+        <field name="department_id" ref="hms_department_pharmacy"/> 
+        <field name="contract_type_id" ref="hr.contract_type_full_time"/>
+    </record>
+
+    <!-- Lab Attendant Job -->
+    <record id="hr_job_lab_attendant" model="hr.job">
+        <field name="name">Lab Attendant</field>
+        <field name="department_id" ref="hms_department_lab"/> 
+        <field name="contract_type_id" ref="hr.contract_type_full_time"/>
+    </record>
+
+    <record id="hr_job_lab_technician" model="hr.job">
+        <field name="name">Lab Technician</field>
+        <field name="department_id" ref="hms_department_lab"/> 
+        <field name="contract_type_id" ref="hr.contract_type_full_time"/>
+    </record>
+</odoo>
+

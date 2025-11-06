@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="0">
+    <record id="auth_signup.mail_template_user_signup_account_created" model="mail.template">
+      <field name="name">Hospital Portal Welcome Email</field>
+      <field name="email_from">{{ user.company_id.email }}</field>
+      <field name="subject">Welcome to Script Surgeons Patient Portal</field>
+      <field name="body_html" type="html">
+      <div style="font-family: Arial, sans-serif; font-size:14px; color:#333;">
+
+        <!-- Header with logo -->
+        <div style="text-align:center; padding:15px; border-bottom:2px solid #4a90e2;">
+          <img src="/hms/static/src/img/logo.png" alt="Hospital Logo" style="max-height:80px;"/>
+          <h2 style="margin:10px 0; color:#2c3e50;">Welcome to Script Surgeons Hospital</h2>
+        </div>
+
+        <!-- Greeting -->
+        <p>Dear <t t-out="object.name or ''"/>,</p>
+
+        <!-- Main Message -->
+        <p>
+          Thank you for registering with our <strong>hospital</strong>.  
+          This portal allows you to:
+        </p>
+        <ul>
+          <li>Book and manage appointments</li>
+          <li>Access medical history</li>
+          <li>View lab results and prescriptions</li>
+          <li>Communicate securely with our healthcare team</li>
+        </ul>
+
+        <!-- Login Credentials -->
+        <p>
+          You can log in using your email address:  
+          <strong><t t-out="object.login"/></strong>
+        </p>
+        <p>
+          Please set your password by clicking the button below:
+        </p>
+        <div style="text-align:center; margin:20px;">
+          <a t-att-href="signup_url"
+             style="background:#4a90e2; color:#fff; padding:12px 25px; text-decoration:none; border-radius:5px;">
+            Activate My Account
+          </a>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top:30px; border-top:1px solid #eee; padding-top:10px; font-size:12px; color:#777; text-align:center;">
+          <p>
+            Script Surgeons Hospital | +962 798525123 | scriptsurgeons4@gmail.com  
+          </p>
+          <p style="font-style:italic;">"Your Health, Our Priority"</p>
+        </div>
+      </div>
+    </field>
+  </record>
+    
+  </data>
+</odoo>

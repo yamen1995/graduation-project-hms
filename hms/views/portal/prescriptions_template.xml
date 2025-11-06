@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Prescriptions List Page -->
+        <template id="portal_my_prescriptions" name="My Prescriptions">
+            <t t-call="portal.portal_layout">
+                <t t-set="title" t-value="'My Prescriptions'"/>
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>My Prescriptions</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th><t t-translate="true">Prescription ID</t></th>
+                                        <th><t t-translate="true">Case</t></th>
+                                        <th><t t-translate="true">Patient</t></th>
+                                        <th><t t-translate="true">Date</t></th>
+                                        <th><t t-translate="true">Dispensed</t></th>
+                                        <th><t t-translate="true">Status</t></th>
+                                        <th><t t-translate="true">Actions</t></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="prescriptions" t-as="prescription">
+                                        <tr>
+                                            <td>
+                                                <span t-esc="prescription.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="prescription.case_id.name"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="prescription.patient_id.display_name"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="prescription.date"/>
+                                            </td>
+                                            <td>
+                                                <span t-if="prescription.is_dispensed" class="badge bg-success"><t t-translate="true">Yes</t></span>
+                                                <span t-else="" class="badge bg-secondary"><t t-translate="true">No</t></span>
+                                            </td>
+                                            <td>
+                                                <span t-attf-class="badge bg-{{ {
+                                                    'draft': 'secondary',
+                                                    'confirmed': 'warning',
+                                                    'dispensed': 'success',
+                                                    'cancelled': 'danger'
+                                                }[prescription.state] or 'secondary' }}"
+                                                    t-esc="prescription.state"/>
+                                            </td>
+                                            <td>
+                                                <a t-att-href="'/my/prescriptions/' + str(prescription.id)" 
+                                                   class="btn btn-sm btn-outline-primary">
+                                                    <t t-translate="true">View Details</t>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <!-- Prescription Details Page -->
+        <template id="portal_prescription_details" name="Prescription Details">
+            <t t-call="portal.portal_layout">
+                <t t-set="title" t-value="'Prescription Details'"/>
+                <div class="container mt-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2><t t-translate="true">Prescription Details</t>: <span t-esc="prescription.name"/></h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5><t t-translate="true">Prescription Information</t></h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <strong><t t-translate="true">Prescription ID</t>:</strong>
+                                            <span t-esc="prescription.name" class="ms-2"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <strong><t t-translate="true">Case</t>:</strong>
+                                            <span t-esc="prescription.case_id.name" class="ms-2"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <strong><t t-translate="true">Date</t>:</strong>
+                                            <span t-esc="prescription.date" class="ms-2"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <strong><t t-translate="true">Status</t>:</strong>
+                                            <span t-attf-class="badge bg-{{ {
+                                                'draft': 'secondary',
+                                                'confirmed': 'warning',
+                                                'dispensed': 'success',
+                                                'cancelled': 'danger'
+                                            }[prescription.state] or 'secondary' }}"
+                                                t-esc="prescription.state" class="ms-2"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <strong><t t-translate="true">Dispensed</t>:</strong>
+                                            <span t-if="prescription.is_dispensed" class="badge bg-success ms-2"><t t-translate="true">Yes</t></span>
+                                            <span t-else="" class="badge bg-secondary ms-2"><t t-translate="true">No</t></span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <strong><t t-translate="true">Dispensed Date</t>:</strong>
+                                            <span t-esc="prescription.dispensed_date or 'N/A'" class="ms-2"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Prescription Lines Section -->
+                            <div class="card mt-4">
+                                <div class="card-header">
+                                    <h5><t t-translate="true">Medications</t></h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th><t t-translate="true">Product</t></th>
+                                                <th><t t-translate="true">Quantity</t></th>
+                                                <th><t t-translate="true">Unit of Measure</t></th>
+                                                <th><t t-translate="true">Dosage</t></th>
+                                                <th><t t-translate="true">Duration</t></th>
+                                                <th><t t-translate="true">Dispensed</t></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="prescription.prescription_line_ids" t-as="line">
+                                                <tr>
+                                                    <td>
+                                                        <span t-esc="line.product_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="line.quantity"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="line.uom_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="line.dosage or 'N/A'"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="line.duration or 'N/A'"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-if="line.is_dispensed" class="badge bg-success"><t t-translate="true">Yes</t></span>
+                                                        <span t-else="" class="badge bg-secondary"><t t-translate="true">No</t></span>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

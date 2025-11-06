@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+    <!-- ===================== DOCTOR RULES ===================== -->
+
+<!-- doctor cant create patients -->
+<record id="rule_res_partner_no_create_doctor" model="ir.rule">
+    <field name="name">Doctors cannot create patients</field>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="groups" eval="[(4, ref('hms.group_hms_doctor'))]"/>
+    <field name="perm_create" eval="0"/>
+</record>
+
+<!-- Doctor: See assigned patients (partner records) -->
+<record id="hms_doctor_patients_rule" model="ir.rule">
+    <field name="name">Doctor: See Own Patients</field>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="domain_force">
+        ['|',
+            ('id', '=', user.partner_id.id),
+            '|',
+                ('medical_case_ids.main_doctor_id.user_id', '=', user.id),
+                ('medical_record_id.case_ids.main_doctor_id.user_id', '=', user.id)
+        ]
+    </field>
+    <field name="groups" eval="[(4, ref('hms.group_hms_doctor'))]"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="1"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+<record id="hms_doctor_patients_rule" model="ir.rule">
+    <field name="name">Doctor: See Own Patients</field>
+    <field name="model_id" ref="hms.model_res_partner"/>
+    <field name="domain_force">
+        ['|',
+            ('id', '=', user.partner_id.id),
+            '|',
+                ('medical_case_ids.main_doctor_id.user_id', '=', user.id),
+                ('medical_record_id.case_ids.main_doctor_id.user_id', '=', user.id)
+        ]
+    </field>
+    <field name="groups" eval="[(4, ref('hms.group_hms_doctor'))]"/>
+    <field name="perm_read" eval="1"/>
+    <field name="perm_write" eval="1"/>
+    <field name="perm_create" eval="False"/>
+    <field name="perm_unlink" eval="False"/>
+</record>
+    <!-- Doctor: Own cases -->
+    <record id="hms_doctor_case_rule" model="ir.rule">
+        <field name="name">Doctor: Own Cases</field>
+        <field name="model_id" ref="hms.model_hms_case"/>
+        <field name="domain_force">[("main_doctor_id.user_id","=",user.id)]</field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_doctor'))]"/>
+    </record>
+
+    <!-- Doctor: Related medical records -->
+    <record id="hms_doctor_medical_record_rule" model="ir.rule">
+        <field name="name">Doctor: Related Medical Records</field>
+        <field name="model_id" ref="hms.model_hms_medical_record"/>
+        <field name="domain_force">['|',('case_ids.main_doctor_id.user_id','=',user.id),('patient_id.medical_case_ids.main_doctor_id.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_doctor'))]"/>
+    </record>
+
+    <!-- Doctor: Prescriptions of own cases -->
+    <record id="hms_doctor_prescription_rule" model="ir.rule">
+        <field name="name">Doctor: Prescriptions of Own Cases</field>
+        <field name="model_id" ref="hms.model_hms_prescription"/>
+        <field name="domain_force">[("case_id.main_doctor_id.user_id","=",user.id)]</field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_doctor'))]"/>
+    </record>
+
+    <!-- Doctor: Lab requests of own cases -->
+    <record id="hms_doctor_lab_request_rule" model="ir.rule">
+        <field name="name">Doctor: Lab Requests of Own Cases</field>
+        <field name="model_id" ref="hms.model_hms_lab_request"/>
+        <field name="domain_force">[("case_id.main_doctor_id.user_id","=",user.id)]</field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_doctor'))]"/>
+    </record>
+
+    <!-- Doctor: Lab results of own cases -->
+    <record id="hms_doctor_lab_result_rule" model="ir.rule">
+        <field name="name">Doctor: Lab Results of Own Cases</field>
+        <field name="model_id" ref="hms.model_hms_lab_result"/>
+        <field name="domain_force">[("case_id.main_doctor_id.user_id","=",user.id)]</field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_doctor'))]"/>
+    </record>
+
+    <!-- Doctor: Appointments -->
+    <record id="hms_doctor_appointment_rule" model="ir.rule">
+        <field name="name">Doctor: Own Appointments</field>
+        <field name="model_id" ref="hms.model_hms_appointment"/>
+        <field name="domain_force">[("doctor_id.user_id","=",user.id)]</field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_doctor'))]"/>
+    </record>
+    <record id="hms_doctor_result_rule" model="ir.rule">
+        <field name="name">Doctor: All Lab Results</field>
+        <field name="model_id" ref="hms.model_hms_lab_result"/>
+        <field name="domain_force">[]</field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_doctor'))]"/>
+    </record>
+
+    <!-- ===================== NURSE RULES ===================== -->
+    <!-- Nurse: Assigned patients -->
+    <record id="hms_nurse_patients_rule" model="ir.rule">
+        <field name="name">Nurse: Assigned Patients</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">
+            ['|',
+                ('id', '=', user.partner_id.id),
+                '|',
+                    ('medical_case_ids.nurse_id.user_id','=',user.id),
+                    ('medical_record_id.case_ids.nurse_id.user_id','=',user.id)
+            ]
+        </field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_nurse'))]"/>
+    </record>
+    <!-- nurse cant create patients -->
+<record id="rule_res_partner_no_create_nurse" model="ir.rule">
+    <field name="name">Nurses cannot create patients</field>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="groups" eval="[(4, ref('hms.group_hms_nurse'))]"/>
+    <field name="perm_create" eval="False"/>
+</record>
+
+           <!-- Nurse: Assigned cases -->
+    <record id="rule_hms_case_nurse" model="ir.rule">
+        <field name="name">Nurse Case Access Rule</field>
+        <field name="model_id" ref="model_hms_case"/>
+        <field name="domain_force">[(1, '=', 1)]</field> <!-- Allow access to all cases -->
+        <field name="groups" eval="[(4, ref('group_hms_nurse'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- Nurse: Related medical records -->
+    <record id="hms_nurse_medical_record_rule" model="ir.rule">
+        <field name="name">Nurse: Related Medical Records</field>
+        <field name="model_id" ref="hms.model_hms_medical_record"/>
+        <field name="domain_force">['|',('case_ids.nurse_id.user_id','=',user.id),('patient_id.medical_case_ids.nurse_id.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_nurse'))]"/>
+    </record>
+
+    <!-- Nurse: Assigned appointments -->
+    <record id="hms_nurse_appointment_rule" model="ir.rule">
+        <field name="name">Nurse: Appointments of Assigned Cases</field>
+        <field name="model_id" ref="hms.model_hms_appointment"/>
+        <field name="domain_force">[("case_id.nurse_id.user_id","=",user.id)]</field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_nurse'))]"/>
+    </record>
+
+    <!-- ===================== RECEPTIONIST RULES ===================== -->
+    <record id="hms_receptionist_patients_rule" model="ir.rule">
+        <field name="name">Receptionist: Manage Patients</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="domain_force">['|',
+                ('id', '=', user.partner_id.id),
+                ('is_patient','=',True)]</field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_receptionist'))]"/>
+    </record>
+
+    <record id="hms_receptionist_appointments_rule" model="ir.rule">
+        <field name="name">Receptionist: Appointments (all)</field>
+        <field name="model_id" ref="hms.model_hms_appointment"/>
+        <field name="domain_force">[]</field>
+        <field name="groups" eval="[(4, ref('hms.group_hms_receptionist'))]"/>
+    </record>
+
+
+<!-- ===================== CHEMIST RULES ===================== -->
+
+
+<!-- Prescriptions: see ALL -->
+<record id="hms_chemist_prescription_rule" model="ir.rule">
+    <field name="name">Chemist: All Prescriptions</field>
+    <field name="model_id" ref="hms.model_hms_prescription"/>
+    <field name="domain_force">[]</field>
+    <field name="groups" eval="[(4, ref('hms.group_hms_chemist'))]"/>
+</record>
+
+<!-- Prescription Lines: see ALL -->
+<record id="hms_chemist_prescription_line_rule" model="ir.rule">
+    <field name="name">Chemist: All Prescription Lines</field>
+    <field name="model_id" ref="hms.model_hms_prescription_line"/>
+    <field name="domain_force">[]</field>
+    <field name="groups" eval="[(4, ref('hms.group_hms_chemist'))]"/>
+</record>
+
+<!-- Products: only medicines -->
+<record id="hms_chemist_product_rule" model="ir.rule">
+    <field name="name">Chemist: Only Medicines</field>
+    <field name="model_id" ref="product.model_product_product"/>
+    <field name="domain_force">[('is_medicine','=',True)]</field>
+    <field name="groups" eval="[(4, ref('hms.group_hms_chemist'))]"/>
+</record>
+
+<!-- Patients (res.partner): see own partner + any patient that has at least one prescription -->
+<record id="hms_chemist_patients_rule" model="ir.rule">
+    <field name="name">Chemist: Patients with Prescriptions</field>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="domain_force">
+        ['|',
+            ('id','=',user.partner_id.id),
+            ('medical_case_ids.prescription_ids','!=',False)
+        ]
+    </field>
+    <field name="groups" eval="[(4, ref('hms.group_hms_chemist'))]"/>
+</record>
+
+<!-- Cases: only cases that have prescriptions -->
+<record id="hms_chemist_cases_rule" model="ir.rule">
+    <field name="name">Chemist: Cases with Prescriptions</field>
+    <field name="model_id" ref="hms.model_hms_case"/>
+    <field name="domain_force">[('prescription_ids','!=',False)]</field>
+    <field name="groups" eval="[(4, ref('hms.group_hms_chemist'))]"/>
+</record>
+<!-- Medical Records: only records that have prescriptions -->
+<record id="hms_chemist_medical_record_rule" model="ir.rule">
+    <field name="name">Chemist: Medical Records with Prescriptions</field>
+    <field name="model_id" ref="hms.model_hms_medical_record"/>
+    <field name="domain_force">[('case_ids.prescription_ids','!=',False)]</field>
+    <field name="groups" eval="[(4, ref('hms.group_hms_chemist'))]"/>
+</record>
+
+   <!-- ===================== LAB ATTENDANT RULES (revised) ===================== -->
+
+   <!-- lab attendant can't create patients -->
+   <record id="rule_res_partner_no_create_lab_attendant" model="ir.rule">
+       <field name="name">Lab Attendants cannot create patients</field>
+       <field name="model_id" ref="base.model_res_partner"/>
+       <field name="groups" eval="[(4, ref('hms.group_hms_lab_attendant'))]"/>
+       <field name="perm_create" eval="False"/>
+   </record>
+
+<!-- Lab Requests: see ALL -->
+<record id="hms_lab_request_rule" model="ir.rule">
+    <field name="name">Lab: All Lab Requests</field>
+    <field name="model_id" ref="hms.model_hms_lab_request"/>
+    <field name="domain_force">[]</field>
+    <field name="groups" eval="[(4, ref('hms.group_hms_lab_attendant'))]"/>
+</record>
+<!-- Products: only labs -->
+<record id="hms_lab_product_rule" model="ir.rule">
+    <field name="name">Lab: Only Lab Products</field>
+    <field name="model_id" ref="product.model_product_product"/>
+    <field name="domain_force">[('is_lab_test','=',True)]</field>
+    <field name="groups" eval="[(4, ref('hms.group_hms_lab_attendant'))]"/>
+</record>
+
+<!-- Lab Results: see ALL -->
+<record id="hms_lab_result_rule" model="ir.rule">
+    <field name="name">Lab: All Lab Results</field>
+    <field name="model_id" ref="hms.model_hms_lab_result"/>
+    <field name="domain_force">[]</field>
+    <field name="groups" eval="[(4, ref('hms.group_hms_lab_attendant'))]"/>
+</record>
+
+<!-- Patients (res.partner): see own partner + any patient tied to at least one lab request -->
+<record id="hms_lab_patients_rule" model="ir.rule">
+    <field name="name">Lab: Patients with Lab Requests</field>
+    <field name="model_id" ref="base.model_res_partner"/>
+    <field name="domain_force">
+        ['|',
+            ('id', '=', user.partner_id.id),
+            '|',
+                ('medical_case_ids.lab_request_ids', '!=', False),
+                ('medical_record_id.case_ids.lab_request_ids', '!=', False)
+        ]
+    </field>
+    <field name="groups" eval="[(4, ref('hms.group_hms_lab_attendant'))]"/>
+</record>
+
+<!-- Cases: only cases that have at least one lab request -->
+<record id="hms_lab_cases_rule" model="ir.rule">
+    <field name="name">Lab: Cases with Lab Requests</field>
+    <field name="model_id" ref="hms.model_hms_case"/>
+    <field name="domain_force">[('lab_request_ids', '!=', False)]</field>
+    <field name="groups" eval="[(4, ref('hms.group_hms_lab_attendant'))]"/>
+</record>
+
+<!-- Medical Records: only records that have at least one lab request -->
+<record id="hms_lab_medical_record_rule" model="ir.rule">
+    <field name="name">Lab: Medical Records with Lab Requests</field>
+    <field name="model_id" ref="hms.model_hms_medical_record"/>
+    <field name="domain_force">[('case_ids.lab_request_ids', '!=', False)]</field>
+    <field name="groups" eval="[(4, ref('hms.group_hms_lab_attendant'))]"/>
+</record>
+
+<!-- ===================== PORTAL RULES ===================== -->
+
+<!-- Portal: see own partner record -->
+
+<record id="portal_own_appointment_rule" model="ir.rule">
+    <field name="name">Portal: Own Appointments</field>
+    <field name="model_id" ref="hms.model_hms_appointment"/>
+    <field name="domain_force">[('patient_id','=',user.partner_id.id)]</field>
+    <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+</record>
+
+<record id="portal_own_medical_record_rule" model="ir.rule">
+    <field name="name">Portal: Own Medical Records</field>
+    <field name="model_id" ref="hms.model_hms_medical_record"/>
+    <field name="domain_force">[('patient_id','=',user.partner_id.id)]</field>
+    <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+</record>
+
+<record id="portal_own_case_rule" model="ir.rule">
+    <field name="name">Portal: Own Cases</field>
+    <field name="model_id" ref="hms.model_hms_case"/>
+    <field name="domain_force">[('patient_id','=',user.partner_id.id)]</field>
+    <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+    </record>
+
+<record id="portal_own_prescription_rule" model="ir.rule">
+    <field name="name">Portal: Own Prescriptions</field>
+    <field name="model_id" ref="hms.model_hms_prescription"/>
+    <field name="domain_force">[('patient_id','=',user.partner_id.id)]</field>
+    <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+</record>
+
+<record id="portal_own_lab_result_rule" model="ir.rule">
+    <field name="name">Portal: Own Lab Results</field>
+    <field name="model_id" ref="hms.model_hms_lab_result"/>
+    <field name="domain_force">[('patient_id','=',user.partner_id.id)]</field>
+    <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+</record>
+
+<record id="portal_own_invoice_rule" model="ir.rule">
+    <field name="name">Portal: Own Invoices</field>
+    <field name="model_id" ref="account.model_account_move"/>
+    <field name="domain_force">[('partner_id','=',user.partner_id.id)]</field>
+    <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+</record>
+
+    <!-- ===================== DISEASE RULE ===================== -->
+    <record id="hms_disease_rule_allroles" model="ir.rule">
+        <field name="name">All Roles: Can Read Diseases</field>
+        <field name="model_id" ref="hms.model_hms_disease"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[
+            (4, ref('hms.group_hms_doctor')),
+            (4, ref('hms.group_hms_nurse')),
+            (4, ref('hms.group_hms_lab_attendant')),
+            (4, ref('hms.group_hms_chemist')),
+            (4, ref('hms.group_hms_receptionist'))
+        ]"/>
+    </record>
+
+        <record id="hms_res_partner_access_receptionist" model="ir.model.access">
+        <field name="name">res.partner.signup_type receptionist access</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="group_id" ref="hms.group_hms_receptionist"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+            <record id="hms_res_partner_access_receptionist" model="ir.model.access">
+        <field name="name">res.partner.signup_type receptionist access</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="group_id" ref="hms.group_hms_receptionist"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+        <record id="hms_res_users_access_receptionist" model="ir.model.access">
+        <field name="name">res.users.signup_type receptionist access</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="group_id" ref="hms.group_hms_receptionist"/>
+    </record>
+    <record id="rule_mail_activity_own" model="ir.rule">
+    <field name="name">Users: Own Activities</field>
+    <field name="model_id" ref="mail.model_mail_activity"/>
+    <field name="domain_force">[('user_id', '=', user.id)]</field>
+    <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+</record>
+
+
+    </data>
+</odoo>
