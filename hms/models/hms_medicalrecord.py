@@ -26,7 +26,9 @@ class HmsMedicalRecord(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get('name', 'New') == 'New':
-            patient = self.env['res.partner'].browse(vals.get('patient_id'))
-            vals['name'] = f"MR/{patient.name or ''}"
-        return super(HmsMedicalRecord, self).create(vals)
+        recs = super(HmsMedicalRecord, self).create(vals)
+        for rec in recs:
+            if rec.name == 'New':
+                patient = rec.patient_id
+                rec.name = f"MR/{patient.name or ''}"
+        return recs

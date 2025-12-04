@@ -51,7 +51,7 @@
 <field name="email"/>
 <field name="image_1920"/>
 <templates>
-<t t-name="kanban-box">
+<t t-name="card">
 <div class="oe_kanban_card hms-kanban-card">
 <div class="hms-card-header">
 <img t-att-src="record.image_1920 and '/web/image/res.partner/' + record.id.value + '/image_1920' or '/web/static/img/placeholder.png'" class="hms-avatar"/>

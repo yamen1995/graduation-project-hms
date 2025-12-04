@@ -76,7 +76,7 @@
 
 
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <t t-set="rate" t-value="Math.round(record.occupancy_rate.value || 0)"/>
                         <t t-set="bedsTotal" t-value="record.beds_total.value || 0"/>
                         <t t-set="bedsOcc" t-value="record.beds_occupied.value || 0"/>

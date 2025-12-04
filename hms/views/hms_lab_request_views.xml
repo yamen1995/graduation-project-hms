@@ -260,7 +260,7 @@
                 <field name="lab_technician_id"/>
                 <field name="state"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_card hms-kanban-card">
 
                             <!-- Header -->

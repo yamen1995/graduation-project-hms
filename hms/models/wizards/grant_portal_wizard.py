@@ -35,7 +35,7 @@ class GrantPortalWizard(models.TransientModel):
             "login": self.login,
             "password": self.password,
             "partner_id": self.patient_id.id,
-            "groups_id": [(6, 0, [portal_group.id])],
+            "group_ids": [(6, 0, [portal_group.id])],
         })
 
         return {

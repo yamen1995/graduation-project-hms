@@ -83,17 +83,52 @@ class MedicalNote(models.Model):
                         _("Vitals for this case already recorded at this time.")
                     )
 
-    @api.model
-    def create(self, vals):
-        note_entry = vals.pop('note', None)
-        record = super().create(vals)
-        record.user_id = self.env.user
-        if note_entry:
-            record._append_note(note_entry)
-        if record.is_important and record.case_id:
-            record.send_inbox_notification(record.case_id.main_doctor_id.user_id, f"Important {record.note_type} note added by {record.role}.{record.user_id.name} : {record.note}", fields.Datetime.now + timedelta(minutes=30))
-            record.send_inbox_notification(record.case_id.nurse_id.user_id, f"Important {record.note_type} note added by {record.role}.{record.user_id.name} : {record.note}", fields.Datetime.now + timedelta(minutes=30))
-        return record
+    @api.model_create_multi
+    def create(self, vals_list):
+        cleaned_vals_list = []
+        note_entries = []
+
+        for vals in vals_list:
+            vals = dict(vals)  # make mutable copy
+
+            # extract note if exists
+            note_entry = vals.pop('note', None)
+            note_entries.append(note_entry)
+
+            cleaned_vals_list.append(vals)
+
+        # create all records at once
+        records = super().create(cleaned_vals_list)
+
+        # post-processing per record
+        for record, note_entry in zip(records, note_entries):
+
+            # assign creator
+            record.user_id = self.env.user
+
+            # append note if provided
+            if note_entry:
+                record._append_note(note_entry)
+
+            # send notifications if important
+            if record.is_important and record.case_id:
+                doctor_user = record.case_id.main_doctor_id.user_id
+                nurse_user = record.case_id.nurse_id.user_id
+
+                msg = f"Important {record.note_type} note added by {record.role}.{record.user_id.name} : {record.note}"
+
+                record.send_inbox_notification(
+                    doctor_user,
+                    msg,
+                    fields.Datetime.now() + timedelta(minutes=30),
+                )
+                record.send_inbox_notification(
+                    nurse_user,
+                    msg,
+                    fields.Datetime.now() + timedelta(minutes=30),
+                )
+
+        return records
 
     def write(self, vals):
         note_entry = vals.pop('note', None)

@@ -1,6 +1,6 @@
 <odoo>
     <!-- ROOT -->
-    <menuitem id="hms_menu_root" name="Hospital" sequence="10"  web_icon="hms,static/description/icon.png"/>
+    <menuitem id="hms_menu_root" name="Hospital" sequence="0"  web_icon="hms,static/description/icon.png"/>
 
     <!-- Dashboard -->
     <menuitem id="hms_menu_dashboard" name="Dashboard" parent="hms_menu_root" sequence="10" action="hms_dashboards_action"/>

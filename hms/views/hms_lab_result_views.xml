@@ -144,7 +144,7 @@
             <field name="attachment_ids"/>
 
             <templates>
-                <t t-name="kanban-box">
+                <t t-name="card">
                     <div class="oe_kanban_card hms-kanban-card">
 
                         <!-- Header -->

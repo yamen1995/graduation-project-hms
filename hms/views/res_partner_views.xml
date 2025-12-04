@@ -133,7 +133,7 @@
                                     <div class="col-12 col-md-6">
                                         <div class="hms-info-card">
                                             <h3 class="hms-card-title">Emergency Contact</h3>
-                                            <field name="emergency_contact_id" class="mb-3" placeholder="Emergency Contact"/>
+                                            <field name="emergency_contact_id" context="{ 'default_form_view' : 'hms.res_partner_form_hms'}" class="mb-3" placeholder="Emergency Contact"/>
                                             <field name="emergency_phone" widget="phone" class="mb-3" placeholder="Emergency Phone"/>
                                             <field name="emergency_relation" class="mb-3" placeholder="Emergency Relation"/>
                                         </div>

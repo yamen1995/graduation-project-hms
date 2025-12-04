@@ -185,7 +185,7 @@
                 <field name="room_id"/>
                 <field name="state"/> 
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click o_kanban_card hms-case-card">
                             <!-- Top section with patient info and admission date -->
                             <div class="o_kanban_record_top">
