@@ -147,6 +147,8 @@ access_stock_quant_lab,stock.quant lab,stock.model_stock_quant,hms.group_hms_lab
 access_stock_quant_admin,stock.quant admin,stock.model_stock_quant,base.group_system,1,1,1,1
 access_stock_picking_chemist,stock.picking chemist,stock.model_stock_picking,hms.group_hms_chemist,1,1,1,0
 access_stock_picking_lab,stock.picking lab,stock.model_stock_picking,hms.group_hms_lab_attendant,1,1,1,0
+access_vitals_note,hms.vital.signs all,hms.model_hms_vital_signs,base.group_user,1,1,1,1
+access_consult_note,hms.consultation all,hms.model_hms_consultation,base.group_user,1,1,1,1
 
 
 

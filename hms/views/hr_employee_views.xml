@@ -67,6 +67,7 @@
                         <field name="address_id"/>
                         <field name="department_id"/>
                         <field name="job_id"/>
+                        <field name="hourly_rate"/>
                     </group>
                 </group>
 
@@ -170,14 +171,14 @@
                             <field name="case_ids">
                                 <list editable="bottom">
                                     <field name="name"/>
-                                    <field name="patient_id"/>
+                                    <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}"/>
                                     <field name="state"/>
                                 </list>
                                 <form string="Case">
                                     <sheet>
                                         <group>
                                             <field name="name"/>
-                                            <field name="patient_id"/>
+                                            <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}"/>
                                             <field name="state"/>
                                             <field name="main_doctor_id"/>
                                         </group>
@@ -190,14 +191,14 @@
                             <field name="nurse_case_ids">
                                 <list editable="bottom">
                                     <field name="name"/>
-                                    <field name="patient_id"/>
+                                    <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}"/>
                                     <field name="state"/>
                                 </list>
                                 <form string="Case">
                                     <sheet>
                                         <group>
                                             <field name="name"/>
-                                            <field name="patient_id"/>
+                                            <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}"/>
                                             <field name="state"/>
                                             <field name="nurse_id"/>
                                         </group>

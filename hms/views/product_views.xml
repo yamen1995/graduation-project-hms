@@ -2,13 +2,137 @@
 <odoo>
 
     <!-- Inherit Product Form View -->
-    <record id="view_product_template_form_hms" model="ir.ui.view">
-        <field name="name">product.template.form.inherit.hms</field>
+    <record id="view_product_template_formv_hms" model="ir.ui.view">
+        <field name="name">product.template.form.hms</field>
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
-            <group name="group_general" position="after">
-            </group>
+            <form string="Product">
+                <sheet name="product_form">
+                    <field name='product_variant_count' invisible='1'/>
+                    <field name='is_product_variant' invisible='1'/>
+                    <field name='attribute_line_ids' invisible='1'/>
+                    <field name="company_id" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <!-- Dummy tag for organizing buttons, using position='replace' when inheriting -->
+                        <span id="button_website" invisible="1"/>
+                        <button class="oe_stat_button"
+                                name="action_open_documents"
+                                type="object"
+                                icon="fa-file-text-o">
+                            <field string="Documents" name="product_document_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <field name="id" invisible="True"/>
+                    <field
+                        name="image_1920"
+                        widget="image"
+                        class="oe_avatar"
+                        options="{'convert_to_webp': True, 'preview_image': 'image_128'}"
+                    />
+                    <div class="oe_title">
+                        <label for="name" string="Product"/>
+                        <h1>
+                            <div class="d-flex">
+                                <field name="is_favorite" widget="boolean_favorite" class="me-2" nolabel="1"/>
+                                <field class="text-break" name="name" options="{'line_breaks': False}" widget="text" placeholder="e.g. Cheese Burger"/>
+                            </div>
+                        </h1>
+                    </div>
+                    <notebook>
+                        <page string="General Information" name="general_information">
+                            <group>
+                                <group name="group_general">
+                                    <field name="is_medicine" invisible="1"/>
+                                    <field name="is_lab_test" invisible="1"/>
+                                    <field name="is_consumable" invisible="1"/>
+                                    <field name="default_code" string="Internal Reference"/>
+                                    <field name="barcode"/>
+                                    <field name="show_qty_update_button" invisible="1"/>
+                                    <label for="qty_available" class="oe_inline" invisible="not is_storable" groups="stock.group_stock_user"/>
+                                    <div class="o_row" invisible="not is_storable" groups="stock.group_stock_user">
+                                        <field name="qty_available" invisible="show_qty_update_button" groups="stock.group_stock_manager" style="max-width: fit-content;"/>
+                                        <field name="qty_available" readonly="True" groups="!stock.group_stock_manager" style="max-width: fit-content;"/>
+                                        <span name="uom_span" groups="uom.group_uom">
+                                            <field name="uom_name" class="oe_inline"/>
+                                        </span>
+                                    </div>
+                                </group>
+                                <group name="group_standard_price">
+                                    <label for="list_price"/>
+                                    <div name="list_price_uom">
+                                        <field name="list_price"
+                                            class="oe_inline"
+                                            widget="monetary"
+                                            options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                                        <span
+                                            name="uom_span"
+                                            groups="uom.group_uom"
+                                            invisible="type == 'combo'"
+                                        >
+                                            per
+                                            <field
+                                                name="uom_id" widget="many2one_uom"
+                                                class="oe_inline" style="max-width:136px"
+                                                options="{'no_quick_create': True}"
+                                            />
+                                        </span>
+                                    </div>
+                                    <label
+                                        for="standard_price"
+                                        invisible="type == 'combo'
+                                                    or (not is_product_variant and (
+                                                        product_variant_count &gt; 1
+                                                        or (product_variant_count == 0 and is_dynamically_created)
+                                                    ))"
+                                        id="standard_price_label"
+                                    />
+                                    <div
+                                        name="standard_price_uom"
+                                        invisible="type == 'combo'
+                                                    or (not is_product_variant and (
+                                                        product_variant_count &gt; 1
+                                                        or (product_variant_count == 0 and is_dynamically_created)
+                                                    ))"
+                                    >
+                                        <field
+                                            name="standard_price"
+                                            class="oe_inline"
+                                            widget="monetary"
+                                            options="{
+                                                'currency_field': 'cost_currency_id',
+                                                'field_digits': True,
+                                            }"
+                                        />
+                                        <span groups="uom.group_uom">
+                                            per
+                                            <field
+                                                name="uom_id" widget="many2one_uom"
+                                                class="oe_inline" style="max-width:136px"
+                                                options="{'no_quick_create': True}"
+                                            />
+                                        </span>
+                                    </div>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="cost_currency_id" invisible="1"/>
+                                    <field name="product_variant_id" invisible="1"/>
+                                </group>
+                            </group>
+                            <group name="internal_notes" string="Internal Notes">
+                                <field colspan="2" name="description" nolabel="1" placeholder="This note is only for internal purposes."/>
+                            </group>
+                        </page>
+                        <page string="Medical Information" name="medical_information" invisible="not is_medicine and not is_lab_test">
+                            <group>
+                                <field name="danger_disease_ids" string="Diseases that cause complications with this medicine" widget="many2many_tags" invisible="not is_medicine"/>
+                                <field name="cautiuse_disease_ids" string="Diseases that require caution with this medicine or might interfere with this lab test result" widget="many2many_tags" />
+                                <field name="interfering_medication_ids" string="Interfering Medications" domain="[('is_medicine', '=', True)]" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
         </field>
     </record>
 
@@ -44,7 +168,7 @@
         <field name="name">Medicines</field>
         <field name="res_model">product.template</field>
         <field name="view_mode">list,form</field>
-        <field name="context">{'default_is_medicine': True, 'search_default_filter_is_medicine': 1,'default_is_storable' : 1}</field>
+        <field name="context">{'default_is_medicine': True, 'search_default_filter_is_medicine': 1,'default_is_storable' : 1 , 'form_view_ref' : 'hms.view_product_template_formv_hms'}</field>
         <field name="domain">[('is_medicine', '=', True)]</field>
     </record>
 
@@ -53,7 +177,7 @@
         <field name="name">Lab Tests</field>
         <field name="res_model">product.template</field>
         <field name="view_mode">list,form</field>
-        <field name="context">{'default_is_lab_test': True, 'search_default_filter_is_lab_test': 1,'default_is_storable' : 1}</field>
+        <field name="context">{'default_is_lab_test': True, 'search_default_filter_is_lab_test': 1,'default_is_storable' : 1, 'form_view_ref' : 'hms.view_product_template_formv_hms'}</field>
         <field name="domain">[('is_lab_test', '=', True)]</field>
     </record>
 
@@ -62,7 +186,7 @@
         <field name="res_model">product.template</field>
         <field name="view_mode">list,form</field>
         <field name="context">
-            {'default_is_consumable': True, 'search_default_filter_is_consumable': 1, 'default_is_storable' : 1}
+            {'default_is_consumable': True, 'search_default_filter_is_consumable': 1, 'default_is_storable' : 1, 'form_view_ref' : 'hms.view_product_template_formv_hms'}
         </field>
         <field name="domain">[('is_consumable', '=', True)]</field>
     </record>

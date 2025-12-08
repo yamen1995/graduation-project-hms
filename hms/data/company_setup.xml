@@ -13,4 +13,37 @@
         <!-- Company Logo -->
         <field name="logo" type="base64" file="hms/static/src/img/logo.png"/>
     </record>
+    <record id="hospital_cases_project" model="project.project">
+            <field name="name">Hospital Case Tasks</field>
+            <field name="privacy_visibility">employees</field>
+            <field name="allow_billable">True</field>
+            <field name="color">2</field>
+        </record>
+
+            <record id="doctor_timesheet_service" model="product.product">
+            <field name="name">Healthcare doctor Professional Time</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="uom.product_uom_hour"/>  <!-- Bill per hour -->
+            <field name="lst_price">50</field> <!-- change price -->
+            <field name="service_tracking">task_global_project</field>
+            <field name="service_policy">delivered_timesheet</field>
+            <field name="project_id" ref="hospital_cases_project"/>
+    </record>
+                <record id="nurse_timesheet_service" model="product.product">
+            <field name="name">Healthcare Nurse Professional Time</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="uom.product_uom_hour"/>  <!-- Bill per hour -->
+            <field name="lst_price">25</field> <!-- change price -->
+            <field name="service_tracking">task_global_project</field>
+            <field name="service_policy">delivered_timesheet</field>
+            <field name="project_id" ref="hospital_cases_project"/>
+    </record>
+    <record id="product_room_stay" model="product.product">
+            <field name="name">Hospital Room Stay (per day)</field>
+            <field name="type">service</field>
+            <field name="uom_id" ref="uom.product_uom_day"/>
+            <field name="lst_price">50</field>  <!-- price per day -->
+            <field name="invoice_policy">delivery</field>
+        </record>
+
 </odoo>

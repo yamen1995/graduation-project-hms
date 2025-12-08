@@ -35,8 +35,8 @@ class HmsCase(models.Model):
         'hr.employee', string='Main Doctor',
         domain="[('hms_role_id.name', '=', 'Doctor')]", tracking=True, required=True
     )
-    nurse_id = fields.Many2one(
-        'hr.employee', string='Nurse',
+    nurse_id = fields.Many2many(
+        'hr.employee', string='Nurses',
         domain="[('hms_role_id.name', '=', 'Nurse')]", tracking=True
     )
     consulting_doctor_ids = fields.Many2many(
@@ -50,7 +50,7 @@ class HmsCase(models.Model):
 
     # Diagnosis
     diagnosis_ids = fields.Many2many('hms.disease', string='Diagnosis')
-    diagnosis_text = fields.Text(string="Diagnosis (Text)", placeholder="Enter diagnosis details here...")
+    diagnosis_text = fields.Html(string="Diagnosis (Text)", placeholder="Enter diagnosis details here...")
 
     case_note_ids = fields.One2many('hms.note', 'case_id', string="Case Notes")
 
@@ -95,21 +95,18 @@ class HmsCase(models.Model):
     can_edit_prescriptions = fields.Boolean(compute='_compute_edit_rights', store=False)
     can_edit_team = fields.Boolean(compute='_compute_edit_rights', store=False)
     can_edit_logistics = fields.Boolean(compute='_compute_edit_rights', store=False)
-    medical_history_note = fields.Many2one('hms.note', string="Medical History Note", domain="[('medical_record_id', '=', medical_record_id), ('note_type', '=', 'medical_history')]" , help="Medical history note for this case.", compute="_compute_notes", store=True)
-    mdh_note_acc = fields.Text(related='medical_history_note.note_acc', string="Medical History Note (Read-Only)", readonly=True)
-    mdh_note = fields.Text(related='medical_history_note.note', string="Medical History Note", readonly=False)
-    vitals_note = fields.Many2one('hms.note', string="Vitals Note", domain="[('case_id', '=', id), ('note_type', '=', 'vitals')]", help="vitals note for this case.", compute="_compute_notes", store=True)
-    vitals_note_acc = fields.Text(related='vitals_note.note_acc', string="Vitals Note (Read-Only)", readonly=True)
-    vitals_note_edit = fields.Text(related='vitals_note.note', string="Vitals Note", readonly=False)
-    general_note = fields.Many2one('hms.note', string="General Note", domain="[('case_id', '=', id), ('note_type', '=', 'general')]", help="General note for this case.",compute="_compute_notes", store=True)
-    general_note_acc = fields.Text(related='general_note.note_acc', string="General Note (Read-Only)", readonly=True)
-    general_note_edit = fields.Text(related='general_note.note', string="General Note", readonly=False)
+    medical_history_note = fields.Html(
+        string='Medical History', store=True, readonly=False,
+    )
+    vitals_note = fields.One2many('hms.vital.signs', 'case_id', string="Vitals Notes", help="vitals note for this case.", store=True)
+    general_note = fields.Html(
+        string='General Note', store=True, readonly=False,
+    )
     disease_history = fields.Many2many('hms.disease', related='medical_record_id.disease_ids', string="Known Diseases", readonly=True)
     allergies = fields.Text(related='medical_record_id.allergies', string="Allergies", readonly=True)
     blood_type = fields.Selection(related='medical_record_id.blood_type', string="Blood Type", readonly=True)
-    consultation_note = fields.Many2one('hms.note', string="Consultation Note", domain="[('case_id', '=', id), ('note_type', '=', 'consultation')]", help="Consultation note for this case.",compute="_compute_notes", store=True)
-    consultation_note_acc = fields.Text(related='consultation_note.note_acc', string="Consultation Note (Read-Only)", readonly=True)
-    consultation_note_edit = fields.Text(related='consultation_note.note', string="Consultation Note", readonly=False)
+    medication_ids = fields.Many2many('product.product', related='medical_record_id.medication_ids', string="Current Medications", readonly=True)
+    consultation_note = fields.One2many('hms.consultation', 'case_id', string="Consultation Notes", help="consultation notes for this case.", store=True)
     insurance_id = fields.Many2one(
         'hms.insurance', string='Insurance',
         related='patient_id.insurance_id', readonly=True
@@ -123,6 +120,11 @@ class HmsCase(models.Model):
     can_approve_invoice = fields.Boolean(
     compute="_compute_can_approve_invoice", store=False
 )
+    sale_order_id = fields.Many2one("sale.order", string="Sale Order")
+    doctor_task_id = fields.Many2one("project.task")
+    nurse_task_id = fields.Many2one("project.task", string="Nurse Task")
+    doctor_timesheet_ids = fields.One2many(related='doctor_task_id.timesheet_ids',readonly=False, string="Doctor Timesheets")
+    nurse_timesheet_ids = fields.One2many(related='nurse_task_id.timesheet_ids',readonly=False, string="Nurse Timesheets")
 
 
     # ----------------------------
@@ -134,72 +136,7 @@ class HmsCase(models.Model):
                 rec.invoice_id and rec.invoice_id.state == "draft"
             )
 
-    @api.depends(
-        'medical_record_id',
-        'case_note_ids',
-        'case_note_ids.note',        # trigger when note text changes
-        'case_note_ids.note_acc',    # trigger when accumulated text changes
-        'case_note_ids.note_type',   # trigger when note type changes
-    )
-    def _compute_notes(self):
-        """Compute and link case <-> note helper fields.
 
-        This is a compute (not an onchange) so changes to hms.note records
-        (create / write) correctly trigger recomputation of these fields.
-        """
-        Note = self.env['hms.note']
-        for case in self:
-            # medical_history: by medical_record_id (one per medical record)
-            med_note = False
-            if case.medical_record_id:
-                med_note = Note.search([
-                    ('note_type', '=', 'medical_history'),
-                    ('medical_record_id', '=', case.medical_record_id.id),
-                ], limit=1)
-            case.medical_history_note = med_note or False
-
-            # vitals: note linked to case
-            vit = Note.search([
-                ('note_type', '=', 'vitals'),
-                ('case_id', '=', case.id),
-            ], limit=1)
-            if vit:
-                case.vitals_note = vit
-            else:
-                # return a "new" (unsaved) default so form editing works before case is saved
-                case.vitals_note = Note.create({
-                    'note_type': 'vitals',
-                    'case_id': case.id,
-                    'name': "Vitals Note for case %s" % (case.name or ""),
-                })
-
-            # general
-            gen = Note.search([
-                ('note_type', '=', 'general'),
-                ('case_id', '=', case.id),
-            ], limit=1)
-            if gen:
-                case.general_note = gen
-            else:
-                case.general_note = Note.create({
-                    'note_type': 'general',
-                    'case_id': case.id,
-                    'name': "General Note for case %s" % (case.name or ""),
-                })
-
-            # consultation / treatment
-            cons = Note.search([
-                ('note_type', '=', 'consultation'),
-                ('case_id', '=', case.id),
-            ], limit=1)
-            if cons:
-                case.consultation_note = cons
-            else:
-                case.consultation_note = Note.create({
-                    'note_type': 'consultation',
-                    'case_id': case.id,
-                    'name': "Consultation Note for case %s" % (case.name or ""),
-                })
 
     @api.depends('admission_date', 'discharge_date')
     def _compute_stay_days(self):
@@ -298,18 +235,46 @@ class HmsCase(models.Model):
 
         elif record.main_doctor_id and record.main_doctor_id.user_id:
             record.send_inbox_notification(record.sudo().main_doctor_id.user_id, _("you have a new patient: %s at room: %s case : %s") % (record.patient_id.name, record.room_id.name if record.room_id else 'N/A', record.name), record.admission_date + timedelta(hours=1))
-        
+        if not record.sale_order_id:
+            so = self.env['sale.order'].create({
+                'partner_id': record.patient_id.id,   # FIXED
+                'origin': record.name,                # FIXED
+            })
+            record.sale_order_id = so.id 
+            doctor_timesheet_product = self.env.ref("hms.doctor_timesheet_service")
+            doctor_timesheet_product.service_policy = 'delivered_timesheet'
+            nurse_timesheet_product = self.env.ref("hms.nurse_timesheet_service")
+            nurse_timesheet_product.service_policy = 'delivered_timesheet'
+    
+            so_line = self.env['sale.order.line'].create({
+                'order_id': so.id,
+                'product_id': doctor_timesheet_product.id,
+                'product_uom_qty': 1,
+                'price_unit': record.main_doctor_id.hourly_rate if record.main_doctor_id.hourly_rate else doctor_timesheet_product.list_price,
+            })
+            if record.nurse_id:
+                so_line_2 = self.env['sale.order.line'].create({
+                    'order_id': so.id,
+                    'product_id': nurse_timesheet_product.id,
+                    'product_uom_qty': 1,
+                    'price_unit': record.nurse_id[0].hourly_rate if record.nurse_id[0].hourly_rate else nurse_timesheet_product.list_price,
+                })
+            so.action_confirm()
+            record.doctor_task_id = so_line.task_id.id
+            if record.nurse_id:
+                record.nurse_task_id = so_line_2.task_id.id
+            
         record.bed_id.state = 'occupied'
         record.room_id = record.bed_id.room_id
+        record._update_medical_record()
+
 
         return record
 
     def write(self, vals):
 
-        # نحفظ السرير القديم قبل الكتابة
         old_beds = {case.id: case.bed_id for case in self}
 
-        # فحص الإغلاق كما هو
         if 'state' in vals and vals['state'] == 'closed':
             for case in self:
                 if not case.diagnosis_ids and not case.diagnosis_text:
@@ -320,13 +285,11 @@ class HmsCase(models.Model):
                 
         
         res = super().write(vals)
-
-        # منطق الأسرة بعد الكتابة
+        
         for case in self:
             new_bed = case.bed_id
             old_bed = old_beds.get(case.id)
 
-            # لو تغيّر السرير
             if 'bed_id' in vals:
                 if old_bed and old_bed != new_bed and old_bed.state == 'occupied':
                     old_bed.state = 'available'
@@ -336,11 +299,11 @@ class HmsCase(models.Model):
                     new_bed.state = 'occupied'
                     case.room_id = new_bed.room_id
 
-            # لو الحالة اتقفلت، رجّع السرير متاح
             if 'state' in vals and case.state == 'closed' and case.bed_id:
                 case.bed_id.state = 'available'
                 case.mdh_note = False
                 case.vitals_note_edit = False
+            case._update_medical_record()
 
         return res
 
@@ -349,7 +312,8 @@ class HmsCase(models.Model):
     # ----------------------------
 
     def action_activate(self):
-        self.state = 'active'    
+        self.state = 'active'
+
     def action_reject(self):
         self.state = 'closed'
 
@@ -392,32 +356,15 @@ class HmsCase(models.Model):
         # Compute stay_days when closing
         self._compute_stay_days()
 
-        if not self.invoice_id:
-            invoice_lines = []
-            # Prescription lines
-            for line in self.prescription_ids.mapped('prescription_line_ids'):
-                invoice_lines.append((0, 0, {
-                    'product_id': line.product_id.id,
-                    'quantity': line.quantity,
-                    'price_unit': line.product_id.list_price,
-                }))
-            # Lab lines
-            for line in self.lab_request_ids.mapped('lab_request_line_ids'):
-                invoice_lines.append((0, 0, {
-                    'product_id': line.product_id.id,
-                    'quantity': 1,
-                    'price_unit': line.product_id.list_price,
-                }))
-            # Consumable lines
-            for line in self.consumable_line_ids:
-                invoice_lines.append((0, 0, {
-                    'product_id': line.product_id.id,
-                    'quantity': line.quantity,
-                    'price_unit': line.product_id.list_price,
-                }))
-
-            # Add insurance coverage as a discount line if applicable
-            if self.insurance_id and self.insurance_coverage > 0:
+        if self.stay_days and self.stay_days > 0:
+            staydays_product = self.env.ref("hms.product_room_stay")
+            self.env['sale.order.line'].create({
+                'order_id': self.sale_order_id.id,
+                'product_id': staydays_product.id,
+                'product_uom_qty': self.stay_days,
+                'price_unit': staydays_product.list_price,
+            })
+        if self.insurance_id and self.insurance_coverage > 0:
                 insurance_discount = - (self.total_cost * (self.insurance_coverage / 100))
                 
                 # Get or create insurance product
@@ -431,56 +378,24 @@ class HmsCase(models.Model):
                         'type': 'service',
                         'list_price': 0,
                     })
-                
-                invoice_lines.append((0, 0, {
+                self.env['sale.order.line'].create({
+                    'order_id': self.sale_order_id.id,
                     'product_id': insurance_product.id,
-                    'quantity': 1,
+                    'product_uom_qty': 1,
                     'price_unit': insurance_discount,
-                    'name': f'Insurance Coverage ({self.insurance_coverage}%)',
-                }))
-
-            if invoice_lines:
-                invoice = self.env['account.move'].sudo().create({
-                    'partner_id': self.patient_id.id,
-                    'move_type': 'out_invoice',
-                    'invoice_line_ids': invoice_lines,
                 })
-                self.invoice_id = invoice.id
-
-        StockMove = self.env['stock.move'].sudo()
-        for record in self:
-            location = self.env.ref('stock.stock_location_stock')
-            for line in record.consumable_line_ids:
-                available_qty = self.env['stock.quant']._get_available_quantity(
-                    line.product_id, location
-                )
-                if available_qty < line.quantity:
-                    raise UserError(_("Not enough stock for %s. Available: %s") %
-                                    (line.product_id.name, available_qty))
-            try:
-                picking_type = self.env.ref('stock.picking_type_out', raise_if_not_found=False)
-                if not picking_type:
-                    raise UserError(_("Please configure a picking type for dispensing."))
-
-                for line in record.consumable_line_ids:
-                    move_vals = {
-                        'name': _("Dispense %s") % line.product_id.name,
-                        'product_id': line.product_id.id,
-                        'product_uom_qty': line.quantity,
-                        'product_uom': line.product_id.uom_id.id,
-                        'location_id': location.id,
-                        'location_dest_id': picking_type.default_location_dest_id.id,
-                        'picking_type_id': picking_type.id,
-                        'state': 'draft',
-                    }
-                    stock_move = StockMove.create(move_vals)
-                    stock_move._action_confirm()
-                    stock_move._action_assign()
-                    stock_move._action_done()
-                    stock_move.picking_id.button_validate()
-                    line.stock_move_id = stock_move.id
-            except Exception as e:
-                raise UserError(_("Error while dispensing test: %s") % str(e))
+        for line in self.consumable_line_ids:
+            self.env['sale.order.line'].create({
+                'order_id': self.sale_order_id.id,
+                'product_id': line.product_id.id,
+                'product_uom_qty': line.quantity,
+                'price_unit': line.product_id.list_price,
+            })
+            for picking in self.sale_order_id.picking_ids:
+                    picking.button_validate()   
+        if not self.invoice_id:
+            invoice = self.sale_order_id._create_invoices()  # uses Odoo's sale.order method to generate invoice
+            self.invoice_id = invoice.id
 
     def action_approve_invoice(self):
         for case in self:
@@ -542,13 +457,11 @@ class HmsCase(models.Model):
                         % (rec.main_doctor_id.name, overlapping_cases[0].name)
                     )
     def action_print_case_summary(self):
-        """زر Print للـ Case Summary مع اختيار القالب حسب اللغة."""
         self.ensure_one()
 
         lang = (self.env.context.get('lang') or self.env.user.lang or 'en_US')
         is_ar = str(lang).lower().startswith('ar')
 
-        # جرّب العربي أولاً لو اللغة عربي، وإلا جرّب الإنجليزي أولاً
         candidates = (
             ['hms.action_report_case_summary_ar', 'hms.action_report_case_summary_en']
             if is_ar else
@@ -561,8 +474,32 @@ class HmsCase(models.Model):
                 forced_lang = 'ar' if xmlid.endswith('_ar') else 'en_US'
                 return report.with_context(lang=forced_lang).report_action(self)
             except ValueError:
-                # لو الـ XMLID مش موجود، نكمل للتالي
                 continue
 
-        # لو ولا واحد موجود
         raise UserError(_("Case Summary report action not found. Please install or update the HMS reports."))
+    def _update_medical_record(self):
+            for case in self:
+                medrec = case.medical_record_id
+                if not medrec:
+                    continue
+
+                # -----------------------
+                # 1. Update disease history
+                # -----------------------
+                if case.diagnosis_ids:
+                    medrec.sudo().write({
+                        'disease_ids': [(4, d.id) for d in case.diagnosis_ids]
+                    })
+
+                # -----------------------
+                # 2. Update medication history
+                # -----------------------
+                all_med_products = case.prescription_ids.mapped(
+                    'prescription_line_ids.product_id'
+                )
+
+                if all_med_products:
+                    # Assuming a many2many medication field on medical record
+                    medrec.sudo().write({
+                        'medication_ids': [(4, p.id) for p in all_med_products]
+                    })

@@ -8,13 +8,12 @@
                 <strong> <span t-translation="translate">Note:</span></strong>  <span t-translation="translate">Please make sure to fill in all required fields correctly, you wont be able to access this page again.</span>
             </div>
                 <group>
-                    <field name="patient_id" readonly="1"/>
+                    <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}" readonly="1"/>
                     <field name="blood_type"/>
-                    <field name="allergies"/>
-                    <field name="disease_ids" widget="many2many_tags"/>
-                    <div class="o_note_card o_note_edit">
-                        <field name="medical_history" widget="text" nolabel="1" class="o_note_text" placeholder="Enter medical history..."/>
-                    </div>
+                    <field name="disease_ids" string="Diseases and Conditions" widget="many2many_tags"/>
+                    <field name="medication_ids" string="Medications" widget="many2many_tags"/>
+                    <field name="medical_history"  placeholder="Enter medical history..."/>
+
                 </group>
                 <footer>
                     <button name="action_create_medical_record" string="Save" type="object" class="btn-primary"/>

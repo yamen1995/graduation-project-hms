@@ -34,8 +34,8 @@ class MedicalNote(models.Model):
         ('vitals', 'Vitals'),
     ], string="Note Type", default='general')
     user_id = fields.Many2one('res.users', string="Author", readonly=True)
-    note = fields.Text("Note")
-    note_acc = fields.Text("Note", readonly=True)
+    note = fields.Html("Note")
+    note_acc = fields.Html("Note", readonly=True)
     create_date = fields.Datetime("Date", readonly=True,default=fields.Datetime.now() )
     is_important = fields.Boolean("Important")
     show_in_portal = fields.Boolean("Visible to Patient")

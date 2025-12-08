@@ -19,6 +19,7 @@ class HrEmployee(models.Model):
     )
     is_Nurse = fields.Boolean(string="Is Nurse", compute="_compute_role_flags"
     )
+    hourly_rate = fields.Float(string="Hourly Rate")
     @api.depends('hms_role_id')
     def _compute_role_flags(self):
         for employee in self:

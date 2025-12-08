@@ -21,3 +21,4 @@ from . import product_template
 from . import wizards
 from . import hms_notes
 from . import stock_location
+from . import hms_vitals

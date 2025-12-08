@@ -33,7 +33,7 @@ class HmsLabRequest(models.Model):
         ('completed', _('Completed')),
         ('cancelled', _('Cancelled'))
     ], string=_('State'), default='draft', required=True, tracking=True)
-    notes = fields.One2many('hms.note', 'lab_request_id', string='Notes')
+    notes = fields.Html(string='Notes')
     medical_record_id = fields.Many2one(
     related="case_id.medical_record_id",
     string="Medical Record",
@@ -69,6 +69,15 @@ class HmsLabRequest(models.Model):
             if record.state != 'draft':
                 raise UserError(_("Only draft requests can be confirmed."))
             record.state = 'requested'
+            for line in record.lab_request_line_ids:
+                    line_vals = {
+                        'order_id': record.case_id.sale_order_id.id,
+                        'product_id': line.product_id.id,
+                        'product_uom_qty': 1,
+                        'price_unit': line.product_id.list_price,
+                    }
+
+                    self.env['sale.order.line'].create(line_vals)
 
     def action_start(self):
         for record in self:
@@ -91,27 +100,10 @@ class HmsLabRequest(models.Model):
                     raise UserError(_("Not enough stock for %s. Available: %s %s") %
                                     (line.product_id.name, available_qty, line.uom_id.name))
             try:
-                picking_type = self.env.ref('stock.picking_type_out', raise_if_not_found=False)
-                if not picking_type:
-                    raise UserError(_("Please configure a picking type for dispensing."))
-
-                for line in record.lab_request_line_ids:
-                    move_vals = {
-                        'name': _("Dispense %s") % line.product_id.name,
-                        'product_id': line.product_id.id,
-                        'product_uom_qty': 1,
-                        'product_uom': line.product_id.uom_id.id,
-                        'location_id': location.id,
-                        'location_dest_id': picking_type.default_location_dest_id.id,
-                        'picking_type_id': picking_type.id,
-                        'state': 'draft',
-                    }
-                    stock_move = StockMove.create(move_vals)
-                    stock_move._action_confirm()
-                    stock_move._action_assign()
-                    stock_move._action_done()
-                    stock_move.picking_id.button_validate()
-                    line.stock_move_id = stock_move.id
+                sale_order = record.case_id.sale_order_id
+                for picking in sale_order.picking_ids:
+                    picking.button_validate()   
+               
             except Exception as e:
                 raise UserError(_("Error while dispensing test: %s") % str(e))
 

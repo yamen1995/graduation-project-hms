@@ -14,8 +14,9 @@ class MedicalRecordWizard(models.TransientModel):
         ('O+', 'O+'), ('O-', 'O-'),
     ], string='Blood Type')
     allergies = fields.Text(string='Allergies')
-    medical_history = fields.Text(string='Medical History')
+    medical_history = fields.Html(string='Medical History')
     disease_ids = fields.Many2many('hms.disease', string='Known Diseases')
+    medication_ids = fields.Many2many('product.product', string='Medications')
 
     def action_create_medical_record(self):
         self.ensure_one()
@@ -25,18 +26,9 @@ class MedicalRecordWizard(models.TransientModel):
             'blood_type': self.blood_type,
             'allergies': self.allergies,
             'disease_ids': [(6, 0, self.disease_ids.ids)],
+            'medication_ids': [(6, 0, self.medication_ids.ids)],
+            'notes': self.medical_history,
         })
-        md_note = self.env['hms.note'].create({
-            'medical_record_id': record.id,
-            'note_type': 'medical_history',
-            'user_id': self.env.user.id,
-            'role': self.env.user.has_group('hms.group_hms_receptionist') and 'receptionist' or 'other',
-        })
-        if self.medical_history:
-            md_note._append_note(self.medical_history)
-        else:
-            md_note._append_note(_("No medical history provided."))
-        record.notes = [(4, md_note.id)]
         if self.env.context.get("from_appointment_id"):
             appointment = self.env["hms.appointment"].browse(self.env.context["from_appointment_id"])
             return {

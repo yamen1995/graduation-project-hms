@@ -28,7 +28,7 @@
                                 groups="hms.group_hms_nurse,hms.group_hms_doctor,base.group_system" />
 
 
-                            <field name="patient_id" readonly="1" />
+                            <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}" readonly="1" />
 
                             <field name="requested_by_id" options="{'no_create': True}" readonly="1" />
 
@@ -71,8 +71,8 @@
                                 <list editable="bottom" string="Lab Tests lines"
                                     decoration-info="is_abnormal" decoration-danger="is_abnormal">
 
-                                    <field name="product_id" readonly="1" groups="hms.group_hms_lab_attendant"/>
-                                    <field name="product_id" groups="hms.group_hms_nurse,hms.group_hms_doctor,base.group_system"/>
+                                    <field name="product_id" readonly="1" context="{'default_is_lab_test': True, 'search_default_filter_is_lab_test': 1,'default_is_storable' : 1, 'form_view_ref' : 'hms.view_product_template_formv_hms'}" groups="hms.group_hms_lab_attendant"/>
+                                    <field name="product_id" context="{'default_is_lab_test': True, 'search_default_filter_is_lab_test': 1,'default_is_storable' : 1, 'form_view_ref' : 'hms.view_product_template_formv_hms'}" groups="hms.group_hms_nurse,hms.group_hms_doctor,base.group_system"/>
 
                                     <!-- value -->
                                     <field name="value"
@@ -105,8 +105,7 @@
                             </field>
                         </page>
                         <page string="Notes" name="notes">
-                            <field name="notes" placeholder="Additional notes or instructions..."
-                                context="{ 'default_case_id': case_id, 'default_medical_record_id': medical_record_id }" />
+                            <field name="notes" placeholder="Additional notes or instructions and attachments, etc." />
                         </page>
 
                     </notebook>
@@ -212,7 +211,7 @@
                     <group>
                         <field name="product_id"
                             groups="hms.group_hms_doctor,group_hms_nurse,base.group_system" />
-                        <field name="product_id" readonly="1" groups="hms.group_hms_lab_attendant" />
+                        <field name="product_id" readonly="1" context="{'default_is_lab_test': True, 'search_default_filter_is_lab_test': 1,'default_is_storable' : 1, 'form_view_ref' : 'hms.view_product_template_formv_hms'}" groups="hms.group_hms_lab_attendant" />
 
                         <!-- value -->
                         <field name="value" groups="hms.group_hms_lab_attendant,base.group_system" />
@@ -253,7 +252,7 @@
         <field name="arch" type="xml">
             <kanban class="hms-partner-kanban" default_group_by="state">
                 <field name="name"/>
-                <field name="patient_id"/>
+                <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}"/>
                 <field name="case_id"/>
                 <field name="date_requested"/>
                 <field name="urgency"/>
@@ -279,7 +278,7 @@
                             <!-- Body -->
                             <div class="hms-card-body">
                                 <div>
-                                    <i class="fa fa-user"/> Patient: <field name="patient_id"/>
+                                    <i class="fa fa-user"/> Patient: <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}"/>
                                 </div>
                                 <div>
                                     <i class="fa fa-stethoscope"/> Case: <field name="case_id"/>

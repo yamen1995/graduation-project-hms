@@ -1,3 +1,4 @@
+import re
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 from odoo.exceptions import ValidationError
@@ -28,6 +29,37 @@ class HmsLabRequestLine(models.Model):
     is_abnormal = fields.Boolean(string=_('Is Abnormal'), compute='_compute_is_abnormal', store=True)
     stock_move_id = fields.Many2one('stock.move', string=_('Stock Move'))
 
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        if not self.product_id or not self.lab_request_id:
+            return
+
+        patient_diseases = self.lab_request_id.case_id.medical_record_id.disease_ids
+        patient_medications = self.lab_request_id.case_id.medical_record_id.medication_ids
+        cautions = self.product_id.cautiuse_disease_ids
+        common_caution = cautions & patient_diseases
+        if common_caution:
+            names = ", ".join(common_caution.mapped("name"))
+            warning = {
+                'title': _("Caution Advised"),
+                'message': _("The lab test '%s' result might get affected by patient conditions: %s.")
+                        % (self.product_id.name, names)
+            }
+            return {
+                'warning': warning
+            }
+        enterfering_meds = self.product_id.interfering_medication_ids
+        common_medications = enterfering_meds & patient_medications
+        if common_medications:
+            names = ", ".join(common_medications.mapped("name"))
+            warning = {
+                'title': _("Caution Advised"),
+                'message': _("The lab test '%s' result might get affected by patient medications: %s.")
+                        % (self.product_id.name, names)
+            }
+            return {
+                'warning': warning
+            }
 
     @api.constrains('value')
     def _check_value_is_numeric_and_positive(self):

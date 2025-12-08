@@ -30,7 +30,7 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="patient_id" required="1"/>
+                            <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}" required="1"/>
                             <field name="department_id" />
                             <field name="doctor_id" required="1"/>
                             
@@ -58,7 +58,7 @@
         <field name="model">hms.appointment</field>
         <field name="arch" type="xml">
             <calendar string="Appointments" date_start="date" date_stop="expected_end" color="doctor_id">
-                <field name="patient_id"/>
+                <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}"/>
                 <field name="doctor_id" filters="1" />
                 <field name="state"/>
             </calendar>

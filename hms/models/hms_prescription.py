@@ -20,12 +20,13 @@ class HmsPrescription(models.Model):
     ], string=_('State'), default='draft', required=True, tracking=True)
     prescription_line_ids = fields.One2many('hms.prescription.line', 'prescription_id', string=_('Prescription Lines'))
     is_dispensed = fields.Boolean(string=_('Is Dispensed'), store=True)
-    notes = fields.One2many('hms.note', 'prescription_id', string='Notes')
+    notes = fields.Html(string='Notes')
     medical_record_id = fields.Many2one(
     related="case_id.medical_record_id",
     string="Medical Record",
     store=True,  
 )
+    warning_message = fields.Text(string=_('Warning Message'), readonly=True)
 
     def action_confirm(self):
         for record in self:
@@ -33,6 +34,15 @@ class HmsPrescription(models.Model):
             cem = self.env['hr.employee'].sudo().search([('hms_role_id.code', '=', 'chemist')])
             for chemist in cem:
                 record.send_inbox_notification(chemist.user_id, _("Prescription %s for case %s needs to be dispensed.") % (record.name, record.case_id.name), fields.Datetime.now() + timedelta(days=1))
+            for line in record.prescription_line_ids:
+                    line_vals = {
+                        'order_id': record.case_id.sale_order_id.id,
+                        'product_id': line.product_id.id,
+                        'product_uom_qty': line.quantity,
+                        'price_unit': line.product_id.list_price,
+                    }
+
+                    self.env['sale.order.line'].create(line_vals)
 
 
     def action_dispense(self):
@@ -64,26 +74,10 @@ class HmsPrescription(models.Model):
                 picking_type = self.env.ref('stock.picking_type_out', raise_if_not_found=False)
                 if not picking_type:
                     raise UserError(_("Please configure a picking type for dispensing."))
+                sale_order = record.case_id.sale_order_id
+                for picking in sale_order.picking_ids:
+                    picking.button_validate()     
 
-                for line in record.prescription_line_ids:
-                    move_vals = {
-                        'name': _("Dispense %s") % line.product_id.name,
-                        'product_id': line.product_id.id,
-                        'product_uom_qty': line.quantity,
-                        'product_uom': line.product_id.uom_id.id,
-                        'location_id': pharmacy_location.id,
-                        'location_dest_id': picking_type.default_location_dest_id.id,
-                        'picking_type_id': picking_type.id,
-                        'state': 'draft',
-                    }
-                    stock_move = StockMove.create(move_vals)
-                    stock_move._action_confirm()
-                    stock_move._action_assign()
-                    stock_move._action_done()
-                    stock_move.picking_id.button_validate()
-                    line.stock_move_id = stock_move.id
-                    line.is_dispensed = True
-                    line.dispensed_date = fields.Date.context_today(self)
 
                 # Update prescription status
                 record.is_dispensed = True

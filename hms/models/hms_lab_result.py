@@ -17,7 +17,7 @@ class HmsLabResult(models.Model):
     lab_request_state = fields.Selection(related='lab_request_id.state', string=_('Lab Request State'), store=True)
     recommendations = fields.Text(string=_('Recommendations'))
     attachment_ids = fields.Binary(string=_('Result Attachments'))
-    notes = fields.One2many('hms.note', 'lab_result_id', string='Notes')
+    notes = fields.Html(string='Notes')
 
 
     def print_lab_result_report(self):

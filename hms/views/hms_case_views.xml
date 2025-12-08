@@ -47,11 +47,12 @@
                     <group string="Patient Info">
                         <field name="name" readonly="1"/>
                         <field name="medical_record_id" options="{'no_create': True}"/>
-                        <field name="patient_id" readonly="1"/>
+                        <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}" readonly="1"/>
                     </group>
                     <group string="Admission">
                         <field name="admission_date" readonly="can_edit_team == 0"/>
                         <field name="bed_id" readonly="can_edit_logistics == 0"/>
+                        <field name="discharge_date" string="discharge date" readonly="1"/>
                     </group>
                 </group>
 
@@ -59,19 +60,20 @@
                 <notebook>
                     <page string="care team">
                         <group>
-                            <field name="main_doctor_id" readonly="can_edit_team == 0"/>
-                            <field name="nurse_id" readonly="can_edit_team == 0"/>
+                            <field name="main_doctor_id" context="{'form_view_ref' : 'hms.hr_employee_form_hms'}" readonly="can_edit_team == 0"/>
+                            <field name="nurse_id" context="{'form_view_ref' : 'hms.hr_employee_form_hms'}" widget="many2many_tags" readonly="can_edit_team == 0"/>
                         </group>
                         <group>
-                            <field name="consulting_doctor_ids" widget="many2many_tags" readonly="can_edit_diagnosis == 0"/>
+                            <field name="consulting_doctor_ids" context="{'form_view_ref' : 'hms.hr_employee_form_hms'}" widget="many2many_tags" readonly="can_edit_diagnosis == 0"/>
                         </group>
                     </page>
 
                     <page string="diagnosis" groups="hms.group_hms_doctor,base.group_system,hms.group_hms_chemist,hms.group_hms_nurse,hms.group_hms_lab_attendant">
                         <group>
                             <field name="diagnosis_ids" widget="many2many_tags" readonly="can_edit_diagnosis == 0"/>
-                            <field name="diagnosis_text" nolabel="1" class="o_full_width" string="Diagnosis Details" readonly="can_edit_diagnosis == 0"/>
-                            <field name="discharge_date" readonly="1"/>
+                            </group>
+                            <group>
+                            <field name="diagnosis_text" nolabel="1" placeholder="Enter diagnosis details here..." string="Diagnosis Details" readonly="can_edit_diagnosis == 0" width="100%"/>
                         </group>
                     </page>
 
@@ -84,7 +86,7 @@
                                       decoration-muted="state == 'cancelled'">
                                     <field name="name"/>
                                     <field name="case_id"/>
-                                    <field name="patient_id"/>
+                                    <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}"/>
                                     <field name="requested_by_id"/> 
                                     <field name="date_requested"/>
                                     <field name="urgency" widget="priority"/>
@@ -115,7 +117,7 @@
                                   decoration-muted="state == 'cancelled'">
                                 <field name="name"/>
                                 <field name="case_id"/>
-                                <field name="patient_id"/>
+                                <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}"/>
                                 <field name="date"/>
                                 <field name="is_dispensed" widget="boolean_toggle" readonly="1"/>
                                 <field name="state"/>
@@ -125,47 +127,65 @@
                 
                     <page string="Medical History" groups="hms.group_hms_doctor,base.group_system,hms.group_hms_nurse">
                         <group>
-                        <field name="medical_history_note" nolabel="1" readonly="1" invisible="1"/>
                         <field name="disease_history" string="Known Diseases"  readonly="1" widget="many2many_tags"/>
                         <field name="allergies"   string="Allergies" readonly="1" />
                         <field name="blood_type"  string="Blood Type" readonly="1"/>
+                        <field name="medication_ids" string="Current Medications" readonly="1" widget="many2many_tags"/>
                         </group>
-                        <div class="o_note_card o_note_acc">
-                            <field name="mdh_note_acc" nolabel="1" readonly="1" class="o_note_text"/>
-                        </div>
-                        <div class="o_note_card o_note_edit">
-                            <field name="mdh_note" nolabel="1" readonly="can_edit_diagnosis == 0" class="o_note_text" placeholder="Enter medical history notes here..."/>
-                        </div>
+                        <field name="medical_history_note" placeholder="Enter medical history or upload files here..." nolabel="1"/>
+
                     </page>
 
                     <page string="Vitals" groups="hms.group_hms_doctor,base.group_system,hms.group_hms_nurse">
-                        <field name="vitals_note" nolabel="1" readonly="1"/>                      
-                        <div class="o_note_card o_note_acc">
-                            <field name="vitals_note_acc" nolabel="1" readonly="1" class="o_note_text"/>
-                        </div>
-                        <div class="o_note_card o_note_edit">
-                            <field name="vitals_note_edit" nolabel="1"  class="o_note_text" placeholder="Enter vitals notes here..."/>
-                        </div>
+                        <field name="vitals_note" nolabel="1"> 
+                        <list>
+                            <field name="recorded_by" width="75px"/>
+                            <field name="recorded_at" width="75px"/>
+                            <field name="temperature"/>
+                            <field name="systolic_bp" width="65px"/>
+                            <field name="diastolic_bp" width="65px"/>
+                            <field name="heart_rate" width="65px"/>
+                            <field name="respiratory_rate" width="80px"/>
+                            <field name="spo2" width="85px"/>
+                            <field name="bmi" width="40px"/>
+                            <field name="blood_glucose" width="75px"/>
+                            <field name="pain_score"/>
+                        </list>
+                        </field>                    
                     </page>
 
 
                     <page string="General Notes" groups="hms.group_hms_doctor,base.group_system,hms.group_hms_nurse,hms.group_hms_chemist,hms.group_hms_lab_attendant">
-                        <field name="general_note" nolabel="1" readonly="1"/>
-                        <div class="o_note_card o_note_acc">
-                            <field name="general_note_acc" nolabel="1" readonly="1" class="o_note_text"/>
-                        </div>
-                        <div class="o_note_card o_note_edit">
-                            <field name="general_note_edit" nolabel="1" readonly="can_edit_diagnosis == 0" class="o_note_text" placeholder="Enter general notes here..."/>
-                        </div>
+                        <field name="general_note" placeholder="Enter general notes or upload files here..." nolabel="1"/>
                     </page>
                     <page string="Consultation" groups="hms.group_hms_doctor,base.group_system,hms.group_hms_nurse,hms.group_hms_chemist,hms.group_hms_lab_attendant">
-                        <field name="consultation_note" nolabel="1" readonly="1"/>
-                        <div class="o_note_card o_note_acc">
-                            <field name="consultation_note_acc" nolabel="1" readonly="1" class="o_note_text"/>
-                        </div>
-                        <div class="o_note_card o_note_edit">
-                            <field name="consultation_note_edit" nolabel="1" readonly="can_edit_diagnosis == 0" class="o_note_text" placeholder="Enter consultation notes here..."/>
-                        </div>
+                        <field name="consultation_note" nolabel="1" >
+                        <list editable="bottom">
+                            <field name="recorded_by" width="85px" readonly="1"/>
+                            <field name="recorded_at" width="85px" readonly="1"/>
+                            <field name="notes" placeholder="Enter consultation notes here..." nolabel="1"/>
+                        </list>
+                        </field>
+                        </page>
+                        <page string="Doctor Timesheets" groups="hms.group_hms_doctor,base.group_system">
+                            <field name="doctor_timesheet_ids" nolabel="1" >
+                            <list editable="bottom">
+                                <field name="date"/>
+                                <field name="employee_id"/>
+                                <field name="name"/>
+                                <field name="unit_amount"/>
+                            </list>
+                            </field>
+                        </page>
+                        <page string="Nurse Timesheets" groups="hms.group_hms_nurse,base.group_system">
+                            <field name="nurse_timesheet_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field name="date"/>
+                                <field name="employee_id"/>
+                                <field name="name"/>
+                                <field name="unit_amount"/>
+                            </list>
+                            </field>
                         </page>
                 </notebook>
     </sheet>
@@ -178,7 +198,7 @@
         <field name="model">hms.case</field>
         <field name="arch" type="xml">
             <kanban default_group_by="state" class="o_kanban_mobile" default_order="admission_date desc">
-                <field name="patient_id"/>
+                <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}"/>
                 <field name="admission_date"/>
                 <field name="main_doctor_id"/>
                 <field name="nurse_id"/>

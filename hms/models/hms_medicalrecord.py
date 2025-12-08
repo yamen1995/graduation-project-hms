@@ -16,10 +16,11 @@ class HmsMedicalRecord(models.Model):
     allergies = fields.Text(string='Allergies')
     disease_ids = fields.Many2many('hms.disease', string='Known Diseases')
     case_ids = fields.One2many('hms.case', 'medical_record_id', string='Cases')
-    notes = fields.One2many('hms.note', 'medical_record_id', string='Notes')
+    notes = fields.Html(string='Notes')
     patient_phone = fields.Char(related="patient_id.phone", string="Phone", store=True)
     patient_email = fields.Char(related="patient_id.email", string="Email", store=True)
     patient_age = fields.Integer( string="Age", store=True)
+    medication_ids = fields.Many2many('product.product', string='Medications')
     _sql_constraints = [
         ('unique_patient_record', 'unique(patient_id)', 'Each patient can only have one medical record!')
     ]

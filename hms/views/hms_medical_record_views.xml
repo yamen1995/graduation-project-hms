@@ -27,17 +27,17 @@
                 <sheet>
                     <group>
                         <field name="name" readonly="1"/>
-                        <field name="patient_id" options="{'no_create': True}"/>
+                        <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}" options="{'no_create': True}"/>
                     </group>
 
                     <notebook>
                         <page string="General Info">
                             <group>
                                 <field name="blood_type"/>
-                                <field name="allergies"/>
                             </group>
                             <group>
-                                <field name="disease_ids" widget="many2many_tags"/>
+                                <field name="disease_ids" string="Diseases and Conditions" widget="many2many_tags"/>
+                                <field name="medication_ids" string="Medications" widget="many2many_tags"/>
                             </group>
                         </page>
 
@@ -69,23 +69,7 @@
                             </field>
                         </page>
                         <page string="Notes">
-                            <field name="notes" nolabel="1">
-                                <list editable="bottom">
-                                    <field name="create_date" readonly="1"/>
-                                    <field name="role" readonly="1"/>
-                                    <field name="user_id" readonly="1"/>
-                                    <field name="note"/>
-                                    <field name="is_important"/>
-                                </list>
-                                <form>
-                                    <group>
-                                        <field name="role"/>
-                                        <field name="note"/>
-                                        <field name="is_important"/>
-                                        <field name="show_in_portal"/>
-                                    </group>
-                                </form>
-                            </field>
+                            <field name="notes" placeholder="Enter notes and attachments here..." nolabel="1"/>
                         </page>
                     </notebook>
                 </sheet>
@@ -132,9 +116,7 @@
                 
                 <!-- Notes-related filters -->
                 <filter string="Records With Notes" name="with_notes" domain="[('notes', '!=', False)]"/>
-                <filter string="Records Without Notes" name="without_notes" domain="[('notes', '=', False)]"/>
-                <filter string="Records With Important Notes" name="with_important_notes" domain="[('notes.is_important', '=', True)]"/>
-                
+                <filter string="Records Without Notes" name="without_notes" domain="[('notes', '=', False)]"/>                
                 <!-- Group By section -->
                 <group name="group_by">
                     <filter string="Blood Type" name="group_by_blood_type" context="{'group_by': 'blood_type'}"/>

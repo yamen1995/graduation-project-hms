@@ -6,7 +6,7 @@
         <field name="model">hms.consumable.line</field>
         <field name="arch" type="xml">
             <list editable="bottom">
-                <field name="product_id"/>
+                <field name="product_id" context="{'default_is_consumable': True, 'search_default_filter_is_consumable': 1, 'default_is_storable' : 1, 'form_view_ref' : 'hms.view_product_template_formv_hms'}"/>
                 <field name="quantity"/>
                 <field name="unit_price"/>
             </list>
@@ -21,7 +21,7 @@
             <form string="Consumable Line">
                 <sheet>
                     <group>
-                        <field name="product_id"/>
+                        <field name="product_id" context="{'default_is_consumable': True, 'search_default_filter_is_consumable': 1, 'default_is_storable' : 1, 'form_view_ref' : 'hms.view_product_template_formv_hms'}"/>
                         <field name="quantity"/>
                         <field name="unit_price"/>
                     </group>
@@ -35,7 +35,7 @@
     <field name="arch" type="xml">
         <list editable="bottom">
             <field name="case_id"/>
-            <field name="product_id"/>
+            <field name="product_id" context="{'default_is_consumable': True, 'search_default_filter_is_consumable': 1, 'default_is_storable' : 1, 'form_view_ref' : 'hms.view_product_template_formv_hms'}"/>
             <field name="quantity"/>
             <field name="unit_price" readonly="1"/>
         </list>
@@ -49,7 +49,7 @@
         <form string="Consumable Line">
             <group>
                 <field name="case_id"/>
-                <field name="product_id"/>
+                <field name="product_id" context="{'default_is_consumable': True, 'search_default_filter_is_consumable': 1, 'default_is_storable' : 1, 'form_view_ref' : 'hms.view_product_template_formv_hms'}"/>
                 <field name="quantity"/>
                 <field name="unit_price" readonly="1"/>
             </group>
