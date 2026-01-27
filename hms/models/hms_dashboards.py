@@ -320,7 +320,6 @@ class HmsDashboard(models.TransientModel):
            
         if data['is_doctor']:
             quick_actions += [
-                {'label': _('Create Case'), 'action': 'hms.hms_case_action'},
                 {'label': _('My Appointments'), 'action': 'hms.hms_appointment_action'},
                 {'label': _('Prescribe Medication'), 'action': 'hms.action_prescription'},
                 {'label': _('View Lab Results'), 'action': 'hms.action_lab_result'}
@@ -340,10 +339,10 @@ class HmsDashboard(models.TransientModel):
             quick_actions += [{'label': _('Dispense Medication'), 'action': 'hms.action_prescription'}]
         if data['is_admin']:
             quick_actions.append({'label': _('System Settings'), 'action': 'base_setup.action_general_configuration'})
-            quick_actions.append({'label': 'Hospital Summary (30d)', 'action': 'hms.action_report_admin_summary_30d'})
+            quick_actions.append({'label': _('Hospital Summary (30d)'), 'action': 'hms.action_report_admin_summary_30d'})
             quick_actions.append({
-                'label': 'Medical Records (Last 7 Days)',
-                'action': 'hms.action_report_medrecs_last7',  # XML-ID تبع التقرير اللي فوق
+                'label': _('Medical Records (Last 7 Days)'),
+                'action': 'hms.action_report_medrecs_last7',
             })    
 
         # Unique keys

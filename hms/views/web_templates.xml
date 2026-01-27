@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-<odoo>
   <template id="hms_override_web_login_modern" inherit_id="web.login" name="HMS: Modern Login Override">
     <xpath expr="." position="replace">
       <t t-call="web.frontend_layout">
@@ -64,11 +63,14 @@
                 <a href="/hms/patient/register" class="btn btn-primary w-100">Register as a patient</a>
               </div>
             </form>
+
+            <!-- Add Database Manager Link -->
+            <p class="mt-2 text-center">
+              <a class="btn btn-link btn-sm" href="/web/database/manager">Database Manager</a>
+            </p>
           </div>
         </div>
       </t>
     </xpath>
   </template>
-</odoo>
-
 </odoo>

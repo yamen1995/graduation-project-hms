@@ -1,7 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
-from lxml import etree
 from datetime import timedelta
+from odoo.tools import html2plaintext
 
 
 class HmsCase(models.Model):
@@ -230,11 +230,11 @@ class HmsCase(models.Model):
             appointment.case_id = record.id
             appointment.state = 'in_progress'
             record.appointment_id = appointment.id
-            record.send_inbox_notification(appointment.doctor_id.user_id, _("your patient scheduled for :%s name: %s has arrived at room: %s case : %s") % (appointment.date, record.patient_id.name, record.room_id.name if record.room_id else 'N/A', record.name), appointment.date + timedelta(hours=1))
+            record.send_inbox_notification(appointment.doctor_id.user_id, _("Your patient scheduled for :%s name: %s has arrived at room: %s case : %s") % (appointment.date, record.patient_id.name, record.room_id.name if record.room_id else 'N/A', record.name), appointment.date + timedelta(hours=1))
 
 
         elif record.main_doctor_id and record.main_doctor_id.user_id:
-            record.send_inbox_notification(record.sudo().main_doctor_id.user_id, _("you have a new patient: %s at room: %s case : %s") % (record.patient_id.name, record.room_id.name if record.room_id else 'N/A', record.name), record.admission_date + timedelta(hours=1))
+            record.send_inbox_notification(record.sudo().main_doctor_id.user_id, _("You have a new patient: %s at room: %s case : %s") % (record.patient_id.name, record.room_id.name if record.room_id else 'N/A', record.name), record.admission_date + timedelta(hours=1))
         if not record.sale_order_id:
             so = self.env['sale.order'].create({
                 'partner_id': record.patient_id.id,   # FIXED
@@ -301,8 +301,6 @@ class HmsCase(models.Model):
 
             if 'state' in vals and case.state == 'closed' and case.bed_id:
                 case.bed_id.state = 'available'
-                case.mdh_note = False
-                case.vitals_note_edit = False
             case._update_medical_record()
 
         return res
@@ -490,6 +488,15 @@ class HmsCase(models.Model):
                     medrec.sudo().write({
                         'disease_ids': [(4, d.id) for d in case.diagnosis_ids]
                     })
+                if case.diagnosis_text:
+                    existing_note = html2plaintext(medrec.sudo().allergies or "")
+                    diagnosis_text = html2plaintext(case.diagnosis_text)
+
+                    updated_note = f"{existing_note}\n{diagnosis_text}".strip()
+
+                    medrec.sudo().write({
+                        'allergies': updated_note
+                    })
 
                 # -----------------------
                 # 2. Update medication history
@@ -503,3 +510,17 @@ class HmsCase(models.Model):
                     medrec.sudo().write({
                         'medication_ids': [(4, p.id) for p in all_med_products]
                     })
+
+    def action_view_invoice(self):
+        self.ensure_one()
+        if not self.invoice_id:
+            raise UserError(_("No invoice found for this case."))
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Invoice'),
+            'res_model': 'account.move',
+            'view_mode': 'form',
+            'res_id': self.invoice_id.id,
+            'target': 'current',
+        }

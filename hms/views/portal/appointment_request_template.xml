@@ -129,7 +129,7 @@
                                     </p>
                                     <p>
                                         <t t-translate="true">Reference Number: </t>
-                                        <strong t-esc="appointment_request_id"/>
+                                        <strong t-esc="appointment_request.name"/>
                                     </p>
                                     <p class="text-muted">
                                         <t t-translate="true">You can track the status of your request anytime under</t>

@@ -34,7 +34,7 @@
                                             <span t-esc="medical_record.blood_type" class="ms-2"/>
                                         </div>
                                         <div class="col-md-6">
-                                            <strong><t t-translate="true">Allergies:</t></strong>
+                                            <strong><t t-translate="true">existing conditions:</t></strong>
                                             <span t-esc="medical_record.allergies" class="ms-2"/>
                                         </div>
                                     </div>

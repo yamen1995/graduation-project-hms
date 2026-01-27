@@ -1,6 +1,7 @@
 import { registry } from "@web/core/registry";
 import { Component, onWillStart, onMounted, useState, useRef } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
+import { markup } from "@odoo/owl";
 
 class HmsDashboard extends Component {
     setup() {
@@ -115,7 +116,14 @@ if (this.trendChartRef.el && this.state.chart_data.trend_labels?.length) {
                 await this.action.doAction(action);
             }
         }
+    htmlToText(html) {
+    const el = document.createElement("div");
+    el.innerHTML = html || "";
+    return el.textContent || el.innerText || "";
 }
+}
+
+
 
 HmsDashboard.template = "hms.Dashboards";
 registry.category("actions").add("hms.hms_dashboards_action", HmsDashboard);

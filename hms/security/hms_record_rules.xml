@@ -156,8 +156,9 @@
     <record id="hms_receptionist_patients_rule" model="ir.rule">
         <field name="name">Receptionist: Manage Patients</field>
         <field name="model_id" ref="base.model_res_partner"/>
-        <field name="domain_force">['|',
+        <field name="domain_force">['|','|',
                 ('id', '=', user.partner_id.id),
+                ('id', '=', 2),
                 ('is_patient','=',True)]</field>
         <field name="groups" eval="[(4, ref('hms.group_hms_receptionist'))]"/>
     </record>
@@ -202,8 +203,9 @@
     <field name="name">Chemist: Patients with Prescriptions</field>
     <field name="model_id" ref="base.model_res_partner"/>
     <field name="domain_force">
-        ['|',
+        ['|','|',
             ('id','=',user.partner_id.id),
+            ('id','=',2),
             ('medical_case_ids.prescription_ids','!=',False)
         ]
     </field>
@@ -240,13 +242,6 @@
     <field name="name">Lab: All Lab Requests</field>
     <field name="model_id" ref="hms.model_hms_lab_request"/>
     <field name="domain_force">[]</field>
-    <field name="groups" eval="[(4, ref('hms.group_hms_lab_attendant'))]"/>
-</record>
-<!-- Products: only labs -->
-<record id="hms_lab_product_rule" model="ir.rule">
-    <field name="name">Lab: Only Lab Products</field>
-    <field name="model_id" ref="product.model_product_product"/>
-    <field name="domain_force">[('is_lab_test','=',True)]</field>
     <field name="groups" eval="[(4, ref('hms.group_hms_lab_attendant'))]"/>
 </record>
 

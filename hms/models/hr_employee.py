@@ -35,7 +35,11 @@ class HrEmployee(models.Model):
                 base_group = self.env.ref('base.group_user')
                 inventory = self.env.ref('stock.group_stock_user')
                 accounting = self.env.ref('account.group_account_invoice')
-                employee.user_id.group_ids = [(6, 0, [base_group.id, inventory.id, accounting.id])]
+                hr = self.env.ref('hr.group_hr_user')
+                sales_team = self.env.ref('sales_team.group_sale_manager')
+                project = self.env.ref('project.group_project_user')
+                timesheet = self.env.ref('hr_timesheet.group_hr_timesheet_user')
+                employee.user_id.group_ids = [(6, 0, [base_group.id, inventory.id, accounting.id, hr.id, sales_team.id, project.id, timesheet.id])]
                 if employee.hms_role_id and employee.hms_role_id.group_id:
                     # Replace only the HMS group, keep others
                     employee.user_id.group_ids = [(4, employee.hms_role_id.group_id.id)]
