@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- List View -->
+    <record id="view_hms_medical_record_tree" model="ir.ui.view">
+        <field name="name">hms.medical.record.tree</field>
+        <field name="model">hms.medical.record</field>
+        <field name="arch" type="xml">
+            <list string="Medical Records">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="patient_phone" string="Phone"/>
+                <field name="patient_email" string="Email"/>
+                <field name="blood_type"/>
+                <field name="allergies"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_hms_medical_record_form" model="ir.ui.view">
+        <field name="name">hms.medical.record.form</field>
+        <field name="model">hms.medical.record</field>
+        <field name="arch" type="xml">
+            <form string="Medical Record">
+
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}" options="{'no_create': True}"/>
+                    </group>
+
+                    <notebook>
+                        <page string="General Info">
+                            <group>
+                                <field name="blood_type"/>
+                            </group>
+                            <group>
+                                <field name="disease_ids" string="Diseases and Conditions" widget="many2many_tags"/>
+                                <field name="medication_ids" string="Medications" widget="many2many_tags"/>
+                            </group>
+                        </page>
+
+                        <page string="Cases">
+                            <field name="case_ids">
+                                <list >
+                                    <field name="name"/>
+                                    <field name="main_doctor_id"/>
+                                    <field name="state"/>
+                                    <field name="admission_date"/>
+                                    <field name="discharge_date"/>
+                                </list>
+                                <form>
+                                    <group>
+                                    <group>
+                                        <field name="name" readonly="1"/>
+                                        <field name="main_doctor_id"/>
+                                        <field name="nurse_id"/>
+                                        <field name="consulting_doctor_ids" widget="many2many_tags"/>
+                                        </group>
+                                        <group>
+                                        <field name="diagnosis_ids" widget="many2many_tags"/>
+                                        <field name="admission_date"/>
+                                        <field name="discharge_date"/>
+                                        <field name="state"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" placeholder="Enter notes and attachments here..." nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+        <record id="view_hms_medical_record_search" model="ir.ui.view">
+        <field name="name">hms.medical.record.search</field>
+        <field name="model">hms.medical.record</field>
+        <field name="arch" type="xml">
+            <search string="Medical Record Search">
+                <!-- Search fields for quick search -->
+                <field name="name" string="Record ID" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="patient_id" string="Patient" filter_domain="[('patient_id.name', 'ilike', self)]"/>
+                <field name="patient_phone" string="Phone" filter_domain="[('patient_phone', 'ilike', self)]"/>
+                <field name="patient_email" string="Email" filter_domain="[('patient_email', 'ilike', self)]"/>
+                <field name="blood_type" string="Blood Type" filter_domain="[('blood_type', 'ilike', self)]"/>
+                <field name="allergies" string="Allergies" filter_domain="[('allergies', 'ilike', self)]"/>
+                
+                <!-- Predefined filters -->
+                <filter string="Records With Allergies" name="with_allergies" domain="[('allergies', '!=', False)]"/>
+                <filter string="Records Without Allergies" name="without_allergies" domain="[('allergies', '=', False)]"/>
+                <filter string="Records With Blood Type" name="with_blood_type" domain="[('blood_type', '!=', False)]"/>
+                <filter string="Records Without Blood Type" name="without_blood_type" domain="[('blood_type', '=', False)]"/>
+                
+                <separator/>
+                
+                <!-- Blood type specific filters -->
+                <filter string="Blood Type A" name="blood_type_a" domain="[('blood_type', 'ilike', 'A')]"/>
+                <filter string="Blood Type B" name="blood_type_b" domain="[('blood_type', 'ilike', 'B')]"/>
+                <filter string="Blood Type AB" name="blood_type_ab" domain="[('blood_type', 'ilike', 'AB')]"/>
+                <filter string="Blood Type O" name="blood_type_o" domain="[('blood_type', 'ilike', 'O')]"/>
+                
+                <separator/>
+                
+                <!-- Case-related filters -->
+                <filter string="Records With Cases" name="with_cases" domain="[('case_ids', '!=', False)]"/>
+                <filter string="Records Without Cases" name="without_cases" domain="[('case_ids', '=', False)]"/>                
+                <separator/>
+                
+                <!-- Disease-related filters -->
+                <filter string="Records With Diseases" name="with_diseases" domain="[('disease_ids', '!=', False)]"/>
+                <filter string="Records Without Diseases" name="without_diseases" domain="[('disease_ids', '=', False)]"/>
+                
+                <!-- Notes-related filters -->
+                <filter string="Records With Notes" name="with_notes" domain="[('notes', '!=', False)]"/>
+                <filter string="Records Without Notes" name="without_notes" domain="[('notes', '=', False)]"/>                
+                <!-- Group By section -->
+                <group name="group_by">
+                    <filter string="Blood Type" name="group_by_blood_type" context="{'group_by': 'blood_type'}"/>
+                    <filter string="Patient" name="group_by_patient" context="{'group_by': 'patient_id'}"/>
+                    <filter string="Diseases" name="group_by_diseases" context="{'group_by': 'disease_ids'}"/>                    
+                    <filter string="Allergy Status" name="group_by_allergy_status" context="{'group_by': 'allergies'}"/>
+                    <filter string="Blood Type &amp; Allergy" name="group_by_blood_allergy" context="{'group_by': 'blood_type', 'group_by': 'allergies'}"/>
+                </group>
+                
+                <!-- Search Panel for faceted search -->
+                <searchpanel>
+                    <field name="blood_type" string="Blood Type" icon="fa-tint" select="multi" enable_counters="1"/>
+                    <field name="patient_id" string="Patient" icon="fa-user" select="multi" enable_counters="1"/>
+                    <field name="disease_ids" string="Diseases" icon="fa-disease" select="multi" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    
+
+
+</odoo>
