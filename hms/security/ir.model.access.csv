@@ -20,6 +20,7 @@ access_hr_employee_doctor,hr.employee doctor,hr.model_hr_employee,hms.group_hms_
 access_hms_bed_doctor,hms.bed doctor,hms.model_hms_bed,hms.group_hms_doctor,1,1,0,0
 access_hms_room_doctor,hms.room doctor,hms.model_hms_room,hms.group_hms_doctor,1,0,0,0
 access_product_product_doctor,product.product doctor,product.model_product_product,hms.group_hms_doctor,1,0,0,0
+
 access_product_template_doctor,product.template doctor,product.model_product_template,hms.group_hms_doctor,1,0,0,0
 access_account_move_doctor,account.move doctor,account.model_account_move,hms.group_hms_doctor,1,1,1,0
 access_account_move_line_doctor,account.move.line doctor,account.model_account_move_line,hms.group_hms_doctor,1,1,1,0
@@ -57,8 +58,8 @@ access_hr_employee_receptionist,hr.employee receptionist,hr.model_hr_employee,hm
 access_hms_bed_receptionist,hms.bed receptionist,hms.model_hms_bed,hms.group_hms_receptionist,1,1,0,0
 access_hr_department_receptionis,hr.department receptionis,hr.model_hr_department,hms.group_hms_receptionist,1,1,1,1
 access_hms_room_receptionist,hms.room receptionist,hms.model_hms_room,hms.group_hms_receptionist,1,1,0,0
-access_product_product_receptionist,product.product receptionist,product.model_product_product,hms.group_hms_receptionist,0,0,0,0
-access_product_template_receptionist,product.template receptionist,product.model_product_template,hms.group_hms_receptionist,0,0,0,0
+access_product_product_receptionist,product.product receptionist,product.model_product_product,hms.group_hms_receptionist,1,1,0,0
+access_product_template_receptionist,product.template receptionist,product.model_product_template,hms.group_hms_receptionist,1,1,0,0
 access_account_move_receptionist,account.move receptionist,account.model_account_move,hms.group_hms_receptionist,1,0,0,0
 access_hms_role_receptionist,hms.role receptionist,hms.model_hms_role,hms.group_hms_receptionist,1,0,0,0
 access_hms_md_wizard_receptionist,medical.record.wizard receptionist,hms.model_medical_record_wizard,hms.group_hms_receptionist,1,1,1,1

@@ -20,7 +20,7 @@ class HmsMedicalRecord(models.Model):
     patient_phone = fields.Char(related="patient_id.phone", string="Phone", store=True)
     patient_email = fields.Char(related="patient_id.email", string="Email", store=True)
     patient_age = fields.Integer( string="Age", store=True)
-    medication_ids = fields.Many2many('product.product', string='Medications')
+    medication_ids = fields.Many2many('product.product', string='Medications' , domain="[('is_medicine','=',True)]")
     _sql_constraints = [
         ('unique_patient_record', 'unique(patient_id)', 'Each patient can only have one medical record!')
     ]

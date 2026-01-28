@@ -11,7 +11,7 @@
                     <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}" readonly="1"/>
                     <field name="blood_type"/>
                     <field name="disease_ids" string="Diseases and Conditions" widget="many2many_tags"/>
-                    <field name="medication_ids" string="Medications" widget="many2many_tags"/>
+                    <field name="medication_ids" string="Medications" widget="many2many_tags"  domain="[('is_medicine','=',True)]"/>
                     <field name="medical_history"  placeholder="Enter medical history..."/>
 
                 </group>

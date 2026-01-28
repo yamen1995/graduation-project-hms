@@ -551,6 +551,18 @@ msgid "Activity"
 msgstr "النشاطات"
 
 #. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+msgid "Hospital Summary (30d)"
+msgstr "ملخص المستشفى (آخر 30 يومًا)"
+
+#. module: hms
+#. odoo-python
+#: code:addons/hms/models/hms_dashboards.py:0
+msgid "Medical Records (Last 7 Days)"
+msgstr "السجلات الطبية (آخر 7 أيام)"
+
+#. module: hms
 #: model:ir.model.fields,field_description:hms.field_hms_appointment__activity_exception_decoration
 #: model:ir.model.fields,field_description:hms.field_hms_case__activity_exception_decoration
 #: model:ir.model.fields,field_description:hms.field_hms_lab_request__activity_exception_decoration
@@ -3194,6 +3206,16 @@ msgstr "الحالات الطبية"
 #: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
 msgid "Medical History"
 msgstr "التاريخ الطبي"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Nurse Timesheets"
+msgstr "سجلات أوقات عمل الممرضات"
+
+#. module: hms
+#: model_terms:ir.ui.view,arch_db:hms.view_hms_case_form
+msgid "Doctor Timesheets"
+msgstr "سجلات أوقات عمل الأطباء"
 
 #. module: hms
 #: model:ir.model.fields,field_description:hms.field_hms_case__mdh_note

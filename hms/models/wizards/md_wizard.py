@@ -16,7 +16,7 @@ class MedicalRecordWizard(models.TransientModel):
     allergies = fields.Text(string='Allergies')
     medical_history = fields.Html(string='Medical History')
     disease_ids = fields.Many2many('hms.disease', string='Known Diseases')
-    medication_ids = fields.Many2many('product.product', string='Medications')
+    medication_ids = fields.Many2many('product.product', string='Medications', domain="[('is_medicine','=',True)]")
 
     def action_create_medical_record(self):
         self.ensure_one()

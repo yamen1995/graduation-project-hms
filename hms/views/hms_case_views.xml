@@ -26,6 +26,8 @@
                 class="btn-primary" invisible="state != 'draft'" groups="hms.group_hms_doctor,base.group_system"/>
         <button name="action_close" type="object" string="Close Case"
                 class="btn-primary" invisible="state != 'active'" groups="hms.group_hms_doctor,base.group_system"/>
+        <button name="action_view_invoice" type="object" string="View Invoice"
+                class="btn-primary" invisible="not invoice_id" groups="hms.group_hms_doctor,hms.group_hms_receptionist,base.group_system"/>
         <button name="action_approve_invoice" type="object" string="Approve Invoice"
                 class="btn-primary" invisible="can_approve_invoice == 0" groups="hms.group_hms_doctor,hms.group_hms_doctor,base.group_system"/>
         <button name="action_print_case_summary" type="object" string="Print Summary" class="btn-secondary" groups="hms.group_hms_doctor,base.group_system"/>
@@ -46,7 +48,7 @@
                 <group>
                     <group string="Patient Info">
                         <field name="name" readonly="1"/>
-                        <field name="medical_record_id" options="{'no_create': True}"/>
+                        <field name="medical_record_id" options="{'no_create': True, 'no_open': True}"/>
                         <field name="patient_id" context="{ 'form_view_ref' : 'hms.res_partner_form_hms'}" readonly="1"/>
                     </group>
                     <group string="Admission">
@@ -128,7 +130,9 @@
                     <page string="Medical History" groups="hms.group_hms_doctor,base.group_system,hms.group_hms_nurse">
                         <group>
                         <field name="disease_history" string="Known Diseases"  readonly="1" widget="many2many_tags"/>
-                        <field name="allergies"   string="Allergies" readonly="1" />
+                        <field name="allergies" nolabel="1" string="Allergies" readonly="1" />
+                        </group>
+                        <group>
                         <field name="blood_type"  string="Blood Type" readonly="1"/>
                         <field name="medication_ids" string="Current Medications" readonly="1" widget="many2many_tags"/>
                         </group>

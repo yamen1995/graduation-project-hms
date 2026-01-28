@@ -112,7 +112,7 @@ class HmsAppointment(models.Model):
         for appointment in self:
             appointment.state = 'canceled'
             appointment.cancel_reason = reason or _('Canceled by user.')
-            template = self.env.ref('hms.email_template_appointment_cancellation')
+            template = self.sudo().env.ref('hms.email_template_appointment_cancellation')
             template.send_mail(self.id, force_send=True)
             if appointment.doctor_id and appointment.doctor_id.user_id:
                 appointment.send_inbox_notification(appointment.sudo().doctor_id.user_id, _("Appointment with %s at %s was canceled") % (appointment.patient_id.name, appointment.date), appointment.date)
@@ -233,22 +233,36 @@ class HmsAppointment(models.Model):
     # Create / Write Overrides
     # ----------------------------
 
-    @api.model
-    def create(self, vals):
-        # Generate appointment name if not provided
-        if vals.get('name', 'New') == 'New':
-            patient = self.env['res.partner'].browse(vals.get('patient_id')) if vals.get('patient_id') else None
-            patient_name = (patient.name.replace(" ", "") if patient and patient.name else "Unknown")
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            patient = (
+                self.env['res.partner'].browse(vals.get('patient_id'))
+                if vals.get('patient_id')
+                else None
+            )
+
+            patient_name = (
+                patient.name.replace(" ", "")
+                if patient and patient.name
+                else "Unknown"
+            )
+
             appointment_date = vals.get('date') or fields.Datetime.now()
             if isinstance(appointment_date, str):
                 appointment_date = fields.Datetime.from_string(appointment_date)
+
             date_part = appointment_date.strftime("%Y%m%d")
             seq = self.env['ir.sequence'].sudo().next_by_code('hms.appointment') or "0000"
+
             vals['name'] = f"AP/{patient_name}_{date_part}_{seq}"
-        appointment = super().create(vals)
-        # create calendar event (appointment-only)
-        appointment._create_or_update_calendar_event()
-        return appointment
+
+        appointments = super().create(vals_list)
+
+        for appointment in appointments:
+            appointment._create_or_update_calendar_event()
+
+        return appointments
 
     def write(self, vals):
         res = super().write(vals)
@@ -263,7 +277,7 @@ class HmsAppointment(models.Model):
         try:
             self.activity_schedule(
                 summary=_("Hospital Notification"),
-                note=f"<div>{message_body}",
+                note=f"{message_body}",
                 user_id=user_id,
                 date_deadline=date_deadline,
             )
