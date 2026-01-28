@@ -242,9 +242,7 @@ class HmsCase(models.Model):
             })
             record.sale_order_id = so.id 
             doctor_timesheet_product = self.env.ref("hms.doctor_timesheet_service")
-            doctor_timesheet_product.service_policy = 'delivered_timesheet'
             nurse_timesheet_product = self.env.ref("hms.nurse_timesheet_service")
-            nurse_timesheet_product.service_policy = 'delivered_timesheet'
     
             so_line = self.env['sale.order.line'].create({
                 'order_id': so.id,

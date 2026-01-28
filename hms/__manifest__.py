@@ -4,7 +4,7 @@
     'summary': 'hospital management system',
     'description': '',
     'category': 'hospital',
-    'author': 'script surgeons',
+    'author': 'yamen & remaa',
     "depends": [
     "base",
     "web",
